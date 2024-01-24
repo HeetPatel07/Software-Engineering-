@@ -1,4 +1,3 @@
-
 # TechTitans-A01-9
 
 ```  
@@ -63,18 +62,25 @@ As a customer who has purchased the book, would like to rate and leave a comment
 
 
 ### 5. Sell and Buy Books
+The customer can view and buy books that are required or interests them, also they will be able to sell used books on the application
 
 ### 6. Save and Organize Books
+The customers will be able to save their favourite books for purchasing later allowing them to not lose the product
 
 ### 7. View  Books On Sale
 
+
 ### 8. Secure Payment System
+The customers will be able to securely enter and store their convenient payment information and methods  for buying the books that they are interested in
 
 ### 9. Personalized Book Recommendations
+The application will give customers recommendations of books based on their searching history; In other words, the recommendations will be provided from the tags of the books they have searched about. 
 
 ### 10. Recently Viewed Section
+The history of their search and viewed materials will be available allowing them to backtrack to the material
 
 ### 11. Feedback and Improvement
+The users will be able to give feedback about the application by filling out a questionary or even report any error they run into by informing the admin.
 
 
 ## Project Name

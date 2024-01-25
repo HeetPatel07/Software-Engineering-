@@ -32,22 +32,22 @@ Success metrics for the project are twofold. Firstly, user feedback, particularl
 ### 1. Account Management
 
 A potential customer should be able to update fields to their account.
-As a guest, I want to be able to create a new account.
-As a customer I want to be able to enter/update my address and billing information so that I can get my books delivered to me and don't have to re-enter the information again and again.
+As guest, I want to be able to create a new account.
+As customer, I want to be able to enter/update my address and billing information so that I can get my books delivered to me and don't have to re-enter the information again and again.
 
 	Priority : High
 	Estimate time : 2 Days.
 
 ### 2. Search Books
 A box where customer can enter a name of book or article to look up books or article that are available for purchase.
-As a customer I would also like to view books that are written by specific author.
-As a customer I would like to have a filter where I can filter results based on date of release, price etc.
+As a customer, I would also like to view books that are written by specific author.
+As a customer, I would like to have a filter where I can filter results based on date of release, price etc.
 
 		Priority : High
 		Estimate time : 2 Days.
 
 ### 3. View Books Information
-#### The user would be able see a summarized version of the book they are looking at, they would also see the ratings of the books from people. The customer with. Verified purchase would leave reviews for the book they bought.
+The user would be able see a summarized version of the book they are looking at, they would also see the ratings of the books from people. The customer with. Verified purchase would leave reviews for the book they bought.
 
 As a potential customer I should be able to see information about the book so I can get a idea if I would want to read the book
 
@@ -55,7 +55,7 @@ As a potential customer I should be able to see information about the book so I 
 	Estimate time : 2 Days.
 
 ### 4. Ratings and Comments
-As a customer who has purchased the book, would like to rate and leave a comment on that book.
+As customer who has purchased the book, would like to rate and leave a comment on that book.
 
 	Priority : Medium
 	Estimate : 1 Day

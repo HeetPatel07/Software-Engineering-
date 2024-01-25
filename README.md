@@ -47,7 +47,7 @@ As a customer I would like to have a filter where I can filter results based on 
 		Estimate time : 2 Days.
 
 ### 3. View Books Information
-#### The user would be able see a summarized version of the book they are looking at, they would also see the ratings of the books from people. The customer with. Verified purchase would leave reviews for the book they bought
+#### The user would be able see a summarized version of the book they are looking at, they would also see the ratings of the books from people. The customer with. Verified purchase would leave reviews for the book they bought.
 
 As a potential customer I should be able to see information about the book so I can get a idea if I would want to read the book
 

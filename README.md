@@ -51,34 +51,51 @@ As a customer I would like to have a filter where I can filter results based on 
 
 As a potential customer I should be able to see information about the book so I can get a idea if I would want to read the book
 
-		Priority : High
-		Estimate time : 2 Days.
+	Priority : High
+	Estimate time : 2 Days.
 
 ### 4. Ratings and Comments
 As a customer who has purchased the book, would like to rate and leave a comment on that book.
 
 	Priority : Medium
-	Estimate : 8 hours
+	Estimate : 1 Day
 
 
 ### 5. Sell and Buy Books
 The customer can view and buy books that are required or interests them, also they will be able to sell used books on the application
+	
+	priority: Medium
+	Estimate: 3 Days
 
 ### 6. Save and Organize Books
 The customers will be able to save their favourite books for purchasing later allowing them to not lose the product
 
+	Priority: Medium
+	Estimate: 3 Days
+
 ### 7. Secure Payment System
 The customers will be able to securely enter and store their convenient payment information and methods  for buying the books that they are interested in
+
+	Priority: Low
+	Estimate: 3 Days
 
 ### 8. Personalized Book Recommendations
 The application will give customers recommendations of books based on their searching history; In other words, the recommendations will be provided from the tags of the books they have searched about. 
 
+	Priority: Low
+	Estimate: 3 Days
+
 ### 9 Recently Viewed Section
 The history of their search and viewed materials will be available allowing them to backtrack to the material
+
+	Priority: Medium
+	Estimate: 2 Days
 
 ### 10. Feedback and Improvement
 The users will be able to give feedback about the application by filling out a questionary or even report any error they run into by informing the admin.
 
+	Priority: Medium
+	Estimate: 2 Days
 
 ## Project Name
 BookEase

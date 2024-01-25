@@ -67,19 +67,16 @@ The customer can view and buy books that are required or interests them, also th
 ### 6. Save and Organize Books
 The customers will be able to save their favourite books for purchasing later allowing them to not lose the product
 
-### 7. View  Books On Sale
-
-
-### 8. Secure Payment System
+### 7. Secure Payment System
 The customers will be able to securely enter and store their convenient payment information and methods  for buying the books that they are interested in
 
-### 9. Personalized Book Recommendations
+### 8. Personalized Book Recommendations
 The application will give customers recommendations of books based on their searching history; In other words, the recommendations will be provided from the tags of the books they have searched about. 
 
-### 10. Recently Viewed Section
+### 9 Recently Viewed Section
 The history of their search and viewed materials will be available allowing them to backtrack to the material
 
-### 11. Feedback and Improvement
+### 10. Feedback and Improvement
 The users will be able to give feedback about the application by filling out a questionary or even report any error they run into by informing the admin.
 
 

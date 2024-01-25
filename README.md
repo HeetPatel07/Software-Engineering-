@@ -55,7 +55,7 @@ As a potential customer I should be able to see information about the book so I 
 	Estimate time : 2 Days.
 
 ### 4. Ratings and Comments
-As customer who has purchased the book, would like to rate and leave a comment on that book.
+A customer who has purchased the book, would like to rate and leave a comment on that book.
 
 	Priority : Medium
 	Estimate : 1 Day

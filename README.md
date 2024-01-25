@@ -27,20 +27,27 @@ The essence of BookEase lies in delivering a personalized user experience, setti
 
 Success metrics for the project are twofold. Firstly, user feedback, particularly in the form of reviews, will serve as a barometer for user awareness and satisfaction with the application's features. Secondly, the number of transactions conducted over time will indicate the system's efficacy in achieving its intended purpose. BookEase aspires not only to enhance customer experience through comprehensive information and reviews but also to contribute to a sustainable academic ecosystem. 
 
+
+## Project Name
+BookEase
+
+
 ## Features
 
 ### 1. Account Management
 
-A potential customer should be able to update fields to their account.
-As guest, I want to be able to create a new account.
+A potential customer should be able to update fields to their account.  
+
+As guest, I want to be able to create a new account.  
 As customer, I want to be able to enter/update my address and billing information so that I can get my books delivered to me and don't have to re-enter the information again and again.
 
 	Priority : High
 	Estimate time : 2 Days.
 
 ### 2. Search Books
-A box where customer can enter a name of book or article to look up books or article that are available for purchase.
-As a customer, I would also like to view books that are written by specific author.
+A box where customer can enter a name of book or article to look up books or article that are available for purchase.  
+
+As a customer, I would also like to view books that are written by specific author.  
 As a customer, I would like to have a filter where I can filter results based on date of release, price etc.
 
 	Priority : High
@@ -67,7 +74,7 @@ The customer can view and buy books that are required or interests them, also th
 	priority: Medium
 	Estimate: 3 Days
 
-### 6. Save and Organize Books
+### 6. Favorite Book List
 The customers will be able to save their favourite books for purchasing later allowing them to not lose the product
 
 	Priority: Medium
@@ -85,7 +92,7 @@ The application will give customers recommendations of books based on their sear
 	Priority: Low
 	Estimate: 3 Days
 
-### 9 Recently Viewed Section
+### 9. Recently Viewed Section
 The history of their search and viewed materials will be available allowing them to backtrack to the material
 
 	Priority: Medium
@@ -97,8 +104,6 @@ The users will be able to give feedback about the application by filling out a q
 	Priority: Medium
 	Estimate: 2 Days
 
-## Project Name
-BookEase
 
 
 ## Authors and acknowledgment

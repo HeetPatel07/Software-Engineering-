@@ -81,7 +81,7 @@ The users will be able to give feedback about the application by filling out a q
 
 
 ## Project Name
-Online Bookstore
+BookEase
 
 
 ## Authors and acknowledgment

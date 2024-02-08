@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/bookLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/bookCover"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginVertical="25dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/bookcover" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            android:layout_margin="25dp"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/bookName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Book Name:"/>
+
+            <TextView
+                android:id="@+id/bookAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Book Author:"/>
+
+            <TextView
+                android:id="@+id/bookTags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Book Tags"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/bookPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Price: $100"
+            android:layout_marginVertical="50dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/viewBookInfoButton"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_margin="25dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/right" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

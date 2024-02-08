@@ -12,15 +12,52 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         >
+
+        <!-- Homepage activity-->
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.HomePageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <!--- page for logged in used -->
+        <activity android:name=".presentation.LoggedinActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
+        </activity>
+
+        <!-- login page Activity -->
+        <activity
+            android:name=".presentation.LoginActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true">
+        </activity>
+
+        <!-- footer activity -->
+        <activity android:name=".presentation.GlobalActivity"
+            android:exported="true"/>
+
+        <!-- book info activity -->
+        <activity android:name=".presentation.BookInfoActivity"
+            android:exported="true"/>
+
+        <!-- page for creating a account -->
+        <activity android:name=".presentation.AccountActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true"/>
+
+        <!-- page for creating a account -->
+        <activity android:name=".presentation.ChangeAccount"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="true"/>
+
+
+
+
     </application>
 
 </manifest>

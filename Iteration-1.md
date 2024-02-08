@@ -19,6 +19,9 @@ Follow the instructions:-
 
 5) And login using the same credentials.
 
+### View Architecture diagram:
+Go to Architecutre.md and to view the diagram click on the link in the file, if you don't have a account singup
+
   
 
 ### Features Implemeted this iteration :

@@ -1,4 +1,3 @@
-
 # Iteration 1
 
   
@@ -9,12 +8,12 @@ When you start up the application, ALWAYS create a new User and proceed.
 
 Follow the instructions:-
 
-1) CLick on the profile icon.
+1) Click on the profile icon.
 
-2) selected sign-up.
+2) Select sign-up.
 
 3) Enter the field as stated make sure you remember the username and passowrd both are case sensitive.
-(username is alteast 3 characters long and password is atleast 4 characters long)
+    (username is alteast 3 characters long and password is atleast 4 characters long)
 
 4) Click on Signup.
 

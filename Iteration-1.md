@@ -1,7 +1,14 @@
-﻿# Iteration 1
+# Iteration 1
 
 #### How to Run :
 When you start up the application, ALWAYS create a new User and proceed. 
+Follow the instructions:-
+    1) CLick on the profile icon
+    2) selected sign-up 
+    3) Enter the field as stated make sure you remember the username and passowrd both are case sensitive
+        (username is alteast 3 characters long and password is atleast 4 characters long)
+    4) Signup 
+    5) And login using the same credentials
 
 ### Features Implemeted  this iteration :
 

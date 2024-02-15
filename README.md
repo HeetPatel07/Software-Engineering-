@@ -105,8 +105,10 @@ The users will be able to give feedback about the application by filling out a q
 	Estimate: 2 Days
 
 ### 11. Branching Strategy
-There is a main branch for submission of the project. And there is a dev branch checked out from the main, using this dev branch there where 5 checkouts for each team member in their name. 
-Each members from there got a new sub-branch for implementing the user stories.
+	1)	There is a main branch for submission of the project. 
+	2)	There is a dev branch checked out from the main, using this 
+		dev branch there where 5 checkouts for each team member in their name. 
+	3) Each members from there got a new sub-branch for implementing the user stories.
 
 
 ## Authors and acknowledgment

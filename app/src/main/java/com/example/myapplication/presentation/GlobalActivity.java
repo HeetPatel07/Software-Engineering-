@@ -12,13 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.business.AuthenticatedUser;
 import com.example.myapplication.business.utlis.RandomGenerator;
+import com.example.myapplication.persistence.Database;
 import com.example.myapplication.persistence.DummyDatabase;
-
-import java.util.Random;
 
 public class GlobalActivity extends AppCompatActivity {
 
-    private DummyDatabase database;
+    private Database database;
     private static boolean flag= false; //to make sure the database is populated only once
 
     @Override
@@ -34,8 +33,8 @@ public class GlobalActivity extends AppCompatActivity {
         setupUI();
     }
 
-    private DummyDatabase initializeDatabase() {
-        return (DummyDatabase) DummyDatabase.getInstance();
+    private Database initializeDatabase() {
+        return DummyDatabase.getInstance();
     }
 
     private void populateDatabase() {

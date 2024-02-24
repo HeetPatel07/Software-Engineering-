@@ -14,10 +14,9 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.business.BookManagement;
 import com.example.myapplication.persistence.DummyDatabase;
 
-
 public class BookInfoActivity extends GlobalActivity {
 
-    BookManagement bookList = new BookManagement((DummyDatabase) DummyDatabase.getInstance());
+    BookManagement bookList = new BookManagement(DummyDatabase.getInstance());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

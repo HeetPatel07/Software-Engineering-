@@ -15,16 +15,16 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
 import com.example.myapplication.business.BookManagement;
 import com.example.myapplication.persistence.DummyDatabase;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class HomePageActivity extends GlobalActivity {
 
     private LinearLayout booksContainer;
     private EditText searchContentView;
 
-    private BookManagement books = new BookManagement((DummyDatabase) DummyDatabase.getInstance());
+    private BookManagement books = new BookManagement(DummyDatabase.getInstance());
 
 
     @Override

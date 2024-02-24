@@ -10,6 +10,7 @@ import com.example.myapplication.business.AccountManagement;
 import com.example.myapplication.business.AuthenticatedUser;
 import com.example.myapplication.persistence.DummyDatabase;
 
+
 public class AccountActivity extends GlobalActivity {
 
     private EditText enterUsernameField, enterAddressField, enterPasswordField;
@@ -31,7 +32,7 @@ public class AccountActivity extends GlobalActivity {
     }
 
     private void initializeAccountManagement() {
-        accountManagement = new AccountManagement((DummyDatabase) DummyDatabase.getInstance());
+        accountManagement = new AccountManagement(DummyDatabase.getInstance());
     }
 
     private void setupListeners() {
@@ -51,7 +52,7 @@ public class AccountActivity extends GlobalActivity {
 
     private void navigateToLoginActivity() {
 
-        Intent intent = new Intent();
+        Intent intent;
 
         if(AuthenticatedUser.getInstance().getUser()==null) {
              intent = new Intent(this, LoginActivity.class);

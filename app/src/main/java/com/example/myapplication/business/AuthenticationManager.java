@@ -1,15 +1,15 @@
 package com.example.myapplication.business;
 
 import com.example.myapplication.Models.User;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.persistence.Database;
 
 import java.util.Optional;
 
 public class AuthenticationManager implements Authenticate{
 
-    private final DummyDatabase database;
+    private final Database database;
 
-    public AuthenticationManager(DummyDatabase database) {
+    public AuthenticationManager(Database database) {
         this.database = database;
     }
 

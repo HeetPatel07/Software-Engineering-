@@ -1,5 +1,7 @@
 package com.example.myapplication.Models;
 
+import androidx.annotation.NonNull;
+
 public class User {
     private final int userID;
     private String name;
@@ -60,6 +62,7 @@ public class User {
         return this.equals(currUser);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "User{" +

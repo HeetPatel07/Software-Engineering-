@@ -1,10 +1,10 @@
 package com.example.myapplication.persistence;
 
 import com.example.myapplication.Models.Book;
-import com.example.myapplication.Models.Rating;
 import com.example.myapplication.Models.User;
 import com.example.myapplication.business.utlis.RandomGenerator;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

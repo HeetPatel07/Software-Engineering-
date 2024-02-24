@@ -1,12 +1,12 @@
 package com.example.myapplication.business;
 
 import com.example.myapplication.Models.User;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.persistence.Database;
 
 public class AccountManagement {
 
-    private final DummyDatabase dummyDatabase;
-    public AccountManagement(DummyDatabase dummyDatabase) {
+    private final Database dummyDatabase;
+    public AccountManagement(Database dummyDatabase) {
         this.dummyDatabase =  dummyDatabase;
     }
 

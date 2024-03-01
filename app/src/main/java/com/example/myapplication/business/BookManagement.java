@@ -27,4 +27,27 @@ public class BookManagement {
         return bookWithID.orElse(null);
     }
 
+    public boolean buyBook(int bookID){
+        return buyBook(findBookWithID(bookID));
+    }
+    public boolean buyBook(Book book){
+        if(book != null && book.stockpile >0) {
+            book.stockpile --;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public boolean sellBook(int bookID){
+        return sellBook(findBookWithID(bookID));
+    }
+    public boolean sellBook(Book book){
+        if(book != null) {
+            book.stockpile++;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

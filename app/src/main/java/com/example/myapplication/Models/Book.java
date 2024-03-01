@@ -6,6 +6,7 @@ public class Book {
     private String bookName;
 
     private double price;
+    public int stockpile;
 
     private final BookProperties properties;
 

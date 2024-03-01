@@ -2,12 +2,15 @@ package com.example.myapplication.Models;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 public class User {
     private final int userID;
     private String name;
     private String password;
     private String type;
     private String address;
+    private ArrayList<Book> ownBook;
 
     public User(String userName, int nID, String password, String nType, String nAddress){
         this.name = userName;
@@ -15,6 +18,7 @@ public class User {
         this.password = password;
         this.type = nType;
         this.address = nAddress;
+        ownBook = new ArrayList<>();
     }
     public boolean checkPassword(String input){
         return password.equals(input);
@@ -61,7 +65,9 @@ public class User {
     public boolean equalTo(User currUser) {
         return this.equals(currUser);
     }
-
+    public void buyBook(Book book){
+        ownBook.add(book);
+    }
     @NonNull
     @Override
     public String toString() {

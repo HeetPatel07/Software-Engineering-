@@ -9,12 +9,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Models.Book;
-import com.example.myapplication.Models.Course;
 import com.example.myapplication.R;
 import com.example.myapplication.business.BookManagement;
 import com.example.myapplication.business.CourseManagement;
@@ -42,7 +40,7 @@ public class AddBookPopupActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddBookPopupActivity.this, ProfessorCoursesBooksActivity.class));
+                startActivity(new Intent(AddBookPopupActivity.this, CoursesBooksActivity.class));
             }
         });
 
@@ -89,7 +87,7 @@ public class AddBookPopupActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     courseManagement.addRequiredBookToCourse(courseName, book.getId());
-                    Intent intent = new Intent(AddBookPopupActivity.this, ProfessorCoursesBooksActivity.class);
+                    Intent intent = new Intent(AddBookPopupActivity.this, CoursesBooksActivity.class);
                     startActivity(intent);
                 }
             });

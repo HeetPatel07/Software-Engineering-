@@ -1,7 +1,6 @@
 package com.example.myapplication.presentation;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,11 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Course;
 import com.example.myapplication.R;
@@ -32,7 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class ProfessorCoursesBooksActivity extends GlobalActivity {
+public class CoursesBooksActivity extends GlobalActivity {
 
     private HashMap<String, Button> courseButtonsMap = new HashMap<>();
 
@@ -51,7 +45,7 @@ public class ProfessorCoursesBooksActivity extends GlobalActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.professor_course_page_activity);
+        setContentView(R.layout.course_page_activity);
         setupUI();
 
         courseManagement = CourseManagement.getInstance();
@@ -67,9 +61,9 @@ public class ProfessorCoursesBooksActivity extends GlobalActivity {
                 String courseName = courseInput.getText().toString();
 
                 if(courseManagement.addCourse(courseName)){
-                    Toast.makeText(ProfessorCoursesBooksActivity.this,"Course Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CoursesBooksActivity.this,"Course Added", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(ProfessorCoursesBooksActivity.this,"Failed to add a course", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CoursesBooksActivity.this,"Failed to add a course", Toast.LENGTH_SHORT).show();
                 }
 
                 courses = courseManagement.getCourses();
@@ -100,7 +94,7 @@ public class ProfessorCoursesBooksActivity extends GlobalActivity {
             addBookButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(ProfessorCoursesBooksActivity.this, AddBookPopupActivity.class);
+                    Intent intent = new Intent(CoursesBooksActivity.this, AddBookPopupActivity.class);
                     intent.putExtra("courseName", courseName);
                     startActivity(intent);
                 }
@@ -134,7 +128,7 @@ public class ProfessorCoursesBooksActivity extends GlobalActivity {
                     @SuppressLint("SetTextI18n")
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(ProfessorCoursesBooksActivity.this, "Book added to the cart", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CoursesBooksActivity.this, "Book added to the cart", Toast.LENGTH_SHORT).show();
                         // Change button text to indicate the book is added to the cart
                         bookButton.setText("Added");
                         bookButton.setEnabled(false);
@@ -147,7 +141,7 @@ public class ProfessorCoursesBooksActivity extends GlobalActivity {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(ProfessorCoursesBooksActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(CoursesBooksActivity.this);
                         builder.setMessage("Are you sure to delete it")
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
@@ -155,7 +149,7 @@ public class ProfessorCoursesBooksActivity extends GlobalActivity {
                                         //confirmation of delete
                                         if(courseManagement.deleteRequiredBookInCourse(courseName, bookId)){
                                             // Show a Toast message or log for successful deletion
-                                            Toast.makeText(ProfessorCoursesBooksActivity.this, "Book deleted successfully", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(CoursesBooksActivity.this, "Book deleted successfully", Toast.LENGTH_SHORT).show();
                                             runOnUiThread(new Runnable() {
                                                 @Override
                                                 public void run() {

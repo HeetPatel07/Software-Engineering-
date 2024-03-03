@@ -25,6 +25,18 @@ public class ChangeAccount extends GlobalActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_profile_activity);
 
+        RadioGroup group = findViewById(R.id.radio_userType);
+        RadioButton radioStu = findViewById(R.id.radio_student);
+        RadioButton radioProf = findViewById(R.id.radio_professor);
+        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Disable both RadioButtons once one is selected
+                radioStu.setEnabled(false);
+                radioProf.setEnabled(false);
+            }
+        });
+
 
         Button confirm = findViewById(R.id.account_confirm);
         Button back = findViewById(R.id.button_back_account_management);

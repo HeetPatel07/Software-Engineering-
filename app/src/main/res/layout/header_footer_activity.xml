@@ -30,6 +30,13 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/home" />
         <ImageView
+            android:id="@+id/libraryButton"
+            android:layout_width="865dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="3dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/books" />
+        <ImageView
             android:id="@+id/profileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

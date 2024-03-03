@@ -55,7 +55,17 @@
             android:windowSoftInputMode="adjustPan"
             android:exported="true"/>
 
+        <!-- professor course book page -->
+        <activity android:name=".presentation.ProfessorCoursesBooksActivity"
+            android:exported="true"/>
 
+        <!-- library page -->
+        <activity android:name=".presentation.LibraryActivity"
+            android:exported="true"/>
+
+        <!-- add book popup page -->
+        <activity android:name=".presentation.AddBookPopupActivity"
+            android:exported="true"/>
 
 
     </application>

@@ -26,7 +26,16 @@ public class LoggedinActivity extends GlobalActivity{
                 Intent signUp = new Intent(LoggedinActivity.this, ChangeAccount.class);
                 startActivity(signUp);
             }
+        });
 
+
+        ImageView viewCourseBooks = findViewById(R.id.viewRequiredCourseBook);
+        viewCourseBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent requiredBook = new Intent(LoggedinActivity.this, ProfessorCoursesBooksActivity.class);
+                startActivity(requiredBook);
+            }
         });
     }
 }

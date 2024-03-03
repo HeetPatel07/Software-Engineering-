@@ -53,7 +53,12 @@ public class LoginActivity extends GlobalActivity {
 
     private void setupLoginButton() {
         Button loginButton = findViewById(R.id.loginButton);
-        loginButton.setOnClickListener(v -> attemptLogin());
+        //loginButton.setOnClickListener(v -> attemptLogin());
+
+        //temp code for easy impl. delete later
+        loginButton.setOnClickListener(v -> {
+            startActivity(new Intent(this, ProfessorCoursesBooksActivity.class));
+        });
     }
 
     private void navigateToHomePage() {

@@ -80,14 +80,14 @@ public class CoursesBooksActivity extends GlobalActivity {
         courseBookContainer.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(this);
 
+        //temp code. get course set from course management directly
+        //need to use prof or student own course set
         for (Map.Entry<String, Course> course : courses.entrySet()) {
             View courseBookView = inflater.inflate(R.layout.course_books_activity, courseBookContainer, false);
             //set course name
             TextView courseNameView = courseBookView.findViewById(R.id.courseName);
             String courseName = course.getValue().getCourseName();
             courseNameView.setText(courseName);
-
-
 
             //add book button operations
             Button addBookButton = courseBookView.findViewById(R.id.addBookButton);

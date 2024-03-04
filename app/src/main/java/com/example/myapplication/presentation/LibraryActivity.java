@@ -17,5 +17,11 @@ public class LibraryActivity extends GlobalActivity{
         setContentView(R.layout.book_library_activity);
         setupUI();
 
+        ImageView sellBookSection = findViewById(R.id.sellBooksButton);
+        sellBookSection.setOnClickListener(v->{
+            Intent intent = new Intent(LibraryActivity.this, SellBookActivity.class);
+            startActivity(intent);
+        });
+
     }
 }

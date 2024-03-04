@@ -71,6 +71,7 @@ public class GlobalActivity extends AppCompatActivity {
     protected void setupUI() {
         setupProfileImageButton();
         setupHomeButton();
+        setupLibraryButton();
     }
 
     private void setupProfileImageButton() {
@@ -81,6 +82,7 @@ public class GlobalActivity extends AppCompatActivity {
             navigateToLogin();
         });
     }
+
 
     private void setupHomeButton() {
         ImageView homeButton = findViewById(R.id.homeButton);

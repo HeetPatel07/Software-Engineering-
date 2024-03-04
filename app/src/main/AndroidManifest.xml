@@ -67,6 +67,10 @@
         <activity android:name=".presentation.AddBookPopupActivity"
             android:exported="true"/>
 
+        <!-- sell book page -->
+        <activity android:name=".presentation.SellBookActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

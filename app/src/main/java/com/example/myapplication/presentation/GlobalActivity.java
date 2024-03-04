@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.R;
 import com.example.myapplication.business.AuthenticatedUser;
+import com.example.myapplication.business.CourseManagement;
 import com.example.myapplication.business.utlis.RandomGenerator;
 import com.example.myapplication.persistence.Database;
 import com.example.myapplication.persistence.DummyDatabase;
@@ -70,6 +71,7 @@ public class GlobalActivity extends AppCompatActivity {
     protected void setupUI() {
         setupProfileImageButton();
         setupHomeButton();
+        setupLibraryButton();
     }
 
     private void setupProfileImageButton() {
@@ -81,12 +83,22 @@ public class GlobalActivity extends AppCompatActivity {
         });
     }
 
+
     private void setupHomeButton() {
         ImageView homeButton = findViewById(R.id.homeButton);
         Animation buttonJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.button_jump_animation);
         homeButton.setOnClickListener(v -> {
             v.startAnimation(buttonJumpAnimation);
             navigateToHome();
+        });
+    }
+
+    private void setupLibraryButton(){
+        ImageView libraryButton = findViewById(R.id.libraryButton);
+        Animation buttonJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.button_jump_animation);
+        libraryButton.setOnClickListener(v->{
+            v.startAnimation(buttonJumpAnimation);
+            navigateToLibrary();
         });
     }
 
@@ -100,5 +112,9 @@ public class GlobalActivity extends AppCompatActivity {
 
     private void navigateToHome() {
         startActivity(new Intent(this, HomePageActivity.class));
+    }
+
+    private void navigateToLibrary(){
+        startActivity(new Intent(this, LibraryActivity.class));
     }
 }

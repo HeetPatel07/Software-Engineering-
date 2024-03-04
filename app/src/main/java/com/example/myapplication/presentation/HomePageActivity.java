@@ -98,16 +98,19 @@ public class HomePageActivity extends GlobalActivity {
         TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
         TextView bookTags = bookView.findViewById(R.id.bookTags);
         TextView bookPrice = bookView.findViewById(R.id.bookPrice);
+        ImageView button = bookView.findViewById(R.id.bookDelete);
 
         bookName.setText(String.format("Book Name: %s", book.getBookName()));
         bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
         bookTags.setVisibility(View.GONE);
         bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
+        button.setVisibility(View.GONE);
 
-        setupViewBookInfoButton((ImageView) bookView.findViewById(R.id.viewBookInfoButton), book);
+        setupViewBookInfoButton((Button) bookView.findViewById(R.id.bookAction), book);
     }
 
-    private void setupViewBookInfoButton(ImageView button, Book book) {
+    private void setupViewBookInfoButton(Button button, Book book) {
+        button.setText("view");
         button.setOnClickListener(v -> {
 
             // Use BookManager to get book ID

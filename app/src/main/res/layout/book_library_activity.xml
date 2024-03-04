@@ -34,11 +34,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
-                    android:text="Profile information"
+                    android:text="Saved Books"
                     android:textSize="40dp" />
 
                 <ImageView
-                    android:id="@+id/viewAccountInfo"
+                    android:id="@+id/savedBooksButton"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:layout_margin="0dp"
@@ -51,11 +51,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="50"
-                    android:text="course required books"
+                    android:text="Sell Books"
                     android:textSize="40dp" />
 
                 <ImageView
-                    android:id="@+id/viewRequiredCourseBook"
+                    android:id="@+id/sellBooksButton"
                     android:layout_width="100dp"
                     android:layout_height="80dp"
                     android:layout_margin="0dp"

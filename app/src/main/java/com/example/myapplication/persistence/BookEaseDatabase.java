@@ -34,23 +34,12 @@ public class BookEaseDatabase implements Database {
 
 
     public void loadBooks() {
-        String sql = "SELECT * FROM PUBLIC.BOOK";
+        String sql = "SELECT * FROM PUBLIC.RECIPES";
         try (Connection connection = connect()){
             final Statement statement = connection.createStatement();
             final ResultSet rs = statement.executeQuery(sql);
 
-            while (rs.next()) {
-                // Retrieve book details from the ResultSet
-                int id = rs.getInt("id");
-                String bookName = rs.getString("book_name");
-                String authorName = rs.getString("author_name");
-                double price = rs.getDouble("price");
-                double edition = rs.getDouble("edition");
-                String description = rs.getString("description");
 
-                // Print out each book's details (or handle them as needed)
-                System.out.println("Book ID: " + id + ", Name: " + bookName + ", Author: " + authorName + ", Price: " + price + ", Edition: " + edition + ", Description: " + description);
-            }
         } catch (SQLException e){
             e.printStackTrace();
         }

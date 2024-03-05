@@ -62,8 +62,9 @@
         <activity android:name=".presentation.AddBookPopupActivity"
             android:exported="true"/>
 
-        <activity android:name=".presentation.SellBookActivity"
+        <activity android:name=".presentation.SellBooksActivity"
             android:exported="true"/>
+
 
     </application>
 

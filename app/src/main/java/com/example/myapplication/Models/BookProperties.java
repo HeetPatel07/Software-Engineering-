@@ -7,13 +7,20 @@ public class BookProperties {
 
     private String description;
 
+    private String condition;
+
+
     private double edition;
 
     BookProperties(String description,double edition){
         ratings = new ArrayList<Rating>();
         this.description = description;
         this.edition = edition;
+        this.condition = "Brand New";
     }
+    public String getCondition(){return condition;}
+
+    public void setCondition(String condition){this.condition=condition;}
 
     public String getDescription() {
         return description;

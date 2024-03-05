@@ -2,13 +2,16 @@ package com.example.myapplication.Models;
 
 import androidx.annotation.NonNull;
 
-public class User {
+import java.util.ArrayList;
+import java.util.List;
 
+public class User {
     private final int userID;
     private String name;
     private String password;
     private String type;
     private String address;
+    private List<Book> BooksForSale;
 
     public User(String userName, int nID, String password, String nType, String nAddress){
         this.name = userName;
@@ -16,6 +19,7 @@ public class User {
         this.password = password;
         this.type = nType;
         this.address = nAddress;
+        BooksForSale= new ArrayList<Book>();
     }
     public boolean checkPassword(String input){
         return password.equals(input);
@@ -74,4 +78,18 @@ public class User {
                 ", address='" + address + '\'' +
                 '}';
     }
+
+    public boolean addForSale(Book usedBook){
+        boolean result=true;
+
+        BooksForSale.add(usedBook);
+
+        return result;
+    }
+
+    public List<Book> getBooksForSale(){
+        return BooksForSale;
+    }
+
+
 }

@@ -21,6 +21,13 @@ public class Book {
         this.authorName = authorName;
         this.properties = new BookProperties(bookDescription,edition);
     }
+    public Book addUsedBook(double price,String condition){
+
+        Book cpy= new Book(this.getId(),this.bookName,price,this.getDescription(),this.properties.getEdition(),this.getAuthorName() );
+        cpy.properties.setCondition(condition);
+
+        return cpy;
+    }
 
     public int getId() {
         return id;

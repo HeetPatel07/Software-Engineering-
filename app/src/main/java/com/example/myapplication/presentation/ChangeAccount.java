@@ -9,13 +9,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.R;
 import com.example.myapplication.business.AuthenticatedUser;
 import com.example.myapplication.Models.User;
 
 
 
-public class ChangeAccount extends GlobalActivity{
+public class ChangeAccount extends AppCompatActivity {
 
 
     protected void onCreate(Bundle savedInstanceState) {

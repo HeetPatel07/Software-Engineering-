@@ -3,18 +3,24 @@ package com.example.myapplication.presentation;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.R;
 import com.example.myapplication.Models.Book;
+import com.example.myapplication.business.AuthenticatedUser;
 import com.example.myapplication.business.BookManagement;
 import com.example.myapplication.persistence.DummyDatabase;
 
-public class BookInfoActivity extends GlobalActivity {
+public class BookInfoActivity extends AppCompatActivity {
 
     BookManagement bookList = new BookManagement(DummyDatabase.getInstance());
 
@@ -22,7 +28,8 @@ public class BookInfoActivity extends GlobalActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_info_activity);
-        setupUI();
+        initFooterButtons();
+
         Book book = getBookFromIntent();
         //BookSerialization book = getBookFromIntent();
         if (book != null) {
@@ -44,6 +51,41 @@ public class BookInfoActivity extends GlobalActivity {
             @Override
             public void onClick(View v) {
                 showUnderConstructionAlert();
+            }
+        });
+
+    }
+
+    private void initFooterButtons(){
+        ImageView profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AuthenticatedUser.getInstance().getUser() != null) {
+                    startActivity(new Intent(BookInfoActivity.this,LoggedinActivity.class));
+                } else {
+                    startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
+                }
+            }
+        });
+
+        ImageView homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BookInfoActivity.this,HomePageActivity.class));
+            }
+        });
+
+        ImageView libraryButton = findViewById(R.id.libraryButton);
+        libraryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AuthenticatedUser.getInstance().getUser() != null) {
+                    startActivity(new Intent(BookInfoActivity.this,LibraryActivity.class));
+                } else {
+                    startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
+                }
             }
         });
 

@@ -8,22 +8,22 @@ import java.util.Optional;
 
 public class BookManagement {
 
-    private final Database dummyDatabase;
+    private final Database database;
 
-    public BookManagement(Database dummyDatabase) {
-        this.dummyDatabase = dummyDatabase;
+    public BookManagement(Database database) {
+        this.database = database;
     }
 
     public List<Book> viewBooks(){
-        return dummyDatabase.getBooks();
+        return database.getBooks();
     }
 
     public List<Book> findBooksWithBookName(String bookName){
-        return dummyDatabase.findBookWithBookName(bookName);
+        return database.findBookWithBookName(bookName);
     }
 
     public Book findBookWithID(int id){
-        Optional<Book> bookWithID = dummyDatabase.findBookWithID(id);
+        Optional<Book> bookWithID = database.findBookWithID(id);
         return bookWithID.orElse(null);
     }
 

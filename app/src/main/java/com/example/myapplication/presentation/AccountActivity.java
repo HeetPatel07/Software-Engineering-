@@ -6,13 +6,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.R;
 import com.example.myapplication.business.AccountManagement;
 import com.example.myapplication.business.AuthenticatedUser;
 import com.example.myapplication.persistence.DummyDatabase;
 
 
-public class AccountActivity extends GlobalActivity {
+public class AccountActivity extends AppCompatActivity {
 
     private EditText enterUsernameField, enterAddressField, enterPasswordField;
     private RadioButton studentTypeButton, professorTypeButton;

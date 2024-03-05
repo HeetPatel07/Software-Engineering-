@@ -34,16 +34,26 @@ public class BookEaseDatabase implements Database {
 
 
     public void loadBooks() {
-        String sql = "SELECT * FROM PUBLIC.RECIPES";
+        String sql = "SELECT * FROM PUBLIC.USERS";
         try (Connection connection = connect()){
-            final Statement statement = connection.createStatement();
-            final ResultSet rs = statement.executeQuery(sql);
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
 
+            while (rs.next()) {
+                // Assuming the columns are id, username, password, address, type in that order
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String password = rs.getString("password"); // Consider security implications of printing passwords
+                String address = rs.getString("address");
+                String type = rs.getString("type");
+
+            }
 
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
+
 
 
 

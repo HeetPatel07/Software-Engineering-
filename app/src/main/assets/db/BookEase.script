@@ -1,6 +1,5 @@
 CREATE SCHEMA PUBLIC AUTHORIZATION DBA
 CREATE MEMORY TABLE PUBLIC.USERS(id INTEGER IDENTITY, username VARCHAR(100) NOT NULL, password VARCHAR(100), address VARCHAR(100), type VARCHAR(20), PRIMARY KEY(id))
-CREATE MEMORY TABLE PUBLIC.BOOKS(id INTEGER IDENTITY, bookname VARCHAR(100), author_name VARCHAR(100), price DOUBLE, edition DOUBLE, description VARCHAR(1000) PRIMARY KEY(id))
 CREATE USER SA PASSWORD DIGEST 'd41d8cd98f00b204e9800998ecf8427e'
 ALTER USER SA SET LOCAL TRUE
 CREATE SCHEMA PUBLIC AUTHORIZATION DBA
@@ -11,9 +10,3 @@ SET FILES SCALE 32
 SET SCHEMA public
 INSERT INTO USERS VALUES (1, 'userone', '123123', 'address one', 'Student')
 INSERT INTO USERS VALUES (2, 'usertwo', '123123', 'address two', 'Professor')
-INSERT INTO BOOKS (1, bookname, author_name, price, edition, description) VALUES ('The Great Gatsby', 'F. Scott Fitzgerald', 20.00, 1, 'A classic novel of American literature set in the Roaring Twenties.');
-INSERT INTO BOOKS (2, bookname, author_name, price, edition, description) VALUES ('1984', 'George Orwell', 15.00, 1, 'A dystopian social science fiction novel and cautionary tale.');
-INSERT INTO BOOKS (3, bookname, author_name, price, edition, description) VALUES ('To Kill a Mockingbird', 'Harper Lee', 18.50, 1, 'A novel of racial injustice in the Deep South of the 1930s.');
-INSERT INTO BOOKS (4, bookname, author_name, price, edition, description) VALUES ('Pride and Prejudice', 'Jane Austen', 12.99, 1, 'A romantic novel of manners.');
-INSERT INTO BOOKS (5, bookname, author_name, price, edition, description) VALUES ('Moby-Dick', 'Herman Melville', 22.00, 1, 'An epic sea story of Captain Ahab’s quest to catch the white whale.');
-

@@ -1,4 +1,4 @@
-package com.example.myapplication.persistence;
+package com.example.myapplication.persistence.hqsldb;
 
 import android.os.Build;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.User;
 import com.example.myapplication.business.utlis.RandomGenerator;
+import com.example.myapplication.persistence.Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -25,7 +26,10 @@ public class BookEaseDatabase implements Database {
     private final List<Book> books = new ArrayList<>();
 
     public BookEaseDatabase(String dbPath) {
+
         this.dbPath = dbPath;
+        loadUsers();
+        loadBooks();
     }
 
     private Connection connect() throws SQLException {
@@ -39,7 +43,6 @@ public class BookEaseDatabase implements Database {
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(usersSql)) {
 
-            System.out.println("Users:");
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String username = rs.getString("username");
@@ -47,7 +50,7 @@ public class BookEaseDatabase implements Database {
                 String address = rs.getString("address");
                 String type = rs.getString("type");
 
-                System.out.println("User ID: " + id + ", Username: " + username + ", Password: " + password + ", Address: " + address + ", Type: " + type);
+                addUser(id, username, password, type, address);
             }
 
         } catch (SQLException e) {
@@ -61,7 +64,6 @@ public class BookEaseDatabase implements Database {
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(booksSql)) {
 
-            System.out.println("Books:");
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String bookname = rs.getString("bookname");
@@ -69,8 +71,7 @@ public class BookEaseDatabase implements Database {
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
                 String description = rs.getString("description");
-
-                System.out.println("Book ID: " + id + ", Book Name: " + bookname + ", Author Name: " + authorName + ", Price: " + price + ", Edition: " + edition + ", Description: " + description);
+                addBook(id,bookname, price, description, edition, authorName);
             }
 
         } catch (SQLException e) {
@@ -96,10 +97,7 @@ public class BookEaseDatabase implements Database {
 
     }
     public List<Book> findBookWithBookName(String bookName) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            return books.stream().filter(book -> book.getBookName().equals(bookName)).toList();
-        }
-        return null;
+        return books.stream().filter(book -> book.getBookName().equals(bookName)).toList();
     }
 
     public Optional<Book> findBookWithID(int id){
@@ -107,26 +105,23 @@ public class BookEaseDatabase implements Database {
     }
 
     public boolean addUser(String userName, String nPassword, String nType, String nAddress) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (findUserWithUsername(userName).isEmpty()) {
-                User user = new User(userName, users.size(), nPassword, nType, nAddress);
-                users.add(user);
-                return true;
-            }
+        if (findUserWithUsername(userName).isEmpty()) {
+            User user = new User(userName, users.size(), nPassword, nType, nAddress);
+            users.add(user);
+            return true;
         }
         return false;
+    }
+
+    public void addUser(int id, String username, String password, String type, String address){
+        User user = new User(username, id, password, type, address);
+        users.add(user);
     }
 
     public void addBook(int id, String bookName,
                         double price, String description,
                         double edition, String authorName) {
         Book book = new Book(id, bookName, price, description, edition, authorName);
-        for(int i =0 ; i<=10;i++){
-            String comment = RandomGenerator.generateRandomComment().trim();
-            int rating = RandomGenerator.generateRandomRating();
-            book.addRating(rating, comment);
-        }
-
         books.add(book);
     }
 

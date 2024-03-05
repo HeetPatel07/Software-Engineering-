@@ -19,8 +19,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.AuthenticatedUser;
 import com.example.myapplication.business.BookManagement;
-import com.example.myapplication.persistence.BookEaseDatabase;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.persistence.hqsldb.BookEaseDatabase;
 import com.example.myapplication.persistence.utils.DBHelper;
 
 import java.util.ArrayList;
@@ -31,20 +30,19 @@ public class HomePageActivity extends AppCompatActivity {
     private LinearLayout booksContainer;
     private EditText searchContentView;
 
-    private BookManagement books= new BookManagement(DummyDatabase.getInstance());
-
-    private BookEaseDatabase database;
+    private BookManagement books ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page_activity);
+
+        DBHelper.resetDB(this);
+        books = new BookManagement(Services.getBookEaseDatabase());
+
         initFooterButtons();
         initializeViews();
         setupBookList();
         setupSearchFunctionality();
-
-        DBHelper.resetDB(this);
-        database = (BookEaseDatabase) Services.getBookEaseDatabase();
     }
 
     private void initFooterButtons(){
@@ -94,11 +92,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     private void setupSearchFunctionality() {
         Button searchButton = findViewById(R.id.searchButton);
-        //searchButton.setOnClickListener(v -> performSearch());
-        searchButton.setOnClickListener(v->{
-            database.loadUsers();
-            database.loadBooks();
-        });
+        searchButton.setOnClickListener(v -> performSearch());
     }
 
     private void performSearch() {

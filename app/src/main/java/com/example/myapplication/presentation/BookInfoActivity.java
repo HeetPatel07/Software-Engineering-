@@ -16,13 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.Models.Book;
+import com.example.myapplication.application.Services;
 import com.example.myapplication.business.AuthenticatedUser;
 import com.example.myapplication.business.BookManagement;
 import com.example.myapplication.persistence.DummyDatabase;
 
 public class BookInfoActivity extends AppCompatActivity {
 
-    BookManagement bookList = new BookManagement(DummyDatabase.getInstance());
+    BookManagement bookList = new BookManagement(Services.getBookEaseDatabase());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,6 @@ public class BookInfoActivity extends AppCompatActivity {
         initFooterButtons();
 
         Book book = getBookFromIntent();
-        //BookSerialization book = getBookFromIntent();
         if (book != null) {
             displayBookInfo(book);
         } else {

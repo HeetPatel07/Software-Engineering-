@@ -8,7 +8,7 @@ public class BookPropertiesTest {
     BookProperties test;
     @Before
     public void setTest(){
-        test = new BookProperties("description", 1.0);
+        test = new BookProperties("description", 1.0,"new");
     }
     @Test
     public void showOverallRatingTest(){

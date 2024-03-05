@@ -35,7 +35,10 @@ public class BookDatabaseImpl implements BookDatabase {
     @Override
     public List<Book> getBooks() {
         List<Book> bookList = new ArrayList<>();
-        String booksSql = "SELECT * FROM PUBLIC.BOOKS";
+       // String booksSql = "SELECT PUBLIC.BOOKS.id, bookname, author_name, price, edition, description, book_condition, PUBLIC.BOOKFORSALE.price as sale_price FROM PUBLIC.BOOKS JOIN PUBLIC.BOOKFORSALE ON PUBLIC.BOOKS.id = PUBLIC.BOOKFORSALE.book_id";
+
+        String booksSql = "SELECT * FROM PUBLIC.BOOKS ;";
+
         try (Connection connection = getConnection(dbpath);
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(booksSql)) {
@@ -47,7 +50,8 @@ public class BookDatabaseImpl implements BookDatabase {
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
                 String description = rs.getString("description");
-                bookList.add(new Book(id, bookname, price,description, edition, authorName));
+             //   String bookCondition = rs.getString("book_condition");
+                bookList.add(new Book(id, bookname, price,description, edition, authorName,null));
             }
 
         } catch (SQLException e) {
@@ -65,6 +69,7 @@ public class BookDatabaseImpl implements BookDatabase {
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(booksSql)) {
 
+
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String bookname = rs.getString("bookname");
@@ -72,7 +77,8 @@ public class BookDatabaseImpl implements BookDatabase {
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
                 String description = rs.getString("description");
-                bookList.add(new Book(id, bookname, price,description, edition, authorName));
+                String bookCondition = rs.getString("book_condition");
+                bookList.add(new Book(id, bookname, price,description, edition, authorName,bookCondition));
             }
 
         } catch (SQLException e) {
@@ -97,7 +103,7 @@ public class BookDatabaseImpl implements BookDatabase {
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
                 String description = rs.getString("description");
-                return Optional.of(new Book(id, bookname, price, description, edition, authorName));
+                return Optional.of(new Book(id, bookname, price, description, edition, authorName,null));
             }
 
         } catch (SQLException e) {
@@ -122,7 +128,7 @@ public class BookDatabaseImpl implements BookDatabase {
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
                 String description = rs.getString("description");
-                bookList.add(new Book(id, bookname, price, description, edition, authorName));
+                bookList.add(new Book(id, bookname, price, description, edition, authorName,null));
             }
 
         } catch (SQLException e) {

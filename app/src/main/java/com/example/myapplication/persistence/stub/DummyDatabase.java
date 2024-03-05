@@ -60,7 +60,7 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
     public void addBook(int id, String bookName,
                         double price, String description,
                         double edition, String authorName,String bookCondition) {
-        Book book = new Book(id, bookName, price, description,edition, authorName);
+        Book book = new Book(id, bookName, price, description,edition, authorName,null);
         for(int i =0 ; i<=10;i++){
             String comment = RandomGenerator.generateRandomComment().trim();
             int rating = RandomGenerator.generateRandomRating();

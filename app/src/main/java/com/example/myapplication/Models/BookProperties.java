@@ -12,15 +12,13 @@ public class BookProperties {
 
     private double edition;
 
-    BookProperties(String description,double edition){
+    BookProperties(String description,double edition,String condition){
         ratings = new ArrayList<Rating>();
         this.description = description;
         this.edition = edition;
-        this.condition = "Brand New";
+        this.condition = condition;
     }
     public String getCondition(){return condition;}
-
-    public void setCondition(String condition){this.condition=condition;}
 
     public String getDescription() {
         return description;

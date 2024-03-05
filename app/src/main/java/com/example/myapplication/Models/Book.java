@@ -14,18 +14,16 @@ public class Book {
 
     public Book(int id,String bookName, double price,
                 String bookDescription, double edition,
-                String authorName) {
+                String authorName,String condition) {
         this.id = id;
         this.bookName = bookName;
         this.price = price;
         this.authorName = authorName;
-        this.properties = new BookProperties(bookDescription,edition);
+        this.properties = new BookProperties(bookDescription,edition,condition);
     }
     public Book addUsedBook(double price,String condition){
 
-        Book cpy= new Book(this.getId(),this.bookName,price,this.getDescription(),this.properties.getEdition(),this.getAuthorName() );
-        cpy.properties.setCondition(condition);
-
+        Book cpy= new Book(this.getId(),this.bookName,price,this.getDescription(),this.properties.getEdition(),this.getAuthorName(),condition);
         return cpy;
     }
 

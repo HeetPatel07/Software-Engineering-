@@ -31,15 +31,9 @@ public class BookEaseDatabase implements Database {
         loadUsers();
         loadBooks();
     }
-
-    private Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true","SA", "");
-    }
-
-
     public void loadUsers() {
         String usersSql = "SELECT * FROM PUBLIC.USERS";
-        try (Connection connection = connect();
+        try (Connection connection = getConnection(dbPath);
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(usersSql)) {
 
@@ -60,7 +54,7 @@ public class BookEaseDatabase implements Database {
 
     public void loadBooks() {
         String booksSql = "SELECT * FROM PUBLIC.BOOKS";
-        try (Connection connection = connect();
+        try (Connection connection = getConnection(dbPath);
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(booksSql)) {
 

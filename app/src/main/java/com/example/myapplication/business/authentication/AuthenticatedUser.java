@@ -1,4 +1,4 @@
-package com.example.myapplication.business;
+package com.example.myapplication.business.authentication;
 
 import com.example.myapplication.Models.User;
 

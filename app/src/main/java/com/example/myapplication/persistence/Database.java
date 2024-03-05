@@ -13,15 +13,4 @@ public interface Database {
     default Connection getConnection(String dbPath) throws SQLException {
         return DriverManager.getConnection("jdbc:hsqldb:file:" + dbPath + ";shutdown=true","SA", "");
     }
-    List<User> getUsers();
-
-    List<Book> getBooks();
-    Optional<User> findUserWithUsername(String username);
-
-    List<Book> findBookWithBookName(String bookName);
-    Optional<Book> findBookWithID(int id);
-
-    boolean addUser(String userName, String nPassword, String nType, String nAddress);
-
-    void addBook(int id, String bookName, double price, String description, double edition, String authorName);
 }

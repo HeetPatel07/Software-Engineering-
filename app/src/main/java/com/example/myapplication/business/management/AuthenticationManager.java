@@ -1,15 +1,17 @@
-package com.example.myapplication.business;
+package com.example.myapplication.business.management;
 
 import com.example.myapplication.Models.User;
-import com.example.myapplication.persistence.Database;
+import com.example.myapplication.business.authentication.Authenticate;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.persistence.subinterfaces.UserDatabase;
 
 import java.util.Optional;
 
-public class AuthenticationManager implements Authenticate{
+public class AuthenticationManager implements Authenticate {
 
-    private final Database database;
+    private final UserDatabase database;
 
-    public AuthenticationManager(Database database) {
+    public AuthenticationManager(UserDatabase database) {
         this.database = database;
     }
 

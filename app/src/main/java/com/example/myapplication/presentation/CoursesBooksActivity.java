@@ -20,10 +20,8 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Course;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
-import com.example.myapplication.business.AuthenticatedUser;
 import com.example.myapplication.business.BookManagement;
 import com.example.myapplication.business.CourseManagement;
-import com.example.myapplication.persistence.DummyDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +50,7 @@ public class CoursesBooksActivity extends AppCompatActivity {
         setContentView(R.layout.course_page_activity);
         initFooterButtons();
         courseManagement = CourseManagement.getInstance();
-        bookManagement = new BookManagement(Services.getBookEaseDatabase());
+        bookManagement = new BookManagement(Services.getBookDatabase());
 
         //button to add the course
         Button addcourse = findViewById(R.id.addCourseButton);

@@ -1,13 +1,15 @@
 package com.example.myapplication.business;
 
 import com.example.myapplication.Models.User;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.persistence.Database;
+import com.example.myapplication.persistence.subinterfaces.UserDatabase;
 
 public class AccountManagement {
 
-    private final Database database;
-    public AccountManagement(Database dummyDatabase) {
-        this.database =  dummyDatabase;
+    private final UserDatabase database;
+    public AccountManagement(UserDatabase database) {
+        this.database =  database;
     }
 
     public boolean createNewUser(String userName, String password, String type, String address) {
@@ -22,7 +24,7 @@ public class AccountManagement {
             throw new IllegalArgumentException("Password must be longer than 4 characters.");
         }
 
-        // If both username and password meet the criteria, attempt to add the user to the database\
+        // If both username and password meet the criteria, attempt to add the user to the database
         return database.addUser(userName, password, type, address);
     }
 

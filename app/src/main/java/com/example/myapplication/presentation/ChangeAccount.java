@@ -1,8 +1,6 @@
 package com.example.myapplication.presentation;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -13,7 +11,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.business.AuthenticatedUser;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.Models.User;
 
 

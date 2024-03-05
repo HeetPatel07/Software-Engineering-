@@ -10,9 +10,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.application.Services;
 import com.example.myapplication.business.AccountManagement;
-import com.example.myapplication.business.AuthenticatedUser;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.persistence.stub.DummyDatabase;
 
 
 public class AccountActivity extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void initializeAccountManagement() {
-        accountManagement = new AccountManagement(DummyDatabase.getInstance());
+        accountManagement = new AccountManagement(Services.getUserDatabase());
     }
 
     private void setupListeners() {

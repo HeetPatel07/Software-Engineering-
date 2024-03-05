@@ -3,13 +3,15 @@ package com.example.myapplication.persistence.stub;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.User;
 import com.example.myapplication.business.utlis.RandomGenerator;
+import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 import com.example.myapplication.persistence.Database;
+import com.example.myapplication.persistence.subinterfaces.UserDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class DummyDatabase implements Database {
+public class DummyDatabase implements BookDatabase, UserDatabase {
 
     private static final Database dummyDatabase = new DummyDatabase();
 
@@ -23,12 +25,6 @@ public class DummyDatabase implements Database {
     private DummyDatabase() {
 
     }
-
-    @Override
-    public List<User> getUsers() {
-        return users;
-    }
-
     @Override
     public List<Book> getBooks() {
         return books;
@@ -47,6 +43,11 @@ public class DummyDatabase implements Database {
         return books.stream().filter(book -> book.getId() == id).findFirst();
     }
 
+    @Override
+    public List<Book> findBooksWithAuthorName(String authorName) {
+        return null;
+    }
+
     public boolean addUser(String userName, String nPassword, String nType, String nAddress) {
         if (findUserWithUsername(userName).isEmpty()) {
             User user = new User(userName, users.size(), nPassword, nType, nAddress);
@@ -58,8 +59,8 @@ public class DummyDatabase implements Database {
 
     public void addBook(int id, String bookName,
                         double price, String description,
-                        double edition, String authorName) {
-        Book book = new Book(id, bookName, price, description, edition, authorName);
+                        double edition, String authorName,String bookCondition) {
+        Book book = new Book(id, bookName, price, description,edition, authorName);
         for(int i =0 ; i<=10;i++){
             String comment = RandomGenerator.generateRandomComment().trim();
             int rating = RandomGenerator.generateRandomRating();
@@ -68,6 +69,8 @@ public class DummyDatabase implements Database {
 
         books.add(book);
     }
-
-
+    @Override
+    public boolean updateUserPassword(User user, String newPassword) {
+        return false;
+    }
 }

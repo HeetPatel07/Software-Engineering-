@@ -1,21 +1,17 @@
 package com.example.myapplication.presentation;
 import android.content.Intent;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.business.AuthenticatedUser;
-import com.example.myapplication.business.BookManagement;
-import com.example.myapplication.business.SellBooksLogic;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.SellBooksLogic;
 
 
 public class SellBooksActivity extends AppCompatActivity {
@@ -32,7 +28,7 @@ public class SellBooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sell_books_page);
 
-        sellBooks = new SellBooksLogic(DummyDatabase.getInstance());
+        sellBooks = new SellBooksLogic(Services.getBookDatabase());
         initializeViews();
     }
 

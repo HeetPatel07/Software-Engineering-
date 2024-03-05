@@ -44,7 +44,6 @@ public class BookEaseDatabase implements Database {
                 String address = rs.getString("address");
                 String type = rs.getString("type");
 
-                addUser(id, username, password, type, address);
             }
 
         } catch (SQLException e) {
@@ -65,59 +64,11 @@ public class BookEaseDatabase implements Database {
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
                 String description = rs.getString("description");
-                addBook(id,bookname, price, description, edition, authorName);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
-
-
-
-    @Override
-    public List<User> getUsers() {
-        return users;
-    }
-
-    @Override
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public Optional<User> findUserWithUsername(String username) {
-        return users.stream().filter(user -> user.getName().equals(username)).findFirst();
-
-    }
-    public List<Book> findBookWithBookName(String bookName) {
-        return books.stream().filter(book -> book.getBookName().equals(bookName)).toList();
-    }
-
-    public Optional<Book> findBookWithID(int id){
-        return books.stream().filter(book -> book.getId() == id).findFirst();
-    }
-
-    public boolean addUser(String userName, String nPassword, String nType, String nAddress) {
-        if (findUserWithUsername(userName).isEmpty()) {
-            User user = new User(userName, users.size(), nPassword, nType, nAddress);
-            users.add(user);
-            return true;
-        }
-        return false;
-    }
-
-    public void addUser(int id, String username, String password, String type, String address){
-        User user = new User(username, id, password, type, address);
-        users.add(user);
-    }
-
-    public void addBook(int id, String bookName,
-                        double price, String description,
-                        double edition, String authorName) {
-        Book book = new Book(id, bookName, price, description, edition, authorName);
-        books.add(book);
-    }
-
 
 }

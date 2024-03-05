@@ -5,10 +5,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.example.myapplication.business.AccountManagement;
-import com.example.myapplication.business.AuthenticatedUser;
+import com.example.myapplication.business.management.AuthenticationManager;
 import com.example.myapplication.persistence.DummyDatabase;
-import com.example.myapplication.business.AuthenticationManager;
 
 public class AccountmanagementTest
 {

@@ -17,9 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
-import com.example.myapplication.business.AuthenticatedUser;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.BookManagement;
-import com.example.myapplication.persistence.hqsldb.BookEaseDatabase;
 import com.example.myapplication.persistence.utils.DBHelper;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ public class HomePageActivity extends AppCompatActivity {
         setContentView(R.layout.home_page_activity);
 
         DBHelper.resetDB(this);
-        books = new BookManagement(Services.getBookEaseDatabase());
+        books = new BookManagement(Services.getBookDatabase());
 
         initFooterButtons();
         initializeViews();

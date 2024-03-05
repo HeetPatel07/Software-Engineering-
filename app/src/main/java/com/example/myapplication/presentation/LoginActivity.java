@@ -1,8 +1,9 @@
 package com.example.myapplication.presentation;
 import android.content.Intent;
 
-import com.example.myapplication.business.AuthenticatedUser;
-import com.example.myapplication.business.AuthenticationManager;
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.AuthenticationManager;
 
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.persistence.stub.DummyDatabase;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText userNameEntered;
@@ -70,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initializeAuthenticationManager() {
-        authenticationManager = new AuthenticationManager(DummyDatabase.getInstance());
+        authenticationManager = new AuthenticationManager(Services.getUserDatabase());
     }
 
     private void setupListeners() {

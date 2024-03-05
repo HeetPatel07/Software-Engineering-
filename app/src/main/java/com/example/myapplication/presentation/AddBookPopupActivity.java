@@ -17,7 +17,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.BookManagement;
 import com.example.myapplication.business.CourseManagement;
-import com.example.myapplication.persistence.DummyDatabase;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class AddBookPopupActivity extends AppCompatActivity {
         setContentView(R.layout.add_book_popup_activity);
 
         courseName = getIntent().getStringExtra("courseName");
-        bookManagement = new BookManagement(Services.getBookEaseDatabase());
+        bookManagement = new BookManagement(Services.getBookDatabase());
         courseManagement = CourseManagement.getInstance();
         // button to back to course management page
         Button backButton = findViewById(R.id.backToCourse);

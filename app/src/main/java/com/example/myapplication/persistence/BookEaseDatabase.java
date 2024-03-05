@@ -33,23 +33,47 @@ public class BookEaseDatabase implements Database {
     }
 
 
-    public void loadBooks() {
-        String sql = "SELECT * FROM PUBLIC.USERS";
-        try (Connection connection = connect()){
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(sql);
+    public void loadUsers() {
+        String usersSql = "SELECT * FROM PUBLIC.USERS";
+        try (Connection connection = connect();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(usersSql)) {
 
+            System.out.println("Users:");
             while (rs.next()) {
-                // Assuming the columns are id, username, password, address, type in that order
                 int id = rs.getInt("id");
                 String username = rs.getString("username");
-                String password = rs.getString("password"); // Consider security implications of printing passwords
+                String password = rs.getString("password");
                 String address = rs.getString("address");
                 String type = rs.getString("type");
 
+                System.out.println("User ID: " + id + ", Username: " + username + ", Password: " + password + ", Address: " + address + ", Type: " + type);
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadBooks() {
+        String booksSql = "SELECT * FROM PUBLIC.BOOKS";
+        try (Connection connection = connect();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(booksSql)) {
+
+            System.out.println("Books:");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String bookname = rs.getString("bookname");
+                String authorName = rs.getString("author_name");
+                double price = rs.getBigDecimal("price").doubleValue();
+                double edition = rs.getBigDecimal("edition").doubleValue();
+                String description = rs.getString("description");
+
+                System.out.println("Book ID: " + id + ", Book Name: " + bookname + ", Author Name: " + authorName + ", Price: " + price + ", Edition: " + edition + ", Description: " + description);
+            }
+
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

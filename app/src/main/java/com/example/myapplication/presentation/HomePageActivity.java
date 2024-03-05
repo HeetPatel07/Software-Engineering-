@@ -96,6 +96,7 @@ public class HomePageActivity extends AppCompatActivity {
         Button searchButton = findViewById(R.id.searchButton);
         //searchButton.setOnClickListener(v -> performSearch());
         searchButton.setOnClickListener(v->{
+            database.loadUsers();
             database.loadBooks();
         });
     }

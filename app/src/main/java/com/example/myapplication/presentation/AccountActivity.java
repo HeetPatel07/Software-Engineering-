@@ -83,11 +83,11 @@ public class AccountActivity extends AppCompatActivity {
             type = professorTypeButton.getText().toString();
         }
 
-        try{
-            if(username.isEmpty()) throw new IllegalArgumentException("Please enter the user name correctly");
-            if(address.isEmpty())throw new IllegalArgumentException("Please enter the address correctly");
-            if(password.isEmpty())throw new IllegalArgumentException("Please enter the password correctly");
-            if(type.isEmpty()) throw new IllegalArgumentException("Please select your role");
+        try {
+            //if(username.isEmpty()) throw new IllegalArgumentException("Please enter the user name correctly.");
+            if(address.isEmpty()) throw new IllegalArgumentException("Please enter the address correctly.");
+            //if(password.isEmpty()) throw new IllegalArgumentException("Please enter the password correctly.");
+            if(type.isEmpty()) throw new IllegalArgumentException("Please select your role.");
 
             boolean userCreated = accountManagement.createNewUser(username, password, type, address);
             if (userCreated) {
@@ -96,11 +96,10 @@ public class AccountActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Failed to create account", Toast.LENGTH_SHORT).show();
             }
-
-
-        }catch(IllegalStateException e){
+        } catch (IllegalArgumentException e) {
+            // Catch IllegalArgumentException to show specific error messages
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
         }
+
     }
 }

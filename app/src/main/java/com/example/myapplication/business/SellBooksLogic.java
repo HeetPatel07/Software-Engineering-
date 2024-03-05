@@ -6,9 +6,9 @@ import com.example.myapplication.persistence.Database;
 public class SellBooksLogic extends BookManagement {
     BookManagement manager;
 
-    public SellBooksLogic(Database dummyDatabase) {
-        super(dummyDatabase);
-        this.manager = new BookManagement(dummyDatabase);
+    public SellBooksLogic(Database database) {
+        super(database);
+        this.manager = new BookManagement(database);
     }
 
 

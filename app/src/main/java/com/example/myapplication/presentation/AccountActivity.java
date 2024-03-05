@@ -84,9 +84,7 @@ public class AccountActivity extends AppCompatActivity {
         }
 
         try {
-            //if(username.isEmpty()) throw new IllegalArgumentException("Please enter the user name correctly.");
             if(address.isEmpty()) throw new IllegalArgumentException("Please enter the address correctly.");
-            //if(password.isEmpty()) throw new IllegalArgumentException("Please enter the password correctly.");
             if(type.isEmpty()) throw new IllegalArgumentException("Please select your role.");
 
             boolean userCreated = accountManagement.createNewUser(username, password, type, address);

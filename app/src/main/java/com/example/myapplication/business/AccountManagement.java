@@ -5,9 +5,9 @@ import com.example.myapplication.persistence.Database;
 
 public class AccountManagement {
 
-    private final Database dummyDatabase;
+    private final Database database;
     public AccountManagement(Database dummyDatabase) {
-        this.dummyDatabase =  dummyDatabase;
+        this.database =  dummyDatabase;
     }
 
     public boolean createNewUser(String userName, String password, String type, String address) {
@@ -23,7 +23,7 @@ public class AccountManagement {
         }
 
         // If both username and password meet the criteria, attempt to add the user to the database\
-        return dummyDatabase.addUser(userName, password, type, address);
+        return database.addUser(userName, password, type, address);
     }
 
 

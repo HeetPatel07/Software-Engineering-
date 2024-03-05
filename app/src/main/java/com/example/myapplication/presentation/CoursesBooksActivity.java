@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Course;
 import com.example.myapplication.R;
+import com.example.myapplication.application.Services;
 import com.example.myapplication.business.AuthenticatedUser;
 import com.example.myapplication.business.BookManagement;
 import com.example.myapplication.business.CourseManagement;
@@ -51,7 +52,7 @@ public class CoursesBooksActivity extends AppCompatActivity {
         setContentView(R.layout.course_page_activity);
         initFooterButtons();
         courseManagement = CourseManagement.getInstance();
-        bookManagement = new BookManagement(DummyDatabase.getInstance());
+        bookManagement = new BookManagement(Services.getBookEaseDatabase());
 
         //button to add the course
         Button addcourse = findViewById(R.id.addCourseButton);

@@ -1,7 +1,6 @@
 package com.example.myapplication.business.management;
 
 import com.example.myapplication.Models.Book;
-import com.example.myapplication.business.BookManagement;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 

@@ -11,9 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
-import com.example.myapplication.business.AccountManagement;
+import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
-import com.example.myapplication.persistence.stub.DummyDatabase;
 
 
 public class AccountActivity extends AppCompatActivity {
@@ -85,12 +84,13 @@ public class AccountActivity extends AppCompatActivity {
         }
 
         try {
-            if(address.isEmpty()) throw new IllegalArgumentException("Please enter the address correctly.");
+            if(address.isEmpty()) throw new IllegalArgumentException("Please enter the address correctly.. No empty address allowed.");
             if(type.isEmpty()) throw new IllegalArgumentException("Please select your role.");
 
             boolean userCreated = accountManagement.createNewUser(username, password, type, address);
             if (userCreated) {
                 Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show();
+
                 navigateToLoginActivity(); // Optionally navigate to login activity upon successful account creation
             } else {
                 Toast.makeText(this, "Failed to create account", Toast.LENGTH_SHORT).show();

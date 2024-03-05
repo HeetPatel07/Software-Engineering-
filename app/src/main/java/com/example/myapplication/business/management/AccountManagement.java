@@ -1,4 +1,4 @@
-package com.example.myapplication.business;
+package com.example.myapplication.business.management;
 
 import com.example.myapplication.Models.User;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
@@ -38,10 +38,34 @@ public class AccountManagement {
             return false;
         }
 
-        if(newPassword.length() > 4)
-            return authenticatedUser.setPassword(authenticatedUser.getPassword(),newPassword);
+        if(newPassword == null || newPassword.length() <= 4) {
+            throw new IllegalArgumentException("Password must be longer than 4 characters.");
+        }
 
-        System.out.println("Password needs to be more than 4 letters");
-        return false;
+        authenticatedUser.setPassword(authenticatedUser.getPassword(),newPassword);
+        return database.updateUserPassword(authenticatedUser.getUserID(), newPassword);
+    }
+
+    public boolean setNewUserName(String newUsername){
+        User authenticatedUser = AuthenticatedUser.getInstance().getUser();
+
+        if(authenticatedUser == null){
+            System.out.println("User is not yet authenticated");
+            return false;
+        }
+
+        // Check if the username length is not greater than 3
+        if(newUsername == null || newUsername.length() <= 3) {
+            throw new IllegalArgumentException("Username must be longer than 3 characters.");
+        }
+
+        authenticatedUser.setName(newUsername);
+        return database.updateUsername(authenticatedUser.getUserID(), newUsername);
+    }
+
+    public boolean setNewUserAddress(String newAddress){
+        User authenticatedUser = AuthenticatedUser.getInstance().getUser();
+        authenticatedUser.setAddress(newAddress);
+        return database.updateUserAddress(authenticatedUser.getUserID(), newAddress);
     }
 }

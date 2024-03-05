@@ -70,7 +70,17 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
         books.add(book);
     }
     @Override
-    public boolean updateUserPassword(User user, String newPassword) {
+    public boolean updateUserPassword(int userID, String newPassword) {
+        return false;
+    }
+
+    @Override
+    public boolean updateUsername(int userID, String newUsername) {
+        return false;
+    }
+
+    @Override
+    public boolean updateUserAddress(int userID, String newAddress) {
         return false;
     }
 }

@@ -49,11 +49,40 @@ public class UserDatabaseImpl implements UserDatabase {
     }
 
     @Override
-    public boolean updateUserPassword(User user, String newPassword) {
-        String sql = "UPDATE PUBLIC.USERS SET password = '" + newPassword.replace("'", "''") + "' WHERE id = " + user.getUserID();
+    public boolean updateUserPassword(int userID, String newPassword) {
+        String sql = "UPDATE PUBLIC.USERS SET password = '" + newPassword.replace("'", "''") + "' WHERE id = " + userID;
         try (Connection connection = getConnection(dbpath);
              Statement statement = connection.createStatement()) {
 
+            int rowsAffected = statement.executeUpdate(sql);
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    @Override
+    public boolean updateUsername(int userID, String newUsername) {
+        String sql = "UPDATE PUBLIC.USERS SET username = '" + newUsername.replace("'", "''") + "' WHERE id = " + userID;
+        try (Connection connection = getConnection(dbpath);
+             Statement statement = connection.createStatement()) {
+            //check how many rows in database is affected
+            int rowsAffected = statement.executeUpdate(sql);
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    @Override
+    public boolean updateUserAddress(int userID, String newAddress) {
+        String sql = "UPDATE PUBLIC.USERS SET address = '" + newAddress.replace("'", "''") + "' WHERE id = " + userID;
+        try (Connection connection = getConnection(dbpath);
+             Statement statement = connection.createStatement()) {
+
+            //check how many rows in database is affected
             int rowsAffected = statement.executeUpdate(sql);
             return rowsAffected > 0;
 

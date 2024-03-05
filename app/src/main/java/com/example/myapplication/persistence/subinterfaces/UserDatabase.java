@@ -9,7 +9,9 @@ public interface UserDatabase extends Database {
 
     Optional<User> findUserWithUsername(String username);
 
-    boolean updateUserPassword(User user, String newPassword);
+    boolean updateUserPassword(int userID, String newPassword);
+    boolean updateUsername(int userID, String newUsername);
+    boolean updateUserAddress(int userID, String newAddress);
 
     boolean addUser(String userName, String nPassword, String nType, String nAddress);
 

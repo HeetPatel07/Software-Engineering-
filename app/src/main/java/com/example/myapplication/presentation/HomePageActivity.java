@@ -18,7 +18,7 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
-import com.example.myapplication.business.BookManagement;
+import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.persistence.utils.DBHelper;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page_activity);
 
-        DBHelper.resetDB(this);
+        DBHelper.copyDatabaseToDevice(this);
         books = new BookManagement(Services.getBookDatabase());
 
         initFooterButtons();

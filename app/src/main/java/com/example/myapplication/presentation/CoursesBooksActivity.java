@@ -20,6 +20,7 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Course;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.business.management.CourseManagement;
 
@@ -36,6 +37,7 @@ public class CoursesBooksActivity extends AppCompatActivity {
     private static CourseManagement courseManagement;
     private Map<String, Course> courses = new HashMap<>();
     private BookManagement bookManagement;
+    private AuthenticatedUser authUser;
 
 
     protected void onResume() {
@@ -51,6 +53,7 @@ public class CoursesBooksActivity extends AppCompatActivity {
         initFooterButtons();
         courseManagement = CourseManagement.getInstance();
         bookManagement = new BookManagement(Services.getBookDatabase());
+        authUser = AuthenticatedUser.getInstance();
 
         //button to add the course
         Button addcourse = findViewById(R.id.addCourseButton);

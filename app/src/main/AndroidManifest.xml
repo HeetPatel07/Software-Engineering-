@@ -65,6 +65,8 @@
         <activity android:name=".presentation.SellBooksActivity"
             android:exported="true"/>
 
+        <activity android:name=".presentation.BooksForSaleActivity"
+            android:exported="true"/>
 
     </application>
 

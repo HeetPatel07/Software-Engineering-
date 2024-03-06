@@ -32,7 +32,7 @@ public class DBHelper {
 
             copyAssetsToDirectory(context, assetNames, dataDirectory);
 
-            Main.setDBPathName(dataDirectory.toString() + "/" + Main.getDBPathName());
+            Main.setDBPathName(dataDirectory.toString() + "/" + "BookEase");
 
         } catch (final IOException ioe) {
             ioe.printStackTrace();

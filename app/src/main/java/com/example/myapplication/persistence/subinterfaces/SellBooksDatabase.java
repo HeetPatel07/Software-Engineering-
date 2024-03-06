@@ -6,11 +6,10 @@ import com.example.myapplication.persistence.Database;
 import java.util.List;
 
 public interface SellBooksDatabase extends Database {
-
     List<Book> getBooksForSale(int userId);
 
     boolean deleteSaleBook(int userId, int bookId);
 
-    boolean addSaleBook(int userId, int bookId);
+    boolean addSaleBook(int userId, int bookId, String bookCondition, double price);
 
 }

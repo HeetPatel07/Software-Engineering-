@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Models.User;
 import com.example.myapplication.R;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.application.Services;
@@ -21,15 +22,14 @@ import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
 
 public class BookInfoActivity extends AppCompatActivity {
-
+    User currUser;
     BookManagement bookList = new BookManagement(Services.getBookDatabase());
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_info_activity);
         initFooterButtons();
-
+        currUser = AuthenticatedUser.getInstance().getUser();
         Book book = getBookFromIntent();
         if (book != null) {
             displayBookInfo(book);
@@ -42,7 +42,12 @@ public class BookInfoActivity extends AppCompatActivity {
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showUnderConstructionAlert();
+                if(currUser == null){
+                    Toast.makeText(BookInfoActivity.this, "Login Firstly", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
+                }else{
+                    showUnderConstructionAlert();
+                }
             }
         });
 
@@ -93,21 +98,30 @@ public class BookInfoActivity extends AppCompatActivity {
     // Function to create and show the "Under Construction" alert
     private void showUnderConstructionAlert() {
         new AlertDialog.Builder(this)
-                .setTitle("Under construction")
-                .setMessage("More to come in next iterations")
+                .setTitle("Do you want to buy this book?")
+                .setMessage("This book will send to: " + currUser.getAddress())
 
-                // Set a single "OK" button to close the alert
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                // Set a "Yes" button and its listener
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // Dismiss the dialog
-                        dialog.dismiss();
+                        // Code to execute when "Yes" is pressed
+                        dialog.dismiss(); // Dismiss the dialog
                     }
                 })
 
-                // A null listener allows the button to dismiss the dialog and take no further action.
+                // Set a "No" button and its listener
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Code to execute when "No" is pressed
+                        dialog.dismiss(); // Dismiss the dialog
+                    }
+                })
+
+                // Set the icon
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
 
 
     @SuppressLint("ObsoleteSdkInt")

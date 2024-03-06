@@ -1,16 +1,16 @@
 package com.example.myapplication.business;
 
 import com.example.myapplication.Models.Book;
-import com.example.myapplication.persistence.Database;
+import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 
 import java.util.List;
 import java.util.Optional;
 
 public class BookManagement {
 
-    private final Database dummyDatabase;
+    private final BookDatabase dummyDatabase;
 
-    public BookManagement(Database dummyDatabase) {
+    public BookManagement(BookDatabase dummyDatabase) {
         this.dummyDatabase = dummyDatabase;
     }
 

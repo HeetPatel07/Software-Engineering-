@@ -14,6 +14,7 @@ public class Book {
 
     private String authorName;
 
+    public int stockpile;
 
     public Book(int id,String bookName, double price,
                 String bookDescription, double edition,
@@ -23,6 +24,7 @@ public class Book {
         this.price = price;
         this.authorName = authorName;
         this.properties = new BookProperties(bookDescription,edition,condition);
+        stockpile = 0;
     }
     public Book addUsedBook(double price,String condition){
 

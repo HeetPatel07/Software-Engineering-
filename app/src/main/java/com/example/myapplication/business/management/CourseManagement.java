@@ -39,7 +39,7 @@ public class CourseManagement {
     }
 
     public Boolean addCourse(String name) {
-        if (!name.equals("")) {
+        if (name != null && name.length() != 0) {
             coursesMap.put(name, new Course(name));
             return true;
         }

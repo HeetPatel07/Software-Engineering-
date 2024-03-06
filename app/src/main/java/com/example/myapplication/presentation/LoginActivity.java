@@ -1,16 +1,23 @@
 package com.example.myapplication.presentation;
 import android.content.Intent;
-import com.example.myapplication.business.AuthenticationManager;
+
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.AuthenticationManager;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
-import com.example.myapplication.R;
-import com.example.myapplication.persistence.DummyDatabase;
 
-public class LoginActivity extends GlobalActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.R;
+import com.example.myapplication.persistence.stub.DummyDatabase;
+
+public class LoginActivity extends AppCompatActivity {
     private EditText userNameEntered;
     private EditText passwordEntered;
     private AuthenticationManager authenticationManager;
@@ -19,12 +26,44 @@ public class LoginActivity extends GlobalActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-        setupUI();
-
+        initFooterButtons();
         initializeViews();
         initializeAuthenticationManager();
         setupListeners();
     }
+
+    private void initFooterButtons(){
+        ImageView profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+            }
+        });
+
+        ImageView homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,HomePageActivity.class));
+            }
+        });
+
+        ImageView libraryButton = findViewById(R.id.libraryButton);
+        libraryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AuthenticatedUser.getInstance().getUser() != null) {
+                    startActivity(new Intent(LoginActivity.this, LibraryActivity.class));
+                } else {
+                    Toast.makeText(LoginActivity.this, "Login Firstly", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+                }
+            }
+        });
+
+    }
+
 
     private void initializeViews() {
         userNameEntered = findViewById(R.id.userNameTextInput);
@@ -32,7 +71,7 @@ public class LoginActivity extends GlobalActivity {
     }
 
     private void initializeAuthenticationManager() {
-        authenticationManager = new AuthenticationManager(DummyDatabase.getInstance());
+        authenticationManager = new AuthenticationManager(Services.getUserDatabase());
     }
 
     private void setupListeners() {

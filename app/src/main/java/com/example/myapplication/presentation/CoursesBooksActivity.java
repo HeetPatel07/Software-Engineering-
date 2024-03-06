@@ -14,19 +14,22 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Course;
 import com.example.myapplication.R;
-import com.example.myapplication.business.BookManagement;
-import com.example.myapplication.business.CourseManagement;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.BookManagement;
+import com.example.myapplication.business.management.CourseManagement;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 
-public class CoursesBooksActivity extends GlobalActivity {
+public class CoursesBooksActivity extends AppCompatActivity {
 
     private HashMap<String, Button> courseButtonsMap = new HashMap<>();
 
@@ -34,6 +37,7 @@ public class CoursesBooksActivity extends GlobalActivity {
     private static CourseManagement courseManagement;
     private Map<String, Course> courses = new HashMap<>();
     private BookManagement bookManagement;
+    private AuthenticatedUser authUser;
 
 
     protected void onResume() {
@@ -46,10 +50,10 @@ public class CoursesBooksActivity extends GlobalActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_page_activity);
-        setupUI();
-
+        initFooterButtons();
         courseManagement = CourseManagement.getInstance();
-        bookManagement = new BookManagement(DummyDatabase.getInstance());
+        bookManagement = new BookManagement(Services.getBookDatabase());
+        authUser = AuthenticatedUser.getInstance();
 
         //button to add the course
         Button addcourse = findViewById(R.id.addCourseButton);
@@ -74,6 +78,34 @@ public class CoursesBooksActivity extends GlobalActivity {
 
         displayCoursesAndRequiredBooks();
     }
+
+    private void initFooterButtons(){
+        ImageView profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CoursesBooksActivity.this,LoggedinActivity.class));
+            }
+        });
+
+        ImageView homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CoursesBooksActivity.this,HomePageActivity.class));
+            }
+        });
+
+        ImageView libraryButton = findViewById(R.id.libraryButton);
+        libraryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CoursesBooksActivity.this,LibraryActivity.class));
+            }
+        });
+
+    }
+
 
     private void displayCoursesAndRequiredBooks(){
         LinearLayout courseBookContainer = findViewById(R.id.courseBookContainer);

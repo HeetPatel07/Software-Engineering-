@@ -1,12 +1,14 @@
 package com.example.myapplication.Models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Book {
 
     private final int id;
     private String bookName;
 
     private double price;
-    public int stockpile;
 
     private final BookProperties properties;
 
@@ -15,12 +17,17 @@ public class Book {
 
     public Book(int id,String bookName, double price,
                 String bookDescription, double edition,
-                String authorName) {
+                String authorName,String condition) {
         this.id = id;
         this.bookName = bookName;
         this.price = price;
         this.authorName = authorName;
-        this.properties = new BookProperties(bookDescription,edition);
+        this.properties = new BookProperties(bookDescription,edition,condition);
+    }
+    public Book addUsedBook(double price,String condition){
+
+        Book cpy= new Book(this.getId(),this.bookName,price,this.getDescription(),this.properties.getEdition(),this.getAuthorName(),condition);
+        return cpy;
     }
 
     public int getId() {
@@ -43,8 +50,12 @@ public class Book {
         return authorName;
     }
 
-    public void addRating(int rating, String comment) {
-        this.properties.addRating(new Rating(rating, comment));
+    public void addRating(int rating, String comment,int userID) {
+        this.properties.addRating(new Rating(rating, comment,userID));
+    }
+
+    public void addRating(Rating rating){
+        this.properties.addRating(rating);
     }
 
     public void setBookName(String bookName) {
@@ -60,4 +71,13 @@ public class Book {
     }
 
 
+
+
+    public double getBookEdition() {
+        return this.properties.getEdition();
+    }
+
+    public ArrayList<Rating> getRatings(){
+        return properties.getRatings();
+    }
 }

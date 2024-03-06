@@ -6,13 +6,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.R;
-import com.example.myapplication.business.AccountManagement;
-import com.example.myapplication.business.AuthenticatedUser;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.management.AccountManagement;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
 
 
-public class AccountActivity extends GlobalActivity {
+public class AccountActivity extends AppCompatActivity {
 
     private EditText enterUsernameField, enterAddressField, enterPasswordField;
     private RadioButton studentTypeButton, professorTypeButton;
@@ -36,7 +39,7 @@ public class AccountActivity extends GlobalActivity {
     }
 
     private void initializeAccountManagement() {
-        accountManagement = new AccountManagement(DummyDatabase.getInstance());
+        accountManagement = new AccountManagement(Services.getUserDatabase());
     }
 
     private void setupListeners() {
@@ -68,6 +71,7 @@ public class AccountActivity extends GlobalActivity {
         startActivity(intent);
     }
 
+
     private void createAccount() {
         String username = enterUsernameField.getText().toString();
         String address = enterAddressField.getText().toString();
@@ -79,16 +83,22 @@ public class AccountActivity extends GlobalActivity {
             type = professorTypeButton.getText().toString();
         }
 
-        if (username.isEmpty() || address.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
-        } else {
+        try {
+            if(address.isEmpty()) throw new IllegalArgumentException("Please enter the address correctly.. No empty address allowed.");
+            if(type.isEmpty()) throw new IllegalArgumentException("Please select your role.");
+
             boolean userCreated = accountManagement.createNewUser(username, password, type, address);
             if (userCreated) {
                 Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show();
+
                 navigateToLoginActivity(); // Optionally navigate to login activity upon successful account creation
             } else {
-                Toast.makeText(this, "Failed to create account, something went wrong", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Failed to create account", Toast.LENGTH_SHORT).show();
             }
+        } catch (IllegalArgumentException e) {
+            // Catch IllegalArgumentException to show specific error messages
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+
     }
 }

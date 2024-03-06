@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
-import com.example.myapplication.business.BookManagement;
-import com.example.myapplication.business.CourseManagement;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.management.BookManagement;
+import com.example.myapplication.business.management.CourseManagement;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class AddBookPopupActivity extends AppCompatActivity {
         setContentView(R.layout.add_book_popup_activity);
 
         courseName = getIntent().getStringExtra("courseName");
-        bookManagement = new BookManagement(DummyDatabase.getInstance());
+        bookManagement = new BookManagement(Services.getBookDatabase());
         courseManagement = CourseManagement.getInstance();
         // button to back to course management page
         Button backButton = findViewById(R.id.backToCourse);

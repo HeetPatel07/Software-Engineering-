@@ -11,30 +11,73 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
-import com.example.myapplication.business.BookManagement;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.BookManagement;
+import com.example.myapplication.persistence.utils.DBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePageActivity extends GlobalActivity {
+public class HomePageActivity extends AppCompatActivity {
 
     private LinearLayout booksContainer;
     private EditText searchContentView;
 
-    private BookManagement books = new BookManagement(DummyDatabase.getInstance());
-
-
+    private BookManagement books ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page_activity);
-        setupUI();
+
+        DBHelper.resetDB(this);
+        books = new BookManagement(Services.getBookDatabase());
+
+        initFooterButtons();
         initializeViews();
         setupBookList();
         setupSearchFunctionality();
+    }
+
+    private void initFooterButtons(){
+        ImageView profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AuthenticatedUser.getInstance().getUser() != null) {
+                    startActivity(new Intent(HomePageActivity.this,LoggedinActivity.class));
+                } else {
+                    startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
+                }
+            }
+        });
+
+        ImageView homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomePageActivity.this,HomePageActivity.class));
+            }
+        });
+
+        ImageView libraryButton = findViewById(R.id.libraryButton);
+        libraryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AuthenticatedUser.getInstance().getUser() != null) {
+                    startActivity(new Intent(HomePageActivity.this, LibraryActivity.class));
+                } else {
+                    Toast.makeText(HomePageActivity.this, "Login Firstly", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
+                }
+            }
+        });
+
     }
 
     private void initializeViews() {
@@ -54,7 +97,6 @@ public class HomePageActivity extends GlobalActivity {
     private void performSearch() {
         //getting the input in the search bar
         String searchQuery = searchContentView.getText().toString().toLowerCase();
-
 
         if (!searchQuery.isEmpty()) {
             List<Book> filteredBooks = books.findBooksWithBookName(searchQuery);

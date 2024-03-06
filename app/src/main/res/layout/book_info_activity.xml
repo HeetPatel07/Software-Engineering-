@@ -191,21 +191,18 @@
                     android:numStars="5"
                     android:progressTint="@color/button_blue"
                     android:rating="1"
+                    android:isIndicator="true"
                     />
 
             </LinearLayout>
 
-            <!-- book comment -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="160dp"
-                android:orientation="vertical"
-                android:layout_margin="100dp"
-                >
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/commentsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
 
-
+                    android:padding="100dp"/>
         </LinearLayout>
     </ScrollView>
 

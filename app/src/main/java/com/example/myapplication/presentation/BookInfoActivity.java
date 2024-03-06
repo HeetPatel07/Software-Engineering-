@@ -3,28 +3,44 @@ package com.example.myapplication.presentation;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.Models.User;
 import com.example.myapplication.R;
 import com.example.myapplication.Models.Book;
-import com.example.myapplication.business.BookManagement;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.BookManagement;
+import com.example.myapplication.Models.Rating;
 
-public class BookInfoActivity extends GlobalActivity {
+import java.util.ArrayList;
 
-    BookManagement bookList = new BookManagement(DummyDatabase.getInstance());
+public class BookInfoActivity extends AppCompatActivity {
+    User currUser;
+    BookManagement bookList = new BookManagement(Services.getBookDatabase());
+
+    private LinearLayout commentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_info_activity);
-        setupUI();
+        initFooterButtons();
+        initializeViews();
+        currUser = AuthenticatedUser.getInstance().getUser();
         Book book = getBookFromIntent();
-        //BookSerialization book = getBookFromIntent();
+
         if (book != null) {
             displayBookInfo(book);
         } else {
@@ -36,7 +52,12 @@ public class BookInfoActivity extends GlobalActivity {
         buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showUnderConstructionAlert();
+                if(currUser == null){
+                    Toast.makeText(BookInfoActivity.this, "Login Firstly", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
+                }else{
+                    showUnderConstructionAlert();
+                }
             }
         });
 
@@ -49,24 +70,68 @@ public class BookInfoActivity extends GlobalActivity {
 
     }
 
+    private void initFooterButtons(){
+        ImageView profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AuthenticatedUser.getInstance().getUser() != null) {
+                    startActivity(new Intent(BookInfoActivity.this,LoggedinActivity.class));
+                } else {
+                    startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
+                }
+            }
+        });
+
+        ImageView homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BookInfoActivity.this,HomePageActivity.class));
+            }
+        });
+
+        ImageView libraryButton = findViewById(R.id.libraryButton);
+        libraryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AuthenticatedUser.getInstance().getUser() != null) {
+                    startActivity(new Intent(BookInfoActivity.this,LibraryActivity.class));
+                } else {
+                    startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
+                }
+            }
+        });
+
+    }
+
     // Function to create and show the "Under Construction" alert
     private void showUnderConstructionAlert() {
         new AlertDialog.Builder(this)
-                .setTitle("Under construction")
-                .setMessage("More to come in next iterations")
+                .setTitle("Do you want to buy this book?")
+                .setMessage("This book will send to: " + currUser.getAddress())
 
-                // Set a single "OK" button to close the alert
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                // Set a "Yes" button and its listener
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // Dismiss the dialog
-                        dialog.dismiss();
+                        // Code to execute when "Yes" is pressed
+                        dialog.dismiss(); // Dismiss the dialog
                     }
                 })
 
-                // A null listener allows the button to dismiss the dialog and take no further action.
+                // Set a "No" button and its listener
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Code to execute when "No" is pressed
+                        dialog.dismiss(); // Dismiss the dialog
+                    }
+                })
+
+                // Set the icon
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
+
 
 
     @SuppressLint("ObsoleteSdkInt")
@@ -89,10 +154,11 @@ public class BookInfoActivity extends GlobalActivity {
         setTextWithFormat(R.id.bookName, "Name: %s", book.getBookName());
         setTextWithFormat(R.id.bookAuthor, "Author: %s", book.getAuthorName());
         setTextWithFormat(R.id.bookPrice, "Price: $%.2f", book.getPrice());
-
-
+        setTextWithFormat(R.id.bookEdition,"%.2f",book.getBookEdition());
         setRating(R.id.bookRating, book.getOverallBookRating());
         setText(R.id.bookDescription, book.getDescription());
+
+        configureComment(book);
     }
 
     private void setText(int textViewId, String text) {
@@ -109,4 +175,36 @@ public class BookInfoActivity extends GlobalActivity {
         RatingBar ratingBar = findViewById(ratingBarId);
         ratingBar.setRating(rating);
     }
+
+    private void initializeViews() {
+        this.commentContainer = findViewById(R.id.commentsContainer);
+    }
+
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    private void configureComment(Book book) {
+        commentContainer.removeAllViews();
+        ArrayList<Rating> list= book.getRatings();
+
+        for(Rating rating: list){
+            View commentView= createCommentView();
+            configureCommentView(commentView,rating);
+            commentContainer.addView(commentView);
+        }
+    }
+
+    private View createCommentView() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        return inflater.inflate(R.layout.comment_box_activity, commentContainer, false);
+    }
+
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    private void configureCommentView(View commentView, Rating rating) {
+        TextView outRating= commentView.findViewById(R.id.userRating);
+        TextView outComment= commentView.findViewById(R.id.userComment);
+            outRating.setText("Rating: "+rating.getRating()+" / 5");
+            outComment.setText("Comment: "+rating.getComment());
+    }
+
+
+
 }

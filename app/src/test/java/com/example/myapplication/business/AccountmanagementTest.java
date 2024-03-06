@@ -5,15 +5,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.example.myapplication.business.AccountManagement;
-import com.example.myapplication.business.AuthenticatedUser;
-import com.example.myapplication.persistence.DummyDatabase;
-import com.example.myapplication.business.AuthenticationManager;
+import com.example.myapplication.business.management.AccountManagement;
+import com.example.myapplication.business.management.AuthenticationManager;
+import com.example.myapplication.persistence.stub.DummyDatabase;
+
 
 public class AccountmanagementTest
 {
     static AccountManagement accountManagement;
-    static AuthenticationManager classtoauthenticate;
+    static AuthenticationManager authenticationManager;
     static DummyDatabase dummyDatabase;
 
     static boolean flag=false;     //set up flag
@@ -24,7 +24,7 @@ public class AccountmanagementTest
         if(!flag) {
             dummyDatabase = (DummyDatabase) DummyDatabase.getInstance();
             accountManagement = new AccountManagement(dummyDatabase);
-            classtoauthenticate= new AuthenticationManager(dummyDatabase);
+            authenticationManager = new AuthenticationManager(dummyDatabase);
             flag=true;
         }else{
             System.out.println("The setup for Account Management is already done ");
@@ -38,13 +38,13 @@ public class AccountmanagementTest
         String userName1 = "yyy";   //invalid input for username
         String password1 = "nil3";  //invalid input for password
         String address1 = "testAddress";
-        boolean result = accountManagement.createNewUser(userName1,password1,address1);
+        boolean result = accountManagement.createNewUser(userName1,password1,"Professor",address1);
         assertFalse(result);
 
         String userName = "Sample";
         String password = "12345";
         String address = "testAddress";
-        result = accountManagement.createNewUser(userName,password,address);
+        result = accountManagement.createNewUser(userName,password,"Student",address);
         assertTrue(result);
 
     }
@@ -56,8 +56,8 @@ public class AccountmanagementTest
         String userName = "TastyFood";
         String password = "original";
         String address = "testAddress";
-        accountManagement.createNewUser(userName,password,address); //this adds the user to the database
-        classtoauthenticate.authenticateUser(userName,password);    //this authenticates and initialises the singleton user
+        accountManagement.createNewUser(userName,password,"Student",address); //this adds the user to the database
+        authenticationManager.authenticateUser(userName,password);    //this authenticates and initialises the singleton user
 
         password= "newPassword";
         boolean result = accountManagement.setNewPassword(password);

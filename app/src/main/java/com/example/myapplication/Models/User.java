@@ -3,15 +3,15 @@ package com.example.myapplication.Models;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
-
     private final int userID;
     private String name;
     private String password;
     private String type;
     private String address;
-    private ArrayList<Book> ownBook;
+    private List<Book> BooksForSale;
 
     public User(String userName, int nID, String password, String nType, String nAddress){
         this.name = userName;
@@ -19,7 +19,7 @@ public class User {
         this.password = password;
         this.type = nType;
         this.address = nAddress;
-        ownBook = new ArrayList<>();
+        BooksForSale= new ArrayList<Book>();
     }
     public boolean checkPassword(String input){
         return password.equals(input);
@@ -66,9 +66,7 @@ public class User {
     public boolean equalTo(User currUser) {
         return this.equals(currUser);
     }
-    public void buyBook(Book book){
-        ownBook.add(book);
-    }
+
     @NonNull
     @Override
     public String toString() {
@@ -80,4 +78,18 @@ public class User {
                 ", address='" + address + '\'' +
                 '}';
     }
+
+    public boolean addForSale(Book usedBook){
+        boolean result=true;
+
+        BooksForSale.add(usedBook);
+
+        return result;
+    }
+
+    public List<Book> getBooksForSale(){
+        return BooksForSale;
+    }
+
+
 }

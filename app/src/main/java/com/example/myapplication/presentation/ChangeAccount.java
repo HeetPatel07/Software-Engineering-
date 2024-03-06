@@ -1,23 +1,26 @@
 package com.example.myapplication.presentation;
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.myapplication.R;
-import com.example.myapplication.business.AuthenticatedUser;
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.management.AccountManagement;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.Models.User;
 
 
 
-public class ChangeAccount extends GlobalActivity{
+public class ChangeAccount extends AppCompatActivity {
 
-
+    private AccountManagement accountManagement;
     protected void onCreate(Bundle savedInstanceState) {
 
         //make sure the use is created and then only we come to this code
@@ -28,6 +31,8 @@ public class ChangeAccount extends GlobalActivity{
         RadioGroup group = findViewById(R.id.radio_userType);
         RadioButton radioStu = findViewById(R.id.radio_student);
         RadioButton radioProf = findViewById(R.id.radio_professor);
+
+        accountManagement = new AccountManagement(Services.getUserDatabase());
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -84,52 +89,47 @@ public class ChangeAccount extends GlobalActivity{
          password.setText(enteredPassword);
          address.setText(enteredAddress);
 
-         //set user type
-        String userType;
-
-        RadioButton radioStudent = findViewById(R.id.radio_student);
-        RadioButton radioProfessor = findViewById(R.id.radio_professor);
-
-
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EditText newUsername = findViewById(R.id.enter_username_field);
                 EditText newAddress = findViewById(R.id.enter_address_field);
                 EditText newPassword = findViewById(R.id.enter_password_field);
-                RadioButton newStudentType = findViewById(R.id.radio_student);
-                RadioButton newProfessorType = findViewById(R.id.radio_professor);
 
-                String newName, newAdd, newPass, newType = "";
+                String newName, newAdd, newPass;
 
                 newName = newUsername.getText().toString();
                 newAdd = newAddress.getText().toString();
                 newPass = newPassword.getText().toString();
-                if(newStudentType.isChecked()){
-                    newType = newStudentType.getText().toString();
-                }else if(newProfessorType.isChecked()){
-                    newType = newProfessorType.getText().toString();
-                }
 
-                if(newName.length()<=3 || newPass.length()<=4){
+                try {
+                    if(newAdd.isEmpty()) throw new IllegalArgumentException("Please enter the address correctly. No empty address allowed.");
+                    if(type.isEmpty()) throw new IllegalArgumentException("Please select your role.");
 
-                    Toast.makeText(ChangeAccount.this, "Please make sure you entered the username and the password correctly", Toast.LENGTH_SHORT).show();
+                    boolean newUsernameSetup = accountManagement.setNewUserName(newName);
+                    boolean newUserAdd = accountManagement.setNewUserAddress(newAdd);
+                    boolean newUserPassword = accountManagement.setNewPassword(newPass);
 
-                }else {
-
-                    userObj.setName(newName);
-                    userObj.setAddress(newAdd);
-                    userObj.setPassword(enteredPassword, newPass);
-                    userObj.setType(newType);
-
-
-                    Intent signUp = new Intent(ChangeAccount.this, LoggedinActivity.class);
-                    startActivity(signUp);
-                    Toast.makeText(ChangeAccount.this, "Changes saved", Toast.LENGTH_SHORT).show();
+                    if (newUsernameSetup && newUserAdd && newUserPassword) {
+                        Toast.makeText(ChangeAccount.this, "user info set up successfully", Toast.LENGTH_SHORT).show();
+                        Intent signUp = new Intent(ChangeAccount.this, LoggedinActivity.class);
+                        startActivity(signUp);
+                    } else {
+                        if(!newUsernameSetup){
+                            Toast.makeText(ChangeAccount.this, "Username updated failed", Toast.LENGTH_SHORT).show();
+                        }
+                        if(!newUserAdd){
+                            Toast.makeText(ChangeAccount.this, "Address updated failed", Toast.LENGTH_SHORT).show();
+                        }
+                        if(!newUserPassword){
+                            Toast.makeText(ChangeAccount.this, "Password updated failed", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } catch (IllegalArgumentException e) {
+                    // Catch IllegalArgumentException to show specific error messages
+                    Toast.makeText(ChangeAccount.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
-
-
         });
     }
 }

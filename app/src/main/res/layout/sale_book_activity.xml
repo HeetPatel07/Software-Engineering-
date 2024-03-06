@@ -10,7 +10,10 @@
         android:id="@+id/salebookLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@drawable/border"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
 
         <ImageView
             android:id="@+id/salebookCover"
@@ -23,36 +26,36 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:orientation="vertical"
             android:layout_margin="25dp"
-            android:layout_weight="2">
+            android:layout_weight="2"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/salebookName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Book Name:"/>
+                android:text="Book Name:" />
 
             <TextView
                 android:id="@+id/salebookAuthor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Book Author:"/>
+                android:text="Book Author:" />
 
             <TextView
                 android:id="@+id/salebookTags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Book Tags"/>
+                android:text="Book Tags" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/salebookPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Price: $100"
             android:layout_marginVertical="50dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:text="Price: $100" />
 
     </LinearLayout>
 

@@ -7,12 +7,11 @@
     tools:ignore="MissingDefaultResource">
 
 
-
     <ScrollView
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="100dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,33 +20,33 @@
         app:layout_constraintVertical_bias="0.416">
 
         <LinearLayout
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="1000dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="1000dp"
             android:orientation="vertical">
 
             <!-- book cover image -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <!-- book price and buy/save button layout -->
-            <ImageView
-                android:id="@+id/bookInfoCover"
-                android:layout_width="200dp"
-                android:layout_height="300dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                app:srcCompat="@drawable/bookcover"
-                tools:layout_editor_absoluteX="266dp" />
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <!-- book price and buy/save button layout -->
+                <ImageView
+                    android:id="@+id/bookInfoCover"
+                    android:layout_width="200dp"
+                    android:layout_height="300dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    app:srcCompat="@drawable/bookcover"
+                    tools:layout_editor_absoluteX="266dp" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,8 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="160dp"
-                android:orientation="horizontal"
-                android:layout_marginVertical="15dp">
+                android:layout_marginVertical="15dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -108,8 +107,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="160dp"
-                android:orientation="vertical"
-                android:layout_marginVertical="15dp">
+                android:layout_marginVertical="15dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -130,8 +129,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="160dp"
-                android:orientation="horizontal"
-                android:layout_marginVertical="15dp">
+                android:layout_marginVertical="15dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -152,8 +151,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="160dp"
-                android:orientation="horizontal"
-                android:layout_marginVertical="15dp">
+                android:layout_marginVertical="15dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -175,8 +174,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="160dp"
-                android:orientation="horizontal"
-                android:layout_marginVertical="15dp">
+                android:layout_marginVertical="15dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -188,21 +187,48 @@
                     android:id="@+id/bookRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:isIndicator="true"
                     android:numStars="5"
                     android:progressTint="@color/button_blue"
-                    android:rating="1"
-                    android:isIndicator="true"
-                    />
+                    android:rating="1" />
 
             </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/commentsContainer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
+            <!-- Comments information -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="160dp"
+                android:layout_marginVertical="15dp"
+                android:orientation="horizontal">
 
-                    android:padding="100dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comments: "
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <!-- Comments information -->
+            <LinearLayout
+                android:id="@+id/commentsContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="160dp"
+                android:layout_marginVertical="15dp"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:padding="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="160dp"
+            android:layout_marginVertical="15dp"
+            android:orientation="vertical"/>
+
         </LinearLayout>
     </ScrollView>
 

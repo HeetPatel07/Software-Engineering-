@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 public class User {
+
     private final int userID;
     private String name;
     private String password;

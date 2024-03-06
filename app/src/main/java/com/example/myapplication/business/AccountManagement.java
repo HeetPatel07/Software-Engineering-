@@ -10,10 +10,10 @@ public class AccountManagement {
         this.dummyDatabase =  dummyDatabase;
     }
 
-    public boolean createNewUser(String userName, String password, String address){
+    public boolean createNewUser(String userName, String password, String type, String address){
 
         if(userName.length() > 3 && password.length() >4)
-            return dummyDatabase.addUser(userName, password, "User", address);
+            return dummyDatabase.addUser(userName, password, type, address);
         return false;
     }
 

@@ -8,6 +8,6 @@ import java.util.List;
 public interface FavoriteBooksDatabase extends Database {
 
     List<Book> getFavoriteBooks(int userId);
-    void addFavoriteBook(int userId, int bookId);
-    void deleteFavoriteBook(int userId, int bookId);
+    boolean addFavoriteBook(int userId, int bookId);
+    boolean deleteFavoriteBook(int userId, int bookId);
 }

@@ -109,7 +109,7 @@ public class BookDatabaseImpl implements BookDatabase {
         try {
             Connection connection = BookDatabase.super.getConnection(dbpath);
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,id);
+            statement.setInt(1, id);
 
             ResultSet rs = statement.executeQuery();
 
@@ -119,7 +119,7 @@ public class BookDatabaseImpl implements BookDatabase {
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
                 String description = rs.getString("description");
-                String condition= rs.getString("cond");
+                String condition = rs.getString("cond");
                 return Optional.of(new Book(id, bookname, price, description, edition, authorName, condition));
 
             }
@@ -161,11 +161,16 @@ public class BookDatabaseImpl implements BookDatabase {
     @Override
     public void addBook(int id, String bookName, double price, String description, double edition, String authorName, String bookCondition) {
         // Building the SQL command by directly including the variables into the command string.
-        String sql = String.format("INSERT INTO PUBLIC.BOOKS (id, bookname, author_name, price, edition, description) VALUES (%d, '%s', '%s', %f, %f, '%s')",
-                id, bookName.replace("'", "''"), authorName.replace("'", "''"), price, edition, description.replace("'", "''"));
+        String sql = "INSERT INTO PUBLIC.BOOKS (bookname, author_name, price, edition, description) VALUES (?, ?, ?, ?, ?)";
+        try {
+            Connection connection = getConnection(dbpath);
 
-        try (Connection connection = getConnection(dbpath);
-             Statement statement = connection.createStatement()) {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1,bookName);
+            statement.setString(2,authorName);
+            statement.setDouble(3,price);
+            statement.setDouble(4,edition);
+            statement.setString(5,description);
 
             connection.setAutoCommit(false); // Start transaction
             try {
@@ -177,6 +182,7 @@ public class BookDatabaseImpl implements BookDatabase {
             } finally {
                 connection.setAutoCommit(true); // Restore auto-commit mode
             }
+
 
         } catch (SQLException e) {
             e.printStackTrace();

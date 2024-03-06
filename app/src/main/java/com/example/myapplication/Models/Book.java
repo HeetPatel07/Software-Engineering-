@@ -48,7 +48,7 @@ public class Book {
     }
 
     public void addRating(int rating, String comment) {
-        this.properties.addRating(new Rating(rating, comment));
+        this.properties.addRating(new Rating(rating, comment,1));
     }
 
     public void setBookName(String bookName) {

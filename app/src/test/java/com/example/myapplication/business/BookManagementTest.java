@@ -19,7 +19,7 @@ public class BookManagementTest {
             bookManagement_test = new BookManagement(data);
 
             data.addBook(1, "TestBook", 34.49, "good book",
-                    1.01, "Jhonny");
+                    1.01, "Jhonny","New");
 
             data.addBook(2, "anything", 87.49, "bad book",
                     1.211, "Some person");

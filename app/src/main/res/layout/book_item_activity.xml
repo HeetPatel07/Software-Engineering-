@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/grey">
+        android:background="@drawable/border"
+        android:layout_margin="5dp"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/bookCover"
@@ -43,11 +45,11 @@
                 android:text="Book Author:"/>
 
             <TextView
-                android:id="@+id/bookTags"
+                android:id="@+id/bookCondition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
-                android:text="Book Tags"/>
+                android:text="Book Condition"/>
         </LinearLayout>
 
         <TextView

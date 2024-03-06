@@ -116,13 +116,13 @@ public class CoursesBooksActivity extends AppCompatActivity {
 
                 TextView bookName = bookView.findViewById(R.id.bookName);
                 TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
-                TextView bookTags = bookView.findViewById(R.id.bookTags);
+
                 TextView bookPrice = bookView.findViewById(R.id.bookPrice);
                 ImageView button = bookView.findViewById(R.id.bookDelete);
 
                 bookName.setText(String.format("Book Name: %s", book.getBookName()));
                 bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
-                bookTags.setVisibility(View.GONE);
+
                 bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
 
                 Button bookButton = bookView.findViewById(R.id.bookAction);

@@ -70,9 +70,9 @@ public class Book {
         this.price = price;
     }
 
-
-
-
+    public String getCondition(){
+        return this.properties.getCondition();
+    }
     public double getBookEdition() {
         return this.properties.getEdition();
     }

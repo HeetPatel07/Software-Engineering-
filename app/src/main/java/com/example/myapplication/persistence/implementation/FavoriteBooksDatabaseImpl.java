@@ -60,7 +60,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
     public synchronized boolean addFavoriteBook(int userId, int bookId) {
 
         if(checkIfFavoriteBookExists(userId, bookId)){
-            return false;
+            throw new IllegalArgumentException("Favourite book already in the table");
         }
         String sql = "INSERT INTO PUBLIC.FAVOURITEBOOK (book_id, user_id) VALUES (?, ?);";
 
@@ -92,7 +92,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
     @Override
     public synchronized boolean deleteFavoriteBook(int userId, int bookId) {
         if(checkIfFavoriteBookExists(userId, bookId)){
-            return false;
+            throw new IllegalArgumentException("Favourite book already in the table");
         }
         String sql = "DELETE FROM PUBLIC.FAVOURITEBOOK (book_id, user_id) VALUES (?, ?);";
 

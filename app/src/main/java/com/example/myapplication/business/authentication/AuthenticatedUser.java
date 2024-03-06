@@ -2,7 +2,7 @@ package com.example.myapplication.business.authentication;
 
 import com.example.myapplication.Models.User;
 
-public class AuthenticatedUser {
+public class AuthenticatedUser{
 
     private static final AuthenticatedUser authenticatedUser = new AuthenticatedUser();
 

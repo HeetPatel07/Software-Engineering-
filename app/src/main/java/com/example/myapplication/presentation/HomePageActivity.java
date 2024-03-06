@@ -20,8 +20,10 @@ import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
+import com.example.myapplication.business.management.FavouriteBookManagement;
 import com.example.myapplication.business.management.Sortable;
 import com.example.myapplication.business.utlis.FooterUtility;
+import com.example.myapplication.persistence.implementation.FavoriteBooksDatabaseImpl;
 import com.example.myapplication.persistence.utils.DBHelper;
 
 
@@ -43,7 +45,6 @@ public class HomePageActivity extends AppCompatActivity {
 
         DBHelper.resetDB(this);
         books = new BookManagement(Services.getBookDatabase());
-
 
         FooterUtility.initFooterButtons(this);
         initializeViews();
@@ -117,13 +118,13 @@ public class HomePageActivity extends AppCompatActivity {
     private void configureBookView(View bookView, Book book) {
         TextView bookName = bookView.findViewById(R.id.bookName);
         TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
-        TextView bookTags = bookView.findViewById(R.id.bookTags);
+        TextView bookCondition = bookView.findViewById(R.id.bookCondition);
         TextView bookPrice = bookView.findViewById(R.id.bookPrice);
         ImageView button = bookView.findViewById(R.id.bookDelete);
 
         bookName.setText(String.format("Book Name: %s", book.getBookName()));
         bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
-        bookTags.setVisibility(View.GONE);
+        bookCondition.setText(String.format("Book Condition: %s",book.getCondition()));
         bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
         button.setVisibility(View.GONE);
 

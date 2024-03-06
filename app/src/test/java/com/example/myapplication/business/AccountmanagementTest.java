@@ -38,13 +38,13 @@ public class AccountmanagementTest
         String userName1 = "yyy";   //invalid input for username
         String password1 = "nil3";  //invalid input for password
         String address1 = "testAddress";
-        boolean result = accountManagement.createNewUser(userName1,password1,address1);
+        boolean result = accountManagement.createNewUser(userName1,password1,"Professor",address1);
         assertFalse(result);
 
         String userName = "Sample";
         String password = "12345";
         String address = "testAddress";
-        result = accountManagement.createNewUser(userName,password,address);
+        result = accountManagement.createNewUser(userName,password,"Student",address);
         assertTrue(result);
 
     }
@@ -56,7 +56,7 @@ public class AccountmanagementTest
         String userName = "TastyFood";
         String password = "original";
         String address = "testAddress";
-        accountManagement.createNewUser(userName,password,address); //this adds the user to the database
+        accountManagement.createNewUser(userName,password,"Student",address); //this adds the user to the database
         classtoauthenticate.authenticateUser(userName,password);    //this authenticates and initialises the singleton user
 
         password= "newPassword";

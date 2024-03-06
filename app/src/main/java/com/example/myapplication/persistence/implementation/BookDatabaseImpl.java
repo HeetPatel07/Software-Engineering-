@@ -1,5 +1,7 @@
 package com.example.myapplication.persistence.implementation;
 
+import android.app.admin.SecurityLog;
+
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 
@@ -35,14 +37,12 @@ public class BookDatabaseImpl implements BookDatabase {
     @Override
     public List<Book> getBooks() {
         List<Book> bookList = new ArrayList<>();
-       // String booksSql = "SELECT PUBLIC.BOOKS.id, bookname, author_name, price, edition, description, book_condition, PUBLIC.BOOKFORSALE.price as sale_price FROM PUBLIC.BOOKS JOIN PUBLIC.BOOKFORSALE ON PUBLIC.BOOKS.id = PUBLIC.BOOKFORSALE.book_id";
 
-        String booksSql = "SELECT * FROM PUBLIC.BOOKS ;";
+        String booksSql= "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition FROM BOOKS b RIGHT JOIN BOOKFORSALE BF on b.id=BF.book_id";
 
         try (Connection connection = getConnection(dbpath);
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(booksSql)) {
-
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String bookname = rs.getString("bookname");
@@ -50,8 +50,8 @@ public class BookDatabaseImpl implements BookDatabase {
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
                 String description = rs.getString("description");
-             //   String bookCondition = rs.getString("book_condition");
-                bookList.add(new Book(id, bookname, price,description, edition, authorName,null));
+                String bookCondition = rs.getString("book_condition");
+                bookList.add(new Book(id, bookname, price,description, edition, authorName,bookCondition));
             }
 
         } catch (SQLException e) {

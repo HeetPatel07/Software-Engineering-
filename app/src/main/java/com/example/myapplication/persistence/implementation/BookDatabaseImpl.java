@@ -46,7 +46,7 @@ public class BookDatabaseImpl implements BookDatabase {
     public synchronized List<Book> getBooks() {
         List<Book> bookList = new ArrayList<>();
 
-        String booksSql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition FROM BOOKS b RIGHT JOIN BOOKFORSALE BF on b.id=BF.book_id";
+        String booksSql = "SELECT b.id, b.bookname, b.author_name, BF.price, b.edition ,b.description, BF.book_condition FROM BOOKS b RIGHT JOIN BOOKFORSALE BF on b.id=BF.book_id";
 
         try (Connection connection = BookDatabase.super.getConnection(dbpath);
              Statement statement = connection.createStatement();

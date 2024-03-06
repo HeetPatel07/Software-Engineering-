@@ -24,6 +24,8 @@ import com.example.myapplication.business.management.BookManagement;
 public class BookInfoActivity extends AppCompatActivity {
     User currUser;
     BookManagement bookList = new BookManagement(Services.getBookDatabase());
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +33,7 @@ public class BookInfoActivity extends AppCompatActivity {
         initFooterButtons();
         currUser = AuthenticatedUser.getInstance().getUser();
         Book book = getBookFromIntent();
+
         if (book != null) {
             displayBookInfo(book);
         } else {
@@ -144,7 +147,7 @@ public class BookInfoActivity extends AppCompatActivity {
         setTextWithFormat(R.id.bookName, "Name: %s", book.getBookName());
         setTextWithFormat(R.id.bookAuthor, "Author: %s", book.getAuthorName());
         setTextWithFormat(R.id.bookPrice, "Price: $%.2f", book.getPrice());
-        setTextWithFormat(R.id.bookEdition,":%.2f",book.getBookEdition());
+        setTextWithFormat(R.id.bookEdition,"%.2f",book.getBookEdition());
 
 
         setRating(R.id.bookRating, book.getOverallBookRating());
@@ -165,4 +168,25 @@ public class BookInfoActivity extends AppCompatActivity {
         RatingBar ratingBar = findViewById(ratingBarId);
         ratingBar.setRating(rating);
     }
+
+
+
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    private void configureCommentView(View bookView, Book book) {
+        TextView bookName = bookView.findViewById(R.id.bookName);
+        TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
+        TextView bookTags = bookView.findViewById(R.id.bookTags);
+        TextView bookPrice = bookView.findViewById(R.id.bookPrice);
+        ImageView button = bookView.findViewById(R.id.bookDelete);
+        RatingBar ratingBar= bookView.findViewById(R.id.bookRating);
+
+        bookName.setText(String.format("Book Name: %s", book.getBookName()));
+        bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
+        bookTags.setVisibility(View.GONE);
+        bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
+        button.setVisibility(View.GONE);
+        ratingBar.setRating(book.getOverallBookRating());
+
+    }
+
 }

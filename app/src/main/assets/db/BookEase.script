@@ -22,7 +22,7 @@ INSERT INTO BOOKS VALUES (4, 'Pride and Prejudice', 'Jane Austen', 12.99, 4.0, '
 INSERT INTO BOOKS VALUES (5, 'Moby-Dick', 'Herman Melville', 22.00, 3.0, 'An epic sea story of Captain Ahab’s quest to catch the white whale.')
 INSERT INTO BOOKS VALUES (6, 'Moby-Dick 2', 'Herman Melville', 22.01, 2.0, 'An epic sea story of Captain Ahab’s quest to catch the white whale.')
 INSERT INTO COMMENTS VALUES (1,1, 1, 4.5, 'The book is excellent! The plot is captivating.')
-INSERT INTO COMMENTS VALUES (2,1, 2, 3, 'The book is okay, not bad.')
+INSERT INTO COMMENTS VALUES (2,1, 2, 1, 'The book is okay, not bad.')
 INSERT INTO COMMENTS VALUES (3,2, 1, 4.5, 'The book is excellent! The plot is captivating.')
 INSERT INTO COMMENTS VALUES (4,3, 2, 4, 'Enjoyed reading this book.')
 INSERT INTO COMMENTS VALUES (5,4, 1, 3.5, 'Interesting story.')

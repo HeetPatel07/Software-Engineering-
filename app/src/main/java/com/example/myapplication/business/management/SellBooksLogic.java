@@ -15,7 +15,6 @@ public class SellBooksLogic extends BookManagement {
 
     public String bookExists(int id, float price, String condition) {
 
-
         Book object = manager.findBookWithID(id);
 
         if (object != null) {

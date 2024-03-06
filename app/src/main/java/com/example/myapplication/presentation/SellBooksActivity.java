@@ -1,8 +1,10 @@
 package com.example.myapplication.presentation;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,8 +29,36 @@ public class SellBooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sell_books_page);
         User authenticatedUser = AuthenticatedUser.getInstance().getUser();
+        initFooterButtons();
         initializeViews();
         sellBooks = new SellBooksManagement(Services.getBookDatabase(), Services.getSellBooksDatabase(), authenticatedUser);
+    }
+
+    private void initFooterButtons(){
+        ImageView profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SellBooksActivity.this, LoggedinActivity.class));
+            }
+        });
+
+        ImageView homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SellBooksActivity.this,HomePageActivity.class));
+            }
+        });
+
+        ImageView libraryButton = findViewById(R.id.libraryButton);
+        libraryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SellBooksActivity.this, LibraryActivity.class));
+            }
+        });
+
     }
 
     private void initializeViews(){

@@ -191,6 +191,7 @@
                     android:numStars="5"
                     android:progressTint="@color/button_blue"
                     android:rating="1"
+                    android:isIndicator="true"
                     />
 
             </LinearLayout>

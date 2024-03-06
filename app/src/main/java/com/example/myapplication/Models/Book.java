@@ -1,5 +1,6 @@
 package com.example.myapplication.Models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Book {
@@ -73,6 +74,8 @@ public class Book {
     public double getBookEdition() {
         return this.properties.getEdition();
     }
-}
 
-//point for making sure right branch is rebased
+    public ArrayList<Rating> getRatings(){
+        return properties.getRatings();
+    }
+}

@@ -7,7 +7,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import com.example.myapplication.business.management.AuthenticationManager;
-import com.example.myapplication.persistence.DummyDatabase;
+import com.example.myapplication.persistence.stub.DummyDatabase;
+
 
 public class AuthenticationManagerTest{
     private AuthenticationManager authenticationManager;

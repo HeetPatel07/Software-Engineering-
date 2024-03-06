@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class DummyDatabase implements BookDatabase, UserDatabase {
 
-    private static final Database dummyDatabase = new DummyDatabase();
+    private static final DummyDatabase dummyDatabase = new DummyDatabase();
 
     private final List<User> users = new ArrayList<>();
     private final List<Book> books = new ArrayList<>();
@@ -64,7 +64,7 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
         for(int i =0 ; i<=10;i++){
             String comment = RandomGenerator.generateRandomComment().trim();
             int rating = RandomGenerator.generateRandomRating();
-            book.addRating(rating, comment);
+            book.addRating(rating, comment,1);
         }
 
         books.add(book);

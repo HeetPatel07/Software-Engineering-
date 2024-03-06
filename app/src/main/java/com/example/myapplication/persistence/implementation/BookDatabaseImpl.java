@@ -3,7 +3,10 @@ package com.example.myapplication.persistence.implementation;
 import android.app.admin.SecurityLog;
 
 import com.example.myapplication.Models.Book;
+
+import com.example.myapplication.Models.Rating;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
+import com.example.myapplication.persistence.subinterfaces.RatingDatabase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,10 +28,13 @@ import java.util.Optional;
  * For add, update, delete methods use transactions and write the queries
  */
 public class BookDatabaseImpl implements BookDatabase {
-    private String dbpath;
+    private final String dbpath;
+
+//    private final RatingDatabase ratingDatabase;
 
     public BookDatabaseImpl(String dbpath) {
         this.dbpath = dbpath;
+
         loadBooksFromDB();
     }
 
@@ -120,7 +126,15 @@ public class BookDatabaseImpl implements BookDatabase {
                 double edition = rs.getBigDecimal("edition").doubleValue();
                 String description = rs.getString("description");
                 String condition = rs.getString("cond");
-                return Optional.of(new Book(id, bookname, price, description, edition, authorName, condition));
+                Book value = new Book(id, bookname, price, description, edition, authorName, condition);
+
+                RatingDatabase ratingDatabase = new RatingDatabaseImpl(dbpath);
+
+                List<Rating> ratingsOfBook = ratingDatabase.getRatingsOfBook(id);
+
+                ratingsOfBook.forEach(value::addRating);
+
+                return Optional.of(value);
 
             }
         } catch (SQLException e) {

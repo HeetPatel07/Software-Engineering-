@@ -1,12 +1,13 @@
 package com.example.myapplication.persistence.subinterfaces;
 
 import com.example.myapplication.Models.Rating;
+import com.example.myapplication.persistence.Database;
 
 import java.util.List;
 
-public interface RatingDatabase {
+public interface RatingDatabase extends Database {
 
-    void addRating(int userId,int bookId, int rating,String comment);
+    boolean addRating(int userId,int bookId, int rating,String comment);
 
 //    void deleteRating(int userId, int ratingId); // Only Do this if rating id field is present
 

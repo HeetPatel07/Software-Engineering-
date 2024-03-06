@@ -94,7 +94,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
         if(checkIfFavoriteBookExists(userId, bookId)){
             return false;
         }
-        String sql = "DELETE INTO PUBLIC.FAVOURITEBOOK (book_id, user_id) VALUES (?, ?);";
+        String sql = "DELETE FROM PUBLIC.FAVOURITEBOOK (book_id, user_id) VALUES (?, ?);";
 
         try {
             Connection connection = FavoriteBooksDatabase.super.getConnection(dbpath);

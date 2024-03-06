@@ -1,5 +1,7 @@
 package com.example.myapplication.Models;
 
+import java.util.List;
+
 public class Book {
 
     private final int id;
@@ -47,8 +49,12 @@ public class Book {
         return authorName;
     }
 
-    public void addRating(int rating, String comment) {
-        this.properties.addRating(new Rating(rating, comment,1));
+    public void addRating(int rating, String comment,int userID) {
+        this.properties.addRating(new Rating(rating, comment,userID));
+    }
+
+    public void addRating(Rating rating){
+        this.properties.addRating(rating);
     }
 
     public void setBookName(String bookName) {

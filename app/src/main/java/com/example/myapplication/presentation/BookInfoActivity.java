@@ -23,6 +23,7 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.Models.Rating;
+import com.example.myapplication.business.utlis.FooterUtility;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class BookInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_info_activity);
-        initFooterButtons();
+        FooterUtility.initFooterButtons(this);
         initializeViews();
         currUser = AuthenticatedUser.getInstance().getUser();
         Book book = getBookFromIntent();
@@ -65,41 +66,6 @@ public class BookInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showUnderConstructionAlert();
-            }
-        });
-
-    }
-
-    private void initFooterButtons(){
-        ImageView profileButton = findViewById(R.id.profileButton);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (AuthenticatedUser.getInstance().getUser() != null) {
-                    startActivity(new Intent(BookInfoActivity.this,LoggedinActivity.class));
-                } else {
-                    startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
-                }
-            }
-        });
-
-        ImageView homeButton = findViewById(R.id.homeButton);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(BookInfoActivity.this,HomePageActivity.class));
-            }
-        });
-
-        ImageView libraryButton = findViewById(R.id.libraryButton);
-        libraryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (AuthenticatedUser.getInstance().getUser() != null) {
-                    startActivity(new Intent(BookInfoActivity.this,LibraryActivity.class));
-                } else {
-                    startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
-                }
             }
         });
 

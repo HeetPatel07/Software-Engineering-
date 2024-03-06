@@ -15,6 +15,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.SellBooksManagement;
+import com.example.myapplication.business.utlis.FooterUtility;
 
 
 public class SellBooksActivity extends AppCompatActivity {
@@ -29,37 +30,11 @@ public class SellBooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sell_books_page);
         User authenticatedUser = AuthenticatedUser.getInstance().getUser();
-        initFooterButtons();
+        FooterUtility.initFooterButtons(this);
         initializeViews();
         sellBooks = new SellBooksManagement(Services.getBookDatabase(), Services.getSellBooksDatabase(), authenticatedUser);
     }
 
-    private void initFooterButtons(){
-        ImageView profileButton = findViewById(R.id.profileButton);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SellBooksActivity.this, LoggedinActivity.class));
-            }
-        });
-
-        ImageView homeButton = findViewById(R.id.homeButton);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SellBooksActivity.this,HomePageActivity.class));
-            }
-        });
-
-        ImageView libraryButton = findViewById(R.id.libraryButton);
-        libraryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SellBooksActivity.this, LibraryActivity.class));
-            }
-        });
-
-    }
 
     private void initializeViews(){
         BookID= findViewById(R.id.enter_Book_ID);

@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.business.utlis.FooterUtility;
 
 public class LibraryActivity extends AppCompatActivity {
 
@@ -14,8 +15,7 @@ public class LibraryActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_library_activity);
-        initFooterButtons();
-
+        FooterUtility.initFooterButtons(this);
         ImageView sellBooks = findViewById(R.id.SellBooks);
 
         sellBooks.setOnClickListener(new View.OnClickListener() {
@@ -42,33 +42,6 @@ public class LibraryActivity extends AppCompatActivity {
             }
         });
 
-
-    }
-
-    private void initFooterButtons(){
-        ImageView profileButton = findViewById(R.id.profileButton);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LibraryActivity.this, LoggedinActivity.class));
-            }
-        });
-
-        ImageView homeButton = findViewById(R.id.homeButton);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LibraryActivity.this,HomePageActivity.class));
-            }
-        });
-
-        ImageView libraryButton = findViewById(R.id.libraryButton);
-        libraryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LibraryActivity.this, LibraryActivity.class));
-            }
-        });
 
     }
 

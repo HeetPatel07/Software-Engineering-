@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.business.utlis.FooterUtility;
 import com.example.myapplication.persistence.stub.DummyDatabase;
 
 public class LoginActivity extends AppCompatActivity {
@@ -26,44 +27,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-        initFooterButtons();
+        FooterUtility.initFooterButtons(this);
         initializeViews();
         initializeAuthenticationManager();
         setupListeners();
     }
-
-    private void initFooterButtons(){
-        ImageView profileButton = findViewById(R.id.profileButton);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, LoginActivity.class));
-            }
-        });
-
-        ImageView homeButton = findViewById(R.id.homeButton);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,HomePageActivity.class));
-            }
-        });
-
-        ImageView libraryButton = findViewById(R.id.libraryButton);
-        libraryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (AuthenticatedUser.getInstance().getUser() != null) {
-                    startActivity(new Intent(LoginActivity.this, LibraryActivity.class));
-                } else {
-                    Toast.makeText(LoginActivity.this, "Login Firstly", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(LoginActivity.this, LoginActivity.class));
-                }
-            }
-        });
-
-    }
-
 
     private void initializeViews() {
         userNameEntered = findViewById(R.id.userNameTextInput);

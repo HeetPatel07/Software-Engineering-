@@ -23,6 +23,7 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.business.management.CourseManagement;
+import com.example.myapplication.business.utlis.FooterUtility;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class CoursesBooksActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_page_activity);
-        initFooterButtons();
+        FooterUtility.initFooterButtons(this);
         courseManagement = CourseManagement.getInstance();
         bookManagement = new BookManagement(Services.getBookDatabase());
         authUser = AuthenticatedUser.getInstance();
@@ -78,34 +79,6 @@ public class CoursesBooksActivity extends AppCompatActivity {
 
         displayCoursesAndRequiredBooks();
     }
-
-    private void initFooterButtons(){
-        ImageView profileButton = findViewById(R.id.profileButton);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CoursesBooksActivity.this,LoggedinActivity.class));
-            }
-        });
-
-        ImageView homeButton = findViewById(R.id.homeButton);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CoursesBooksActivity.this,HomePageActivity.class));
-            }
-        });
-
-        ImageView libraryButton = findViewById(R.id.libraryButton);
-        libraryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(CoursesBooksActivity.this,LibraryActivity.class));
-            }
-        });
-
-    }
-
 
     private void displayCoursesAndRequiredBooks(){
         LinearLayout courseBookContainer = findViewById(R.id.courseBookContainer);

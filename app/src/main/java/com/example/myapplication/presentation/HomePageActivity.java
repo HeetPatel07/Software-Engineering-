@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +20,10 @@ import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
+import com.example.myapplication.business.management.Sortable;
+import com.example.myapplication.business.utlis.FooterUtility;
 import com.example.myapplication.persistence.utils.DBHelper;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,8 @@ public class HomePageActivity extends AppCompatActivity {
     private EditText searchContentView;
 
     private BookManagement books ;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,47 +44,13 @@ public class HomePageActivity extends AppCompatActivity {
         DBHelper.resetDB(this);
         books = new BookManagement(Services.getBookDatabase());
 
-        initFooterButtons();
+
+        FooterUtility.initFooterButtons(this);
         initializeViews();
         setupBookList();
         setupSearchFunctionality();
     }
 
-    private void initFooterButtons(){
-        ImageView profileButton = findViewById(R.id.profileButton);
-        profileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (AuthenticatedUser.getInstance().getUser() != null) {
-                    startActivity(new Intent(HomePageActivity.this,LoggedinActivity.class));
-                } else {
-                    startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
-                }
-            }
-        });
-
-        ImageView homeButton = findViewById(R.id.homeButton);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomePageActivity.this,HomePageActivity.class));
-            }
-        });
-
-        ImageView libraryButton = findViewById(R.id.libraryButton);
-        libraryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (AuthenticatedUser.getInstance().getUser() != null) {
-                    startActivity(new Intent(HomePageActivity.this, LibraryActivity.class));
-                } else {
-                    Toast.makeText(HomePageActivity.this, "Login Firstly", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(HomePageActivity.this, LoginActivity.class));
-                }
-            }
-        });
-
-    }
 
     private void initializeViews() {
         booksContainer = findViewById(R.id.bookContainer);
@@ -120,9 +92,16 @@ public class HomePageActivity extends AppCompatActivity {
         return filteredBooks;
     }
 
-    private void refreshBookList(List<Book> books) {
+    private void refreshBookList(List<Book> list) {
+        Spinner sort= findViewById(R.id.sortable);
+
+        String sortOn= (String)sort.getSelectedItem();
+         if(sortOn.contains("Price"))  list= books.sortByPrice(list);
+         else if (sortOn.contains("Rating")) list= books.sortByRating(list);
+
+
         booksContainer.removeAllViews();
-        for (Book book : books) {
+        for (Book book : list) {
             View bookView = createBookView();
             configureBookView(bookView, book);
             booksContainer.addView(bookView);

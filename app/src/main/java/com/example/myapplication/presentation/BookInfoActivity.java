@@ -4,10 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,17 +22,22 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
+import com.example.myapplication.Models.Rating;
+
+import java.util.ArrayList;
 
 public class BookInfoActivity extends AppCompatActivity {
     User currUser;
     BookManagement bookList = new BookManagement(Services.getBookDatabase());
 
+    private LinearLayout commentContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_info_activity);
         initFooterButtons();
+        initializeViews();
         currUser = AuthenticatedUser.getInstance().getUser();
         Book book = getBookFromIntent();
 
@@ -148,10 +155,10 @@ public class BookInfoActivity extends AppCompatActivity {
         setTextWithFormat(R.id.bookAuthor, "Author: %s", book.getAuthorName());
         setTextWithFormat(R.id.bookPrice, "Price: $%.2f", book.getPrice());
         setTextWithFormat(R.id.bookEdition,"%.2f",book.getBookEdition());
-
-
         setRating(R.id.bookRating, book.getOverallBookRating());
         setText(R.id.bookDescription, book.getDescription());
+
+        configureComment(book);
     }
 
     private void setText(int textViewId, String text) {
@@ -169,24 +176,35 @@ public class BookInfoActivity extends AppCompatActivity {
         ratingBar.setRating(rating);
     }
 
-
+    private void initializeViews() {
+        this.commentContainer = findViewById(R.id.commentsContainer);
+    }
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
-    private void configureCommentView(View bookView, Book book) {
-        TextView bookName = bookView.findViewById(R.id.bookName);
-        TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
-        TextView bookTags = bookView.findViewById(R.id.bookTags);
-        TextView bookPrice = bookView.findViewById(R.id.bookPrice);
-        ImageView button = bookView.findViewById(R.id.bookDelete);
-        RatingBar ratingBar= bookView.findViewById(R.id.bookRating);
+    private void configureComment(Book book) {
+        commentContainer.removeAllViews();
+        ArrayList<Rating> list= book.getRatings();
 
-        bookName.setText(String.format("Book Name: %s", book.getBookName()));
-        bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
-        bookTags.setVisibility(View.GONE);
-        bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
-        button.setVisibility(View.GONE);
-        ratingBar.setRating(book.getOverallBookRating());
-
+        for(Rating rating: list){
+            View commentView= createCommentView();
+            configureCommentView(commentView,rating);
+            commentContainer.addView(commentView);
+        }
     }
+
+    private View createCommentView() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        return inflater.inflate(R.layout.comment_box_activity, commentContainer, false);
+    }
+
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+    private void configureCommentView(View commentView, Rating rating) {
+        TextView outRating= commentView.findViewById(R.id.userRating);
+        TextView outComment= commentView.findViewById(R.id.userComment);
+            outRating.setText("Rating: "+rating.getRating()+" / 5");
+            outComment.setText("Comment: "+rating.getComment());
+    }
+
+
 
 }

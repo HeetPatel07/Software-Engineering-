@@ -8,15 +8,14 @@
 
     <LinearLayout
         android:id="@+id/commentLayout"
-        android:layout_width="295dp"
-        android:layout_height="127dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.427"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.29">
+        app:layout_constraintVertical_bias="0.499">
 
         <ImageView
             android:id="@+id/profilePicture"
@@ -34,16 +33,10 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/userName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Username:" />
-
-            <TextView
                 android:id="@+id/userRating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Rating:" />
+                android:text="Ratings:" />
 
             <TextView
                 android:id="@+id/userComment"

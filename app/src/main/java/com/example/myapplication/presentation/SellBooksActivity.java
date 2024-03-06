@@ -8,10 +8,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myapplication.Models.User;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
-import com.example.myapplication.business.management.SellBooksLogic;
+import com.example.myapplication.business.management.SellBooksManagement;
 
 
 public class SellBooksActivity extends AppCompatActivity {
@@ -19,17 +20,15 @@ public class SellBooksActivity extends AppCompatActivity {
     private EditText price;
     private Spinner condition;
 
-    private SellBooksLogic sellBooks;
-
-    private  AuthenticatedUser authenticatedUser;
+    private SellBooksManagement sellBooks;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sell_books_page);
-
-        sellBooks = new SellBooksLogic(Services.getBookDatabase());
+        User authenticatedUser = AuthenticatedUser.getInstance().getUser();
         initializeViews();
+        sellBooks = new SellBooksManagement(Services.getBookDatabase(), Services.getSellBooksDatabase(), authenticatedUser);
     }
 
     private void initializeViews(){

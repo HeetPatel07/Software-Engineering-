@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class BookManagement {
 
-    private final BookDatabase database;
+    protected final BookDatabase database;
 
     public BookManagement(BookDatabase database) {
         this.database = database;

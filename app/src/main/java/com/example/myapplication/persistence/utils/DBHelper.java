@@ -32,7 +32,7 @@ public class DBHelper {
 
             copyAssetsToDirectory(context, assetNames, dataDirectory);
 
-            Main.setDBPathName(dataDirectory.toString() + "/" + Main.getDBPathName());
+            Main.setDBPathName(dataDirectory.toString() + "/" + "BookEase");
 
         } catch (final IOException ioe) {
             ioe.printStackTrace();
@@ -47,7 +47,7 @@ public class DBHelper {
             String[] components = asset.split("/");
             String copyPath = directory.toString() + "/" + components[components.length - 1];
 
-            char[] buffer = new char[1024];
+            char[] buffer = new char[10000];
             int count;
 
             File outFile = new File(copyPath);

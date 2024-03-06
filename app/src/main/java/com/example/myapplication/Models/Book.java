@@ -1,7 +1,6 @@
 package com.example.myapplication.Models;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Book {
 
@@ -12,7 +11,7 @@ public class Book {
 
     private final BookProperties properties;
 
-    private String authorName;
+    private final String authorName;
 
     public int stockpile;
 
@@ -27,9 +26,7 @@ public class Book {
         stockpile = 0;
     }
     public Book addUsedBook(double price,String condition){
-
-        Book cpy= new Book(this.getId(),this.bookName,price,this.getDescription(),this.properties.getEdition(),this.getAuthorName(),condition);
-        return cpy;
+        return new Book(this.getId(),this.bookName,price,this.getDescription(),this.properties.getEdition(),this.getAuthorName(),condition);
     }
 
     public int getId() {

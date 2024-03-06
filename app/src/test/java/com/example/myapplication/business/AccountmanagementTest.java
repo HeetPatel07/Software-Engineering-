@@ -64,7 +64,7 @@ public class AccountmanagementTest
 
         password = "123";
         String finalPassword = password;
-        Exception e = assertThrows(IllegalArgumentException.class, ()->
+        assertThrows(IllegalArgumentException.class, ()->
                 accountManagement.setNewPassword(finalPassword));
 
 

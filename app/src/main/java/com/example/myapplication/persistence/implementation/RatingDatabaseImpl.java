@@ -28,7 +28,7 @@ public class RatingDatabaseImpl implements RatingDatabase {
     @Override
 
     //comment
-    public boolean addRating(int userId, int bookId, int rating, String comment) {
+    public synchronized boolean addRating(int userId, int bookId, int rating, String comment) {
 
         String sql = "INSERT INTO PUBLIC.COMMENTS(book_id,user_id,rating,comment_text) VALUES (?,?,?,?);";
 
@@ -60,7 +60,7 @@ public class RatingDatabaseImpl implements RatingDatabase {
 
     }
     @Override
-    public List<Rating> getRatingsOfBook(int bookId) {
+    public synchronized List<Rating> getRatingsOfBook(int bookId) {
 
         String sql = "SELECT R.rating , R.comment_text , R.user_id FROM COMMENTS R where R.book_id = ?;";
         List<Rating> ratings = new ArrayList<>();

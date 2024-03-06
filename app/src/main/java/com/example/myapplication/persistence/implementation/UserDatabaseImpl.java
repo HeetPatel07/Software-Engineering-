@@ -26,7 +26,7 @@ public class UserDatabaseImpl implements UserDatabase {
     public UserDatabaseImpl(String dbpath){
         this.dbpath = dbpath;
     }
-    public Optional<User> findUserWithUsername(String username) {
+    public synchronized Optional<User> findUserWithUsername(String username) {
         String sql = "SELECT * FROM PUBLIC.USERS WHERE username = '" + username.replace("'", "''") + "'";
         try (Connection connection = getConnection(dbpath);
              Statement statement = connection.createStatement();
@@ -49,7 +49,7 @@ public class UserDatabaseImpl implements UserDatabase {
     }
 
     @Override
-    public boolean updateUserPassword(int userID, String newPassword) {
+    public synchronized boolean updateUserPassword(int userID, String newPassword) {
         String sql = "UPDATE PUBLIC.USERS SET password = '" + newPassword.replace("'", "''") + "' WHERE id = " + userID;
         try (Connection connection = getConnection(dbpath);
              Statement statement = connection.createStatement()) {
@@ -63,7 +63,7 @@ public class UserDatabaseImpl implements UserDatabase {
         }
     }
     @Override
-    public boolean updateUsername(int userID, String newUsername) {
+    public synchronized boolean updateUsername(int userID, String newUsername) {
         String sql = "UPDATE PUBLIC.USERS SET username = '" + newUsername.replace("'", "''") + "' WHERE id = " + userID;
         try (Connection connection = getConnection(dbpath);
              Statement statement = connection.createStatement()) {
@@ -77,7 +77,7 @@ public class UserDatabaseImpl implements UserDatabase {
         }
     }
     @Override
-    public boolean updateUserAddress(int userID, String newAddress) {
+    public synchronized boolean updateUserAddress(int userID, String newAddress) {
         String sql = "UPDATE PUBLIC.USERS SET address = '" + newAddress.replace("'", "''") + "' WHERE id = " + userID;
         try (Connection connection = getConnection(dbpath);
              Statement statement = connection.createStatement()) {
@@ -93,7 +93,7 @@ public class UserDatabaseImpl implements UserDatabase {
     }
 
     @Override
-    public boolean addUser(String userName, String nPassword, String nType, String nAddress) {
+    public synchronized boolean addUser(String userName, String nPassword, String nType, String nAddress) {
         String sql = String.format("INSERT INTO PUBLIC.USERS (username, password, address, type) VALUES ('%s', '%s', '%s', '%s')",
                 userName.replace("'", "''"), nPassword.replace("'", "''"), nAddress.replace("'", "''"), nType.replace("'", "''"));
         try (Connection connection = getConnection(dbpath);

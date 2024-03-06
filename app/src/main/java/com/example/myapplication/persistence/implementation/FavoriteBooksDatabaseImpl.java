@@ -27,7 +27,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
         this.dbpath = dbpath;
     }
     @Override
-    public List<Book> getFavoriteBooks(int userId) {
+    public synchronized List<Book> getFavoriteBooks(int userId) {
         List<Book> bookList = new ArrayList<>();
 
         String sql="SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BS.book_condition FROM BOOKS b INNER JOIN  FAVOURITEBOOK BF on b.id=BF.book_id INNER JOIN BOOKFORSALE BS  WHERE BF.user_id = ?;";
@@ -57,7 +57,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
     }
 
     @Override
-    public boolean addFavoriteBook(int userId, int bookId) {
+    public synchronized boolean addFavoriteBook(int userId, int bookId) {
 
         if(checkIfFavoriteBookExists(userId, bookId)){
             return false;
@@ -90,7 +90,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
     }
 
     @Override
-    public boolean deleteFavoriteBook(int userId, int bookId) {
+    public synchronized boolean deleteFavoriteBook(int userId, int bookId) {
         if(checkIfFavoriteBookExists(userId, bookId)){
             return false;
         }
@@ -121,7 +121,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
         }
     }
 
-    private boolean checkIfFavoriteBookExists(int userId,int bookId){
+    private synchronized boolean checkIfFavoriteBookExists(int userId,int bookId){
         String sql = "SELECT book_id , user_id FROM FAVOURITEBOOK FB WHERE FB.book_id = ? AND FB.user_id = ?";
 
         try {

@@ -13,7 +13,7 @@ import com.example.myapplication.persistence.stub.DummyDatabase;
 public class AccountmanagementTest
 {
     static AccountManagement accountManagement;
-    static AuthenticationManager classtoauthenticate;
+    static AuthenticationManager authenticationManager;
     static DummyDatabase dummyDatabase;
 
     static boolean flag=false;     //set up flag
@@ -24,7 +24,7 @@ public class AccountmanagementTest
         if(!flag) {
             dummyDatabase = (DummyDatabase) DummyDatabase.getInstance();
             accountManagement = new AccountManagement(dummyDatabase);
-            classtoauthenticate= new AuthenticationManager(dummyDatabase);
+            authenticationManager = new AuthenticationManager(dummyDatabase);
             flag=true;
         }else{
             System.out.println("The setup for Account Management is already done ");
@@ -57,7 +57,7 @@ public class AccountmanagementTest
         String password = "original";
         String address = "testAddress";
         accountManagement.createNewUser(userName,password,"Student",address); //this adds the user to the database
-        classtoauthenticate.authenticateUser(userName,password);    //this authenticates and initialises the singleton user
+        authenticationManager.authenticateUser(userName,password);    //this authenticates and initialises the singleton user
 
         password= "newPassword";
         boolean result = accountManagement.setNewPassword(password);

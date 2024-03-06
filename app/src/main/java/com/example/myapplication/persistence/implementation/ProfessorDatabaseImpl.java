@@ -23,22 +23,22 @@ public class ProfessorDatabaseImpl extends UserDatabaseImpl implements Professor
         this.dbpath = dbpath;
     }
     @Override
-    public boolean addTeachingCourses(int userId, int courseId) {
+    public synchronized boolean addTeachingCourses(int userId, int courseId) {
         return false;
     }
 
     @Override
-    public List<Course> getTeachingCourses(int userId) {
+    public synchronized List<Course> getTeachingCourses(int userId) {
         return null;
     }
 
     @Override
-    public boolean addRequiredBookToCourse(int userId, int courseId, int bookId) {
+    public synchronized boolean addRequiredBookToCourse(int userId, int courseId, int bookId) {
         return false;
     }
 
     @Override
-    public boolean deleteRequiredBookFromCourse(int userId, int courseId, int bookId) {
+    public synchronized boolean deleteRequiredBookFromCourse(int userId, int courseId, int bookId) {
         return false;
     }
 }

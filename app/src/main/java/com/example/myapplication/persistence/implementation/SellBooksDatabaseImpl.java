@@ -21,17 +21,17 @@ public class SellBooksDatabaseImpl implements SellBooksDatabase {
         this.dbpath = dbpath;
     }
     @Override
-    public List<Book> getBooksForSale(int userId) {
+    public synchronized List<Book> getBooksForSale(int userId) {
         return null;
     }
 
     @Override
-    public boolean deleteSaleBook(int userId, int bookId) {
+    public synchronized boolean deleteSaleBook(int userId, int bookId) {
         return false;
     }
 
     @Override
-    public boolean addSaleBook(int userId, int bookId) {
+    public synchronized boolean addSaleBook(int userId, int bookId) {
         return false;
     }
 }

@@ -43,7 +43,7 @@ public class BookDatabaseImpl implements BookDatabase {
     }
 
     @Override
-    public List<Book> getBooks() {
+    public synchronized List<Book> getBooks() {
         List<Book> bookList = new ArrayList<>();
 
         String booksSql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition FROM BOOKS b RIGHT JOIN BOOKFORSALE BF on b.id=BF.book_id";
@@ -71,7 +71,7 @@ public class BookDatabaseImpl implements BookDatabase {
 
 
     @Override
-    public List<Book> findBookWithBookName(String bookName) {
+    public synchronized List<Book> findBookWithBookName(String bookName) {
         List<Book> bookList = new ArrayList<>();
 
         String booksSql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition FROM BOOKS b RIGHT JOIN BOOKFORSALE BF on b.id=BF.book_id"
@@ -105,7 +105,7 @@ public class BookDatabaseImpl implements BookDatabase {
     }
 
     @Override
-    public Optional<Book> findBookWithID(int id) {
+    public synchronized Optional<Book> findBookWithID(int id) {
         // Correct usage with Statement should carefully handle SQL injection risks.
         // However, this approach is for consistency as per the request.
 //        String sql = "SELECT * FROM BOOKS b JOIN BOOKFORSALE FB ON b.id=FB.book_id WHERE id = ?;";
@@ -145,7 +145,7 @@ public class BookDatabaseImpl implements BookDatabase {
 
 
     @Override
-    public List<Book> findBooksWithAuthorName(String authorName) {
+    public synchronized List<Book> findBooksWithAuthorName(String authorName) {
         List<Book> bookList = new ArrayList<>();
         // Directly incorporating variables into the SQL string should be handled with caution.
         String sql = "SELECT * FROM PUBLIC.BOOKS WHERE author_name = ?;";
@@ -173,7 +173,7 @@ public class BookDatabaseImpl implements BookDatabase {
 
 
     @Override
-    public void addBook(int id, String bookName, double price, String description, double edition, String authorName, String bookCondition) {
+    public synchronized void addBook(int id, String bookName, double price, String description, double edition, String authorName, String bookCondition) {
         // Building the SQL command by directly including the variables into the command string.
         String sql = "INSERT INTO PUBLIC.BOOKS (bookname, author_name, price, edition, description) VALUES (?, ?, ?, ?, ?)";
         try {

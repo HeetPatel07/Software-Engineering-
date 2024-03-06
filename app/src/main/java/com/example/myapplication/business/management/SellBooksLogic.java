@@ -5,7 +5,7 @@ import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 
 public class SellBooksLogic extends BookManagement {
-    BookManagement manager;
+    private final BookManagement manager;
 
     public SellBooksLogic(BookDatabase database) {
         super(database);

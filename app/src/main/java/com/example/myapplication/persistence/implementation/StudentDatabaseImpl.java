@@ -22,17 +22,17 @@ import java.util.List;
 
 public class StudentDatabaseImpl extends UserDatabaseImpl implements StudentDatabase {
     private String dbpath;
-    public StudentDatabaseImpl(String dbpath){
+    public  StudentDatabaseImpl(String dbpath){
         super(dbpath);
         this.dbpath = dbpath;
     }
     @Override
-    public List<Book> viewRequiredBooks(int userId, int courseId) {
+    public synchronized List<Book> viewRequiredBooks(int userId, int courseId) {
         return null;
     }
 
     @Override
-    public boolean addCourse(int userId, int courseId) {
+    public synchronized boolean addCourse(int userId, int courseId) {
         return false;
     }
 }

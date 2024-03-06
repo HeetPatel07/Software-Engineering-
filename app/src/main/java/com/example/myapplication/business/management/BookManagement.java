@@ -3,10 +3,11 @@ package com.example.myapplication.business.management;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public class BookManagement {
+public class BookManagement implements FindableBook,Sortable {
 
     protected final BookDatabase database;
 
@@ -27,4 +28,20 @@ public class BookManagement {
         return bookWithID.orElse(null);
     }
 
+    @Override
+    public List<Book> findBookWithAuthorName(String authorName) {
+        return database.findBooksWithAuthorName(authorName);
+    }
+    @Override
+    public List<Book> sortByPrice(List<Book> originalist) {
+        return originalist.stream().sorted(Comparator.comparingDouble(Book::getPrice)).toList();
+    }
+    @Override
+    public List<Book> sortByBookName(List<Book> originalist) {
+        return originalist.stream().sorted(Comparator.comparing(Book::getBookName)).toList();
+    }
+    @Override
+    public List<Book> sortByRating(List<Book> originalist) {
+        return originalist.stream().sorted(Comparator.comparingDouble(Book::getOverallBookRating)).toList();
+    }
 }

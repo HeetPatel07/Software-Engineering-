@@ -74,7 +74,7 @@ public class BookDatabaseImpl implements BookDatabase {
     public synchronized List<Book> findBookWithBookName(String bookName) {
         List<Book> bookList = new ArrayList<>();
 
-        String booksSql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition FROM BOOKS b RIGHT JOIN BOOKFORSALE BF on b.id=BF.book_id"
+        String booksSql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition FROM BOOKS b INNER JOIN BOOKFORSALE BF on b.id=BF.book_id "
                 + "WHERE b.bookname=?";
 
 
@@ -83,7 +83,7 @@ public class BookDatabaseImpl implements BookDatabase {
             PreparedStatement statement = connection.prepareStatement(booksSql);
             statement.setString(1, bookName);
 
-            ResultSet rs = statement.executeQuery(booksSql);
+            ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
                 int id = rs.getInt("id");

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="condition_options">
-        <item>User like new</item>
-        <item>Used Medium</item>
-        <item>Used but still usable</item>
+        <item>Used</item>
+        <item>Old</item>
     </string-array>
 </resources>

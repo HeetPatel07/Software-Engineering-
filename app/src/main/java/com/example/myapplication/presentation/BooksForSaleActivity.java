@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ public class BooksForSaleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.books_for_sale_view_activity);
         initializeViews();
+        initFooterButtons();
         setupBookList();
 
         Button backToLibrary = findViewById(R.id.button_back_library);
@@ -85,6 +87,33 @@ public class BooksForSaleActivity extends AppCompatActivity {
         bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
         bookTags.setVisibility(View.GONE);
         bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
+
+    }
+
+    private void initFooterButtons(){
+        ImageView profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BooksForSaleActivity.this, LoggedinActivity.class));
+            }
+        });
+
+        ImageView homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BooksForSaleActivity.this,HomePageActivity.class));
+            }
+        });
+
+        ImageView libraryButton = findViewById(R.id.libraryButton);
+        libraryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BooksForSaleActivity.this, LibraryActivity.class));
+            }
+        });
 
     }
 

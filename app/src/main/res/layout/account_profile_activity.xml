@@ -8,6 +8,8 @@
     android:enabled="false"
     tools:context=".presentation.AccountActivity">
 
+
+
     <Button
         android:id="@+id/button_back_account_management"
         android:layout_width="wrap_content"
@@ -37,7 +39,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="50dp">
 
 
             <TextView
@@ -204,21 +207,21 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/account_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="50dp"
+                android:text="create"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.952"
+                app:layout_constraintStart_toStartOf="@+id/scrollView2"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
+        </LinearLayout>
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/account_confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="50dp"
-        android:text="create"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.952"
-        app:layout_constraintStart_toStartOf="@+id/scrollView2"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

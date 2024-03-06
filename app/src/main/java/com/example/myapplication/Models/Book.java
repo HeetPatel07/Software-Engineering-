@@ -70,6 +70,9 @@ public class Book {
     }
 
 
+    public double getBookEdition() {
+        return this.properties.getEdition();
+    }
 }
 
 //point for making sure right branch is rebased

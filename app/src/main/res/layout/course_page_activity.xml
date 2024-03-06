@@ -33,16 +33,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="800dp"
-        android:layout_height="850dp"
+        android:layout_width="797dp"
+        android:layout_height="570dp"
         android:layout_marginTop="40dp"
         android:contentDescription="books"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.57"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/courseInput"
-        app:layout_constraintVertical_bias="0.337">
+        app:layout_constraintVertical_bias="0.036">
 
         <LinearLayout
             android:id="@+id/courseBookContainer"

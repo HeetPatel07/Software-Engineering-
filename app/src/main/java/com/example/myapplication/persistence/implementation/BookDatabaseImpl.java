@@ -69,12 +69,16 @@ public class BookDatabaseImpl implements BookDatabase {
         List<Book> bookList = new ArrayList<>();
 
         String booksSql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition FROM BOOKS b RIGHT JOIN BOOKFORSALE BF on b.id=BF.book_id"
-                + "WHERE b.bookname='" + bookName + "'";
+                + "WHERE b.bookname=?";
 
 
-        try (Connection connection = getConnection(dbpath);
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(booksSql)) {
+        try {
+            Connection connection = BookDatabase.super.getConnection(dbpath);
+            PreparedStatement statement = connection.prepareStatement(booksSql);
+            statement.setString(1, bookName);
+
+            ResultSet rs = statement.executeQuery(booksSql);
+
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String bookname = rs.getString("bookname");
@@ -84,8 +88,9 @@ public class BookDatabaseImpl implements BookDatabase {
                 String description = rs.getString("description");
                 String bookCondition = rs.getString("book_condition");
                 bookList.add(new Book(id, bookname, price, description, edition, authorName, bookCondition));
-            }
 
+
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -97,10 +102,16 @@ public class BookDatabaseImpl implements BookDatabase {
     public Optional<Book> findBookWithID(int id) {
         // Correct usage with Statement should carefully handle SQL injection risks.
         // However, this approach is for consistency as per the request.
-        String sql = "SELECT * FROM PUBLIC.BOOKS WHERE id = " + id;
-        try (Connection connection = getConnection(dbpath);
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(sql)) {
+//        String sql = "SELECT * FROM BOOKS b JOIN BOOKFORSALE FB ON b.id=FB.book_id WHERE id = ?;";
+
+        String sql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition AS cond FROM BOOKS b INNER JOIN BOOKFORSALE BF on b.id=BF.book_id WHERE b.id=?";
+
+        try {
+            Connection connection = BookDatabase.super.getConnection(dbpath);
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1,id);
+
+            ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
                 String bookname = rs.getString("bookname");
@@ -108,9 +119,10 @@ public class BookDatabaseImpl implements BookDatabase {
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
                 String description = rs.getString("description");
-                return Optional.of(new Book(id, bookname, price, description, edition, authorName, null));
-            }
+                String condition= rs.getString("cond");
+                return Optional.of(new Book(id, bookname, price, description, edition, authorName, condition));
 
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -125,19 +137,18 @@ public class BookDatabaseImpl implements BookDatabase {
         String sql = "SELECT * FROM PUBLIC.BOOKS WHERE author_name = ?;";
 
         try {
-            Connection connection= BookDatabase.super.getConnection(dbpath);
+            Connection connection = BookDatabase.super.getConnection(dbpath);
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, authorName);
             ResultSet rs = statement.executeQuery(sql);
-                while (rs.next()) {
-                    int id = rs.getInt("id");
-                    String bookname = rs.getString("bookname");
-                    double price = rs.getBigDecimal("price").doubleValue();
-                    double edition = rs.getBigDecimal("edition").doubleValue();
-                    String description = rs.getString("description");
-                    bookList.add(new Book(id, bookname, price, description, edition, authorName, null));
-                }
-
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String bookname = rs.getString("bookname");
+                double price = rs.getBigDecimal("price").doubleValue();
+                double edition = rs.getBigDecimal("edition").doubleValue();
+                String description = rs.getString("description");
+                bookList.add(new Book(id, bookname, price, description, edition, authorName, null));
+            }
 
 
         } catch (SQLException e) {

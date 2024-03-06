@@ -21,6 +21,8 @@ public class RatingDatabaseImpl implements RatingDatabase {
         this.dbpath = dbpath;
     }
     @Override
+
+    //comment
     public void addRating(int userId, int bookId, int rating, String comment) {
 
     }

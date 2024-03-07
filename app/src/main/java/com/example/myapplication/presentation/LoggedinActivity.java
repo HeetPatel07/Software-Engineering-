@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.business.utlis.FooterUtility;
 
 public class LoggedinActivity extends AppCompatActivity {
 
@@ -18,7 +17,7 @@ public class LoggedinActivity extends AppCompatActivity {
         FooterUtility.initFooterButtons(this);
         ImageView viewAccount = findViewById(R.id.viewAccountInfo);
 
-        viewAccount.setOnClickListener(new View.OnClickListener(){
+        viewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -36,6 +35,14 @@ public class LoggedinActivity extends AppCompatActivity {
                 startActivity(requiredBook);
             }
         });
-    }
 
+        ImageView viewFavBooks= findViewById(R.id.viewFavouriteBooks);
+        viewFavBooks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent requiredBook = new Intent(LoggedinActivity.this, FavouriteBooksActivity.class);
+                startActivity(requiredBook);
+            }
+        });
+    }
 }

@@ -23,7 +23,6 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.business.management.CourseManagement;
-import com.example.myapplication.business.utlis.FooterUtility;
 
 import java.util.HashMap;
 import java.util.Map;

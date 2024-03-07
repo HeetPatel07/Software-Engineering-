@@ -11,9 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/border"
-        android:layout_margin="5dp"
-        android:padding="10dp">
+        android:background="@color/grey">
 
         <ImageView
             android:id="@+id/bookCover"

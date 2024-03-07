@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.business.utlis.FooterUtility;
 
 public class LibraryActivity extends AppCompatActivity {
 

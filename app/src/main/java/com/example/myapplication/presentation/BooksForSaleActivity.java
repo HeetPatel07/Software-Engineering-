@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -14,20 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
-import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
-import com.example.myapplication.business.management.BookManagement;
-import com.example.myapplication.business.utlis.FooterUtility;
 
 import java.util.List;
 
 public class BooksForSaleActivity extends AppCompatActivity {
 
     private LinearLayout booksContainer;
-    private EditText searchContentView;
-
-    private BookManagement books = new BookManagement(Services.getBookDatabase());
-
 
     protected void onCreate(Bundle savedInstanceState) {
 

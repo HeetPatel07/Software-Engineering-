@@ -62,12 +62,17 @@
         <activity android:name=".presentation.AddBookPopupActivity"
             android:exported="true"/>
 
+        <!-- sell book page -->
         <activity android:name=".presentation.SellBooksActivity"
             android:exported="true"/>
 
+        <!-- books for sale page -->
         <activity android:name=".presentation.BooksForSaleActivity"
             android:exported="true"/>
 
+        <!-- favourite books page -->
+        <activity android:name=".presentation.FavouriteBooksActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

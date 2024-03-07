@@ -35,10 +35,6 @@ public class BookDatabaseImpl implements BookDatabase {
     public BookDatabaseImpl(String dbpath) {
         this.dbpath = dbpath;
 
-        loadBooksFromDB();
-    }
-
-    private void loadBooksFromDB() {
 
     }
 

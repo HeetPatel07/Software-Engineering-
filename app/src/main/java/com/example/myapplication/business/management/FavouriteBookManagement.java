@@ -4,6 +4,7 @@ import com.example.myapplication.Models.Book;
 
 import java.util.List;
 
+import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.persistence.subinterfaces.FavoriteBooksDatabase;
 
 import java.util.Optional;
@@ -19,12 +20,13 @@ public class FavouriteBookManagement {
 
     }
 
-    public void addFavBook(int userId, int bookId) {
+    public void addFavBook(int userId, Book book) {
 
-        if (userId < 0 || bookId < 0)
+        if (userId < 0 || book ==null)
             throw new IllegalArgumentException("The userId or bookId is invalid for this action");
         try {
-            favouriteBookDatabase.addFavoriteBook(userId, bookId);
+            favouriteBookDatabase.addFavoriteBook(userId, book.getId());
+           // AuthenticatedUser.getInstance().getUser().addForSale(usedBook.addUsedBook(price, condition));
         } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
@@ -44,7 +46,6 @@ public class FavouriteBookManagement {
 
     public List<Book> getFavBooks(int userId) {
         if (userId < 0) throw new IllegalArgumentException("The userId is invalid for this action");
-
         return favouriteBookDatabase.getFavoriteBooks(userId);
     }
 }

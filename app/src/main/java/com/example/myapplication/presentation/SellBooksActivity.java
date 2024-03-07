@@ -1,10 +1,8 @@
 package com.example.myapplication.presentation;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -15,7 +13,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.SellBooksManagement;
-import com.example.myapplication.business.utlis.FooterUtility;
 
 
 public class SellBooksActivity extends AppCompatActivity {

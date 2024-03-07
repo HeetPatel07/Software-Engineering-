@@ -18,12 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
-import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
-import com.example.myapplication.business.management.FavouriteBookManagement;
-import com.example.myapplication.business.management.Sortable;
-import com.example.myapplication.business.utlis.FooterUtility;
-import com.example.myapplication.persistence.implementation.FavoriteBooksDatabaseImpl;
 import com.example.myapplication.persistence.utils.DBHelper;
 
 

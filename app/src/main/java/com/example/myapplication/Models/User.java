@@ -79,12 +79,10 @@ public class User {
                 '}';
     }
 
-    public boolean addForSale(Book usedBook){
-        boolean result=true;
+    public void addForSale(Book usedBook){
 
         BooksForSale.add(usedBook);
 
-        return result;
     }
 
     public List<Book> getBooksForSale(){
@@ -92,4 +90,7 @@ public class User {
     }
 
 
+    public void addFavBooks(Book usedBook){
+
+    }
 }

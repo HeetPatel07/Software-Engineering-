@@ -32,6 +32,9 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
 
         String sql="SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BS.book_condition FROM BOOKS b INNER JOIN  FAVOURITEBOOK BF on b.id=BF.book_id INNER JOIN BOOKFORSALE BS  WHERE BF.user_id = ?;";
 
+       //  sql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BS.book_condition FROM BOOKS b INNER JOIN FAVOURITEBOOK BF on b.id=BF.book_id INNER JOIN BOOKFORSALE BS  WHERE BF.user_id = ?;";
+
+        sql="SELECT b.id, b.bookname, b.author_name, b.price, b.edition, b.description, BS.book_condition FROM BOOKS b INNER JOIN FAVOURITEBOOK BF on b.id = BF.book_id INNER JOIN BOOKFORSALE BS ON b.id = BS.book_id WHERE BF.user_id = ?;";
         try{
             Connection connection = FavoriteBooksDatabase.super.getConnection(dbpath);
 
@@ -91,10 +94,10 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
 
     @Override
     public synchronized boolean deleteFavoriteBook(int userId, int bookId) {
-        if(checkIfFavoriteBookExists(userId, bookId)){
-            throw new IllegalArgumentException("Favourite book already in the table");
+        if(!checkIfFavoriteBookExists(userId, bookId)){
+            throw new IllegalArgumentException("Favourite not in the table");
         }
-        String sql = "DELETE FROM PUBLIC.FAVOURITEBOOK (book_id, user_id) VALUES (?, ?);";
+        String sql = "DELETE FROM FAVOURITEBOOK WHERE book_id = ? AND user_id = ?;";
 
         try {
             Connection connection = FavoriteBooksDatabase.super.getConnection(dbpath);
@@ -115,7 +118,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
                 connection.setAutoCommit(true); // Restore auto-commit mode
             }
         }
-        catch (Exception e){
+        catch (SQLException e){
             e.printStackTrace();
             return false;
         }
@@ -135,7 +138,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
                 return true;
             }
         }
-        catch (Exception e){
+        catch (SQLException e){
             e.printStackTrace();
         }
         return false;

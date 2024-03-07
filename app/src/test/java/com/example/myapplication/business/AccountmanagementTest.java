@@ -9,7 +9,6 @@ import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.management.AuthenticationManager;
 import com.example.myapplication.persistence.stub.DummyDatabase;
 
-
 public class AccountmanagementTest
 {
     static AccountManagement accountManagement;
@@ -38,14 +37,13 @@ public class AccountmanagementTest
         String userName1 = "yyy";   //invalid input for username
         String password1 = "nil3";  //invalid input for password
         String address1 = "testAddress";
-        boolean result = accountManagement.createNewUser(userName1,password1,"Professor",address1);
-        assertFalse(result);
+        assertThrows(IllegalArgumentException.class, ()->
+                accountManagement.createNewUser(userName1,password1,"Professor",address1));
 
         String userName = "Sample";
         String password = "12345";
         String address = "testAddress";
-        result = accountManagement.createNewUser(userName,password,"Student",address);
-        assertTrue(result);
+        assertTrue(accountManagement.createNewUser(userName,password,"Student",address));
 
     }
 
@@ -61,12 +59,13 @@ public class AccountmanagementTest
 
         password= "newPassword";
         boolean result = accountManagement.setNewPassword(password);
-        assertTrue(result);
+        assertFalse(result);
 
 
         password = "123";
-        result = accountManagement.setNewPassword(password);
-        assertFalse(result);
+        String finalPassword = password;
+        assertThrows(IllegalArgumentException.class, ()->
+                accountManagement.setNewPassword(finalPassword));
 
 
     }

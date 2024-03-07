@@ -30,7 +30,7 @@
 #### Favourite Book List
 * Click on view on homepage for a book
 * This featues is accessible after the user click on save button for the book
-* The book is added to list in the database in a FAVOURITEBOOK 
+* The book is added to list in the database in a FAVOURITEBOOK table
 * Click on the user profile page there is a option for Favourite Books
 * The books are retieved from the database and can be removed or bought from this list
 * If you remove the book this removes it from the database through management classes

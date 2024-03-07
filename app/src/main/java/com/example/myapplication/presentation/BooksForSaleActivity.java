@@ -13,12 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.SellBooksManagement;
 
 import java.util.List;
 
 public class BooksForSaleActivity extends AppCompatActivity {
 
     private LinearLayout booksContainer;
+
+    private SellBooksManagement manager;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -49,7 +52,8 @@ public class BooksForSaleActivity extends AppCompatActivity {
     }
 
     private void setupBookList() {
-        List<Book>userList= AuthenticatedUser.getInstance().getUser().getBooksForSale();
+        int id = AuthenticatedUser.getInstance().getUser().getUserID();
+        List<Book>userList= manager.getUsedBooksForSale(id);
         refreshBookList(userList);
     }
 

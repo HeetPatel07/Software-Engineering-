@@ -5,37 +5,37 @@
 
 ## Presentation Layer
 ---
-AccountActivity [AccountActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/AccountActivity.java?ref_type=heads)
+[AccountActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/AccountActivity.java?ref_type=heads)
 * The AccountActivity class manages account creation, allowing users to input details and select a role before registering.
   
-AddBookPopupActivity
+[AddBookPopupActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/AddBookPopupActivity.java?ref_type=heads)
 * The AddBookPopupActivity class facilitates adding books to courses by displaying a list of available books and enabling users to select and add them to a specific course(Partially implemented and still under construction).
   
-BookInfoActivity
+[BookInfoActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/BookInfoActivity.java?ref_type=heads)
 * e BookInfoActivity displays a book's details, enables saving it as a favorite, and simulates purchasing, alongside showing user ratings and comments.
 
-BooksForSaleActivity
+[BooksForSaleActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/BooksForSaleActivity.java?ref_type=heads)
 * The BooksForSaleActivity class is designed to display a list of books for sale by the authenticated user, featuring a layout for each book's details such as name, author, and price. It also includes a back navigation button to return to the LibraryActivity.
 
-ChangeAccount
+[ChangeAccount](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/ChangeAccount.java?ref_type=heads)
 * The ChangeAccount class allows users to update their account details, including username, address, and password.
 
-CoursesBooksActivity
+[CoursesBooksActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/CoursesBooksActivity.java?ref_type=heads)
 * The CoursesBooksActivity class displays courses and their required books, allowing users to add new courses and books, and providing functionalities to delete books from courses.(Partially implemented and still under construction)
 
-HomePageActivity
+[HomePageActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/HomePageActivity.java?ref_type=heads)
 * The HomePageActivity class displays and allows searching and sorting of books, and facilitates navigation to detailed book information.
 
-LibraryActivity
+[LibraryActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/LibraryActivity.java?ref_type=heads)
 * The LibraryActivity class provides navigation options within the app to sell books and view books for sale, each through its respective activity.
 
-LoggedinActivity
+[LoggedinActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/LoggedinActivity.java?ref_type=heads)
 * The LoggedinActivity class provides logged-in users with options to view and edit their account information via the ChangeAccount activity, and to view required course books through the CoursesBooksActivity, facilitating navigation.
 
-LoginActivity
+[LoginActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/LoginActivity.java?ref_type=heads)
 * The LoginActivity class handles user login, offering options to log in, sign up, and navigate back to the home page
 
-SellBooksActivity
+[SellBooksActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/SellBooksActivity.java?ref_type=heads)
 * The SellBooksActivity class enables users to sell books by entering details and managing the sale through SellBooksManagement, with navigation to the LibraryActivity upon successful operation.
 
 

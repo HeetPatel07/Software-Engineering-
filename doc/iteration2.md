@@ -1,5 +1,7 @@
 # Iteration 2 
-
+### Link To the APK FILE
+---
+[BookEase](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/release?ref_type=heads)
 ## How to run the program
 ---
 [Instructions of how to run the program](InstructionsToRun.md)

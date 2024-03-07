@@ -13,8 +13,8 @@ GRANT DBA TO SA
 SET WRITE_DELAY 20
 SET FILES SCALE 32
 SET SCHEMA public
-INSERT INTO USERS VALUES (1, 'userone', '123123', 'address one', 'Student')
-INSERT INTO USERS VALUES (2, 'usertwo', '123123', 'address two', 'Professor')
+INSERT INTO USERS VALUES (1, 'userone', '123123', '906 Chancellor Drive RX1 434', 'Student')
+INSERT INTO USERS VALUES (2, 'usertwo', '123123', 'University of Manitoba, Winnipeg, Room 404', 'Professor')
 INSERT INTO BOOKS VALUES (1, 'The Great Gatsby', 'F. Scott Fitzgerald', 20.00, 6.0, 'A classic novel of American literature set in the Roaring Twenties.')
 INSERT INTO BOOKS VALUES (2, '1984', 'George Orwell', 15.00, 4.0, 'A dystopian social science fiction novel and cautionary tale.')
 INSERT INTO BOOKS VALUES (3, 'To Kill a Mockingbird', 'Harper Lee', 18.50, 1.0, 'A novel of racial injustice in the Deep South of the 1930s.')

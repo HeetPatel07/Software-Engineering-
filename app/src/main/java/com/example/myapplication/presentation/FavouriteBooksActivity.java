@@ -1,5 +1,7 @@
 package com.example.myapplication.presentation;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -87,6 +90,44 @@ public class FavouriteBooksActivity extends AppCompatActivity {
                 startActivity(requiredBook);
             }
         });
+
+
+
+        buyBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Check if the user is logged in before allowing to buy
+                    // Show under construction alert for buy button
+                    showBuyAlert();
+            }
+        });
+    }
+
+
+    private void showBuyAlert() {
+        new AlertDialog.Builder(this)
+                .setTitle("Do you want to buy this book?")
+                .setMessage("This book will be sent to: " + AuthenticatedUser.getInstance().getUser().getAddress())
+
+                // Set a "Yes" button and its listener
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Code to execute when "Yes" is pressed
+                        dialog.dismiss(); // Dismiss the dialog
+                    }
+                })
+
+                // Set a "No" button and its listener
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Code to execute when "No" is pressed
+                        dialog.dismiss(); // Dismiss the dialog
+                    }
+                })
+
+                // Set the icon
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 }

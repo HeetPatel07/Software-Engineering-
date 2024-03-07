@@ -11,7 +11,6 @@ public class User {
     private String password;
     private String type;
     private String address;
-    private List<Book> BooksForSale;
 
     public User(String userName, int nID, String password, String nType, String nAddress){
         this.name = userName;
@@ -19,7 +18,6 @@ public class User {
         this.password = password;
         this.type = nType;
         this.address = nAddress;
-        BooksForSale= new ArrayList<Book>();
     }
     public boolean checkPassword(String input){
         return password.equals(input);
@@ -79,18 +77,4 @@ public class User {
                 '}';
     }
 
-    public void addForSale(Book usedBook){
-
-        BooksForSale.add(usedBook);
-
-    }
-
-    public List<Book> getBooksForSale(){
-        return BooksForSale;
-    }
-
-
-    public void addFavBooks(Book usedBook){
-
-    }
 }

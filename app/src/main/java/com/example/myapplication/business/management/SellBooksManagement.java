@@ -34,7 +34,6 @@ public class SellBooksManagement {
 
     private void addUsedBook(Book usedBook, float price, String condition) {
         sellBooksDatabase.addSaleBook(user.getUserID(), usedBook.getId(),condition, price);
-        AuthenticatedUser.getInstance().getUser().addForSale(usedBook.addUsedBook(price, condition));
     }
 
     public List<Book>getUsedBooksForSale(int userID){

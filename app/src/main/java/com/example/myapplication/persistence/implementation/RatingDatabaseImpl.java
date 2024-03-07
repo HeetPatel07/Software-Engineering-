@@ -17,7 +17,7 @@ import java.util.List;
  *         }
  *         catch (SQLException e){
  * }
-
+;
  * For add, delete methods use transactions and write the queries
  */
 public class RatingDatabaseImpl implements RatingDatabase {
@@ -62,7 +62,7 @@ public class RatingDatabaseImpl implements RatingDatabase {
     @Override
     public synchronized List<Rating> getRatingsOfBook(int bookId) {
 
-        String sql = "SELECT R.rating , R.comment_text , R.user_id FROM COMMENTS R where R.book_id = ?;";
+        String sql = "SELECT R.rating , R.comment_text , R.user_id ,usr.username FROM COMMENTS R JOIN USERS usr on usr.id = R.user_id where R.book_id = ?;";
         List<Rating> ratings = new ArrayList<>();
 
         try{
@@ -73,11 +73,12 @@ public class RatingDatabaseImpl implements RatingDatabase {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()){
+                String userName= resultSet.getString("username");
                 double rating = resultSet.getDouble("rating");
                 String commentText = resultSet.getString("comment_text");
                 int user_id = resultSet.getInt("user_id");
 
-                ratings.add(new Rating((int)rating,commentText,user_id));
+                ratings.add(new Rating((int)rating,commentText,user_id,userName));
             }
         }
         catch (Exception e){

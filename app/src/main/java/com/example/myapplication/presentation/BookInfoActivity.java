@@ -191,9 +191,11 @@ public class BookInfoActivity extends AppCompatActivity {
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void configureCommentView(View commentView, Rating rating) {
         // Configure and display the rating and comment in the comment view
+        TextView outUserName= commentView.findViewById(R.id.userNameComment);
         TextView outRating = commentView.findViewById(R.id.userRating);
         TextView outComment = commentView.findViewById(R.id.userComment);
         outRating.setText("Rating: " + rating.getRating() + " / 5");
         outComment.setText("Comment: " + rating.getComment());
+        outUserName.setText("Username: "+rating.getAuthorName());
     }
 }

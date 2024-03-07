@@ -35,6 +35,8 @@ public class Rating {
         return comment;
     }
 
+    public String getAuthorName(){return name;}
+
     public int getAuthorID() { return authorID; }
 
     public void setRating (int nRating, User currUser){

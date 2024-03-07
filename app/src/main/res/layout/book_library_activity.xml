@@ -6,14 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:ignore="MissingDefaultResource">
+
     <LinearLayout
         android:id="@+id/List_library"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@drawable/shapes"
         android:orientation="vertical"
         android:padding="20dp"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/include">
 
         <LinearLayout
             android:id="@+id/firstrow"
@@ -21,8 +24,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shapes"
             android:orientation="horizontal"
-            android:padding="20dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:padding="20dp">
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -39,15 +42,13 @@
 
         </LinearLayout>
 
-
         <LinearLayout
             android:id="@+id/Library"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shapes"
             android:orientation="horizontal"
-            android:padding="20dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:padding="20dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -64,15 +65,14 @@
                 app:srcCompat="@drawable/right"/>
 
         </LinearLayout>
-
-
     </LinearLayout>
-
 
     <include
         android:id="@+id/include"
         layout="@layout/header_footer_activity"
-        app:layout_constraintTop_toBottomOf="@id/Library"
+        app:layout_constraintTop_toBottomOf="@id/List_library"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="condition_options">
-        <item>User like new</item>
-        <item>Used Medium</item>
-        <item>Used but still usable</item>
+        <item>User</item>
+        <item>Used but usable</item>
     </string-array>
 
 <string-array name="sort_options">
     <item>Sort by: none</item>
-    <item>Sort by: Price</item>
-    <item>Sort by: Rating</item>
+    <item>Sort by: Price low-high</item>
+    <item>Sort by: Rating low-high</item>
 </string-array>
 </resources>
 

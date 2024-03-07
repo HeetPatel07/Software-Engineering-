@@ -92,8 +92,9 @@ public class HomePageActivity extends AppCompatActivity {
         Spinner sort= findViewById(R.id.sortable);
 
         String sortOn= (String)sort.getSelectedItem();
-         if(sortOn.contains("Price"))  list= books.sortByPrice(list);
-         else if (sortOn.contains("Rating")) list= books.sortByRating(list);
+
+         if(sortOn.equalsIgnoreCase("Sort by: Price"))  list= books.sortByPrice(list);
+         else if (sortOn.equalsIgnoreCase("Sort by: Rating")) list= books.sortByRating(list);
 
 
         booksContainer.removeAllViews();

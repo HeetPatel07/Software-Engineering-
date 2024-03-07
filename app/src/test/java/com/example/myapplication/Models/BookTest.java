@@ -11,7 +11,7 @@ public class BookTest {
     @Before
     public void setTest(){
         test = new Book(0, "bookname", 0.1,
-                "bookDescription", 1.0,"authorName");
+                "bookDescription", 1.0,"authorName" , "New");
     }
     @Test
     public void getterSetter(){

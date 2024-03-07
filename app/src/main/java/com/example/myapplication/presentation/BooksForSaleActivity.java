@@ -5,15 +5,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
+import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.SellBooksManagement;
+import com.example.myapplication.Models.User;
 
 import java.util.List;
 
@@ -23,11 +27,15 @@ public class BooksForSaleActivity extends AppCompatActivity {
 
     private SellBooksManagement manager;
 
+    private User authenticatedUser;
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.books_for_sale_view_activity);
         initializeViews();
+        authenticatedUser=AuthenticatedUser.getInstance().getUser();
+        manager= new SellBooksManagement(Services.getBookDatabase(), Services.getSellBooksDatabase(), authenticatedUser);
         FooterUtility.initFooterButtons(this);
         setupBookList();
 
@@ -69,20 +77,25 @@ public class BooksForSaleActivity extends AppCompatActivity {
 
     private View createBookView() {
         LayoutInflater inflater = LayoutInflater.from(this);
-        return inflater.inflate(R.layout.sale_book_activity, booksContainer, false);
+        return inflater.inflate(R.layout.book_item_activity, booksContainer, false);
     }
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void configureBookView(View bookView, Book book) {
-        TextView bookName = bookView.findViewById(R.id.salebookName);
-        TextView bookAuthor = bookView.findViewById(R.id.salebookAuthor);
-        TextView bookTags = bookView.findViewById(R.id.salebookTags);
-        TextView bookPrice = bookView.findViewById(R.id.salebookPrice);
+
+        TextView bookName = bookView.findViewById(R.id.bookName);
+        TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
+        TextView bookPrice = bookView.findViewById(R.id.bookPrice);
+        TextView bookcondition= bookView.findViewById(R.id.bookCondition);
+        Button buyBook= bookView.findViewById(R.id.bookAction);
+        ImageView deleteFavBook = bookView.findViewById(R.id.bookDelete);
 
         bookName.setText(String.format("Book Name: %s", book.getBookName()));
         bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
-        bookTags.setVisibility(View.GONE);
         bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
+        bookcondition.setText(String.format("Book Condition: %s", book.getCondition()));
+        buyBook.setVisibility(View.GONE);
+        deleteFavBook.setVisibility(View.GONE);
 
     }
 

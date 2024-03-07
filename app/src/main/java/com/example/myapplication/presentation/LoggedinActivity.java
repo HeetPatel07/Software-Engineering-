@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,8 +32,7 @@ public class LoggedinActivity extends AppCompatActivity {
         viewCourseBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent requiredBook = new Intent(LoggedinActivity.this, CoursesBooksActivity.class);
-                startActivity(requiredBook);
+                Toast.makeText(LoggedinActivity.this, "Under Construction", Toast.LENGTH_SHORT).show();
             }
         });
 

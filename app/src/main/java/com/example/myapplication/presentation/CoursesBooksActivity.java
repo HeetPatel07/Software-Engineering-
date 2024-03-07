@@ -51,7 +51,7 @@ public class CoursesBooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_page_activity);
         FooterUtility.initFooterButtons(this);
-        courseManagement = CourseManagement.getInstance();
+        courseManagement = new CourseManagement();
         bookManagement = new BookManagement(Services.getBookDatabase());
         authUser = AuthenticatedUser.getInstance();
 

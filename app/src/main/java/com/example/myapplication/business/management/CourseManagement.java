@@ -7,76 +7,50 @@ import java.util.Set;
 
 public class CourseManagement {
 
-    // Single instance
-    private static CourseManagement instance;
-
-    // Map to store courses
     private Map<String, Course> coursesMap;
 
-    // Private constructor
-    private CourseManagement() {
+    public CourseManagement() {
         coursesMap = new HashMap<>();
     }
 
-    // Public method to get the instance
-    public static synchronized CourseManagement getInstance() {
-        if (instance == null) {
-            instance = new CourseManagement();
-        }
-        return instance;
-    }
-
     public Map<String, Course> getCourses() {
-        return coursesMap;
+        return new HashMap<>(coursesMap);
     }
 
-    public Course getCourse(String courseName){
-        return coursesMap.get(courseName);
-    }
-
-    public Set<Integer> getCourseRequiredBookIDs(String courseName){
-        return coursesMap.get(courseName).getRequiredBookSet();
-    }
-
-    public Boolean addCourse(String name) {
-        if (!name.equals("")) {
-            coursesMap.put(name, new Course(name));
-            return true;
-        }
-        return false;
-    }
-
-    public Boolean hasCourse(String name) {
-        return coursesMap.containsKey(name);
-    }
-
-    public Boolean deleteCourse(String name) {
-        if (hasCourse(name)) {
-            coursesMap.remove(name);
-            return true;
-        }
-        return false;
-    }
-
-    public Boolean addRequiredBookToCourse(String courseName, int bookID) {
-        if (!hasCourse(courseName))
-            return false;
-
+    public Course getCourse(String courseName) {
         Course course = coursesMap.get(courseName);
-        Set<Integer> requiredBookSet = course.getRequiredBookSet();
-        requiredBookSet.add(bookID);
+        if (course == null) {
+            throw new IllegalArgumentException("Course does not exist: " + courseName);
+        }
+        return course;
+    }
 
+    public Set<Integer> getCourseRequiredBookIDs(String courseName) {
+        Course course = getCourse(courseName); // This already throws an exception if the course does not exist
+        return course.getRequiredBookSet();
+    }
+
+    public boolean addCourse(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Course name cannot be null or empty.");
+        }
+        if (coursesMap.containsKey(name)) {
+            throw new IllegalArgumentException("Course already exists: " + name);
+        }
+        coursesMap.put(name, new Course(name));
         return true;
     }
 
-    public Boolean deleteRequiredBookInCourse(String courseName, int bookID) {
-        if (!hasCourse(courseName))
-            return false;
+    public boolean addRequiredBookToCourse(String courseName, int bookID) {
+        Course course = getCourse(courseName);
+        return course.getRequiredBookSet().add(bookID);
+    }
 
-        Course course = coursesMap.get(courseName);
-        Set<Integer> requiredBookSet = course.getRequiredBookSet();
-        requiredBookSet.remove(bookID);
-
-        return true;
+    public boolean deleteRequiredBookInCourse(String courseName, int bookID) {
+        Course course = getCourse(courseName);
+        if (!course.getRequiredBookSet().contains(bookID)) {
+            throw new IllegalArgumentException("Attempting to delete a non-required book: " + bookID + " from course: " + courseName);
+        }
+        return course.getRequiredBookSet().remove(bookID);
     }
 }

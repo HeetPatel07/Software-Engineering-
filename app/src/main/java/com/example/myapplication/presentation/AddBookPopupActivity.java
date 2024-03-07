@@ -34,7 +34,7 @@ public class AddBookPopupActivity extends AppCompatActivity {
 
         courseName = getIntent().getStringExtra("courseName");
         bookManagement = new BookManagement(Services.getBookDatabase());
-        courseManagement = CourseManagement.getInstance();
+        courseManagement = new CourseManagement();
         // button to back to course management page
         Button backButton = findViewById(R.id.backToCourse);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -44,17 +44,10 @@ public class AddBookPopupActivity extends AppCompatActivity {
             }
         });
 
-        //search books
         Button searchButton = findViewById(R.id.searchbook);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText bookView = findViewById(R.id.bookName);
-                String bookname = bookView.getText().toString();
-
-
-            }
-        });
+        searchButton.setVisibility(View.GONE);
+        EditText enterBookName = findViewById(R.id.bookName);
+        enterBookName.setVisibility(View.GONE);
 
         showBookList();
 
@@ -81,7 +74,7 @@ public class AddBookPopupActivity extends AppCompatActivity {
             bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
             button.setVisibility(View.GONE);
 
-            Button bookActionButton = bookView.findViewById(R.id.bookCondition);
+            Button bookActionButton = bookView.findViewById(R.id.bookAction);
             bookActionButton.setText("Add the book");
             bookActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override

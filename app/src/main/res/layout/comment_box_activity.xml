@@ -20,10 +20,10 @@
 
         <ImageView
             android:id="@+id/profilePicture"
-            android:layout_width="0dp"
-            android:layout_height="20dp"
-            android:layout_marginVertical="50dp"
-            android:layout_weight="1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginVertical="10dp"
+            android:layout_weight="0"
             app:srcCompat="@drawable/profile_picture" />
 
         <LinearLayout
@@ -33,6 +33,12 @@
             android:layout_weight="2"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/userNameComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text="UserName:" />
             <TextView
                 android:id="@+id/userRating"
                 android:layout_width="match_parent"

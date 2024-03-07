@@ -30,11 +30,10 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
     public synchronized List<Book> getFavoriteBooks(int userId) {
         List<Book> bookList = new ArrayList<>();
 
-        String sql="SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BS.book_condition FROM BOOKS b INNER JOIN  FAVOURITEBOOK BF on b.id=BF.book_id INNER JOIN BOOKFORSALE BS  WHERE BF.user_id = ?;";
+        String sql;
 
-       //  sql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BS.book_condition FROM BOOKS b INNER JOIN FAVOURITEBOOK BF on b.id=BF.book_id INNER JOIN BOOKFORSALE BS  WHERE BF.user_id = ?;";
+        sql="SELECT b.id, b.bookname, b.author_name, BS.price, b.edition, b.description, BS.book_condition FROM BOOKS b INNER JOIN FAVOURITEBOOK BF on b.id = BF.book_id INNER JOIN BOOKFORSALE BS ON b.id = BS.book_id WHERE BF.user_id = ?;";
 
-        sql="SELECT b.id, b.bookname, b.author_name, b.price, b.edition, b.description, BS.book_condition FROM BOOKS b INNER JOIN FAVOURITEBOOK BF on b.id = BF.book_id INNER JOIN BOOKFORSALE BS ON b.id = BS.book_id WHERE BF.user_id = ?;";
         try{
             Connection connection = FavoriteBooksDatabase.super.getConnection(dbpath);
 

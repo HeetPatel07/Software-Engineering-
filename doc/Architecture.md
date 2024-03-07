@@ -1,33 +1,36 @@
 # Architecture
 
+## Iteration 2 architecture diagram
+![architecture2](Architecture2.png)
+
 ## Presentation Layer
 ---
 AccountActivity
-* The AccountActivity class manages account creation in an Android application, allowing users to input details and select a role before registering.
+* The AccountActivity class manages account creation, allowing users to input details and select a role before registering.
   
 AddBookPopupActivity
-* The AddBookPopupActivity class facilitates adding books to courses by displaying a list of available books and enabling users to select and add them to a specific course within an Android application.
+* The AddBookPopupActivity class facilitates adding books to courses by displaying a list of available books and enabling users to select and add them to a specific course(Partially implemented and still under construction).
   
 BookInfoActivity
-* The BookInfoActivity class showcases detailed book information, user ratings, and comments, and provides buttons for buying or saving a book, with actions leading to a placeholder alert for construction.
+* e BookInfoActivity displays a book's details, enables saving it as a favorite, and simulates purchasing, alongside showing user ratings and comments.
 
 BooksForSaleActivity
-* The BooksForSaleActivity class is designed to display a list of books for sale by the authenticated user within an Android application, featuring a layout for each book's details such as name, author, and price. It also includes a back navigation button to return to the LibraryActivity.
+* The BooksForSaleActivity class is designed to display a list of books for sale by the authenticated user, featuring a layout for each book's details such as name, author, and price. It also includes a back navigation button to return to the LibraryActivity.
 
 ChangeAccount
-* The ChangeAccount class allows users to update their account details, including username, address, and password, within an Android application.
+* The ChangeAccount class allows users to update their account details, including username, address, and password.
 
 CoursesBooksActivity
-* The CoursesBooksActivity class displays courses and their required books, allowing users to add new courses and books, and providing functionalities to delete books from courses within an Android application.
+* The CoursesBooksActivity class displays courses and their required books, allowing users to add new courses and books, and providing functionalities to delete books from courses.(Partially implemented and still under construction)
 
 HomePageActivity
-* The HomePageActivity class displays and allows searching and sorting of books, and facilitates navigation to detailed book information within an Android application.
+* The HomePageActivity class displays and allows searching and sorting of books, and facilitates navigation to detailed book information.
 
 LibraryActivity
-* The LibraryActivity class provides navigation options within the app to sell books and view books for sale, each through its respective activity, in an Android application.
+* The LibraryActivity class provides navigation options within the app to sell books and view books for sale, each through its respective activity.
 
 LoggedinActivity
-* The LoggedinActivity class provides logged-in users with options to view and edit their account information via the ChangeAccount activity, and to view required course books through the CoursesBooksActivity, facilitating navigation within an Android application.
+* The LoggedinActivity class provides logged-in users with options to view and edit their account information via the ChangeAccount activity, and to view required course books through the CoursesBooksActivity, facilitating navigation.
 
 LoginActivity
 * The LoginActivity class handles user login, offering options to log in, sign up, and navigate back to the home page
@@ -64,7 +67,7 @@ BookManagement
 * The BookManagement class manages book retrieval and sorting operations using a BookDatabase.
 
 CourseManagement
-* The CourseManagement class manages courses, including adding, deleting, and querying courses and their required books, utilizing a singleton pattern for instance management.
+* The CourseManagement class handles course creation, book assignment, and provides course details, with validations for course and book operations(Unfinished still under construction).
 
 FavouriteBookManagement
 * The FavouriteBookManagement class handles adding, removing, and retrieving a user's favorite books using a FavoriteBooksDatabase.
@@ -93,32 +96,40 @@ Database
 ### Implementation
 
 BookDatabaseImpl
-The BookDatabaseImpl class implements the BookDatabase interface, managing book-related operations such as retrieval, addition, and search in a database.
+* The BookDatabaseImpl class implements the BookDatabase interface, managing book-related operations such as retrieval, addition, and search in a database.
 
 FavouriteBooksDatabaseImpl
+* The FavoriteBooksDatabaseImpl manages favorite books in a database, handling additions, deletions, and queries with transaction support and integrity checks.
 
 RatingDatabaseImpl
+* The RatingDatabaseImpl class manages ratings in a database, enabling the addition of ratings with comments and retrieval of ratings for a specific book, with transaction support.
 
 SellBooksDatabaseImpl
+* The SellBooksDatabaseImpl handles database transactions for adding, deleting, and listing books for sale, ensuring data integrity through managed transactions.
 
 UserDatabaseImpl
+* The UserDatabaseImpl handles database operations for users, including search, add, and update actions, with SQL transaction management for data integrity.
 
 ### stub
 
 DummyDatabase
+* The DummyDatabase is an in-memory stub for user and book data operations, supporting basic add and find functionalities, and used for testing without real database interaction.
 
 ### subinterfaces
 BookDatabase
-
-BuyBookDatabase
+* The BookDatabase interface outlines methods for managing and querying book data within a database.
 
 FavouriteBooksDatabase
+* The FavoriteBooksDatabase interface defines methods for managing a user's favorite books, including retrieving, adding, and deleting favorites.
 
 RatingDatabase
+* The RatingDatabase interface specifies methods for adding ratings with comments to books and retrieving all ratings for a specific book.
 
 SellBooksDatabase
+* The SellBooksDatabase interface defines methods for managing books for sale, including retrieving a user's sale books, adding, and deleting sale books.
 
 UserDatabase
+* The UserDatabase interface specifies operations for finding, adding, and updating user information in a database.
 
 ### utils
 DBHelper
@@ -132,6 +143,7 @@ BookProperties
 * The BookProperties class encapsulates the descriptive attributes of a book, including condition, edition, and ratings, along with methods to manage and calculate the overall rating.
 
 Course
+* The Course class represents a course with attributes like ID and name, and manages a set of required book IDs.
 
 Rating
 * The Rating class represents a book rating with a score, comment, and author ID, including validation for rating values and ownership checks for modifications.

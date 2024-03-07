@@ -9,7 +9,6 @@ public class Course {
 
     private final Set<Integer> requiredBookSet; //stored as book ids
 
-    //temp constructor for easy impl
     public Course(String courseName){
         this.courseName = courseName;
         requiredBookSet = new HashSet<Integer>();

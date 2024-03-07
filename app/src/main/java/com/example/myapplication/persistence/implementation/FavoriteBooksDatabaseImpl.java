@@ -11,16 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * try {
- *         Connection connection = BookDatabase.super.getConnection();
- *         System.out.println(connection);
- *         }
- *         catch (SQLException e){
- *         }
-
- * For add, update, delete methods use transactions and write the queries
- */
 public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
     private String dbpath;
     public FavoriteBooksDatabaseImpl(String dbpath){

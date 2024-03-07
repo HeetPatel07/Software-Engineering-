@@ -5,7 +5,7 @@
 
 ## Presentation Layer
 ---
-AccountActivity ![AccountActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/AccountActivity.java?ref_type=heads)
+AccountActivity [AccountActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/AccountActivity.java?ref_type=heads)
 * The AccountActivity class manages account creation, allowing users to input details and select a role before registering.
   
 AddBookPopupActivity

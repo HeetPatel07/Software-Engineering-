@@ -26,7 +26,7 @@ public class FavouriteBookManagement {
             throw new IllegalArgumentException("The userId or bookId is invalid for this action");
         try {
             favouriteBookDatabase.addFavoriteBook(userId, book.getId());
-           // AuthenticatedUser.getInstance().getUser().addForSale(usedBook.addUsedBook(price, condition));
+          
         } catch (IllegalArgumentException e) {
             System.out.println(e);
         }

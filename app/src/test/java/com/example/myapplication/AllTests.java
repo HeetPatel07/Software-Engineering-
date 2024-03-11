@@ -3,9 +3,9 @@ package com.example.myapplication;
 import com.example.myapplication.Models.BookPropertiesTest;
 import com.example.myapplication.Models.BookTest;
 import com.example.myapplication.Models.UserTest;
-import com.example.myapplication.business.AccountmanagementTest;
-import com.example.myapplication.business.BookManagementTest;
-import com.example.myapplication.business.RatingMangerTest;
+import com.example.myapplication.business.unitTests.AccountmanagementTest;
+import com.example.myapplication.business.unitTests.BookManagementTest;
+import com.example.myapplication.business.unitTests.RatingMangerTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

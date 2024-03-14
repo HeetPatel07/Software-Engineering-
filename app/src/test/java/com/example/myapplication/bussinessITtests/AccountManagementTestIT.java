@@ -1,5 +1,6 @@
 package com.example.myapplication.bussinessITtests;
 
+import static com.example.myapplication.persistence.stub.DummyDatabase.dummyDatabase;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
@@ -46,7 +47,7 @@ public class AccountManagementTestIT {
     @Before
     public  void  setUpTest() {
         if(!flag) {
-            dummyDatabase = (DummyDatabase) DummyDatabase.getInstance();
+            DummyDatabase dummyDatabase = (DummyDatabase) DummyDatabase.getInstance();
             accountManagement = new AccountManagement(dummyDatabase);
             authenticationManager = new AuthenticationManager(dummyDatabase);
             flag=true;

@@ -5,6 +5,8 @@ import android.app.admin.SecurityLog;
 import com.example.myapplication.Models.Book;
 
 import com.example.myapplication.Models.Rating;
+import com.example.myapplication.persistence.exceptions.BookCreationException;
+import com.example.myapplication.persistence.exceptions.BookNotFoundException;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 import com.example.myapplication.persistence.subinterfaces.RatingDatabase;
 
@@ -30,12 +32,10 @@ import java.util.Optional;
 public class BookDatabaseImpl implements BookDatabase {
     private final String dbpath;
 
-//    private final RatingDatabase ratingDatabase;
+
 
     public BookDatabaseImpl(String dbpath) {
         this.dbpath = dbpath;
-
-
     }
 
     @Override
@@ -44,9 +44,7 @@ public class BookDatabaseImpl implements BookDatabase {
 
         String booksSql = "SELECT b.id, b.bookname, b.author_name, BF.price, b.edition ,b.description, BF.book_condition FROM BOOKS b RIGHT JOIN BOOKFORSALE BF on b.id=BF.book_id";
 
-        try (Connection connection = BookDatabase.super.getConnection(dbpath);
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(booksSql)) {
+        try (Connection connection = BookDatabase.super.getConnection(dbpath); Statement statement = connection.createStatement(); ResultSet rs = statement.executeQuery(booksSql)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String bookname = rs.getString("bookname");
@@ -67,12 +65,10 @@ public class BookDatabaseImpl implements BookDatabase {
 
 
     @Override
-    public synchronized List<Book> findBookWithBookName(String bookName) {
+    public synchronized List<Book> findBooksWithBookName(String bookName) throws BookNotFoundException {
         List<Book> bookList = new ArrayList<>();
 
-        String booksSql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition FROM BOOKS b INNER JOIN BOOKFORSALE BF on b.id=BF.book_id "
-                + "WHERE b.bookname=?";
-
+        String booksSql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition FROM BOOKS b INNER JOIN BOOKFORSALE BF on b.id=BF.book_id " + "WHERE b.bookname=?";
 
         try {
             Connection connection = BookDatabase.super.getConnection(dbpath);
@@ -97,14 +93,15 @@ public class BookDatabaseImpl implements BookDatabase {
             e.printStackTrace();
         }
 
+        if (bookList.size() == 0) {
+            throw new BookNotFoundException("Couldn't find book with name : " + bookName);
+        }
+
         return bookList;
     }
 
     @Override
-    public synchronized Optional<Book> findBookWithID(int id) {
-        // Correct usage with Statement should carefully handle SQL injection risks.
-        // However, this approach is for consistency as per the request.
-//        String sql = "SELECT * FROM BOOKS b JOIN BOOKFORSALE FB ON b.id=FB.book_id WHERE id = ?;";
+    public synchronized Optional<Book> findBookWithID(int id) throws BookNotFoundException {
 
         String sql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition AS cond FROM BOOKS b INNER JOIN BOOKFORSALE BF on b.id=BF.book_id WHERE b.id=?";
 
@@ -136,12 +133,12 @@ public class BookDatabaseImpl implements BookDatabase {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return Optional.empty();
+        throw new BookNotFoundException("Book with ID : " + id + " was not Found");
     }
 
 
     @Override
-    public synchronized List<Book> findBooksWithAuthorName(String authorName) {
+    public synchronized List<Book> findBooksWithAuthorName(String authorName) throws BookNotFoundException {
         List<Book> bookList = new ArrayList<>();
         // Directly incorporating variables into the SQL string should be handled with caution.
         String sql = "SELECT * FROM PUBLIC.BOOKS WHERE author_name = ?;";
@@ -159,28 +156,27 @@ public class BookDatabaseImpl implements BookDatabase {
                 String description = rs.getString("description");
                 bookList.add(new Book(id, bookname, price, description, edition, authorName, null));
             }
-
-
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        if (bookList.size() == 0) {
+            throw new BookNotFoundException("Books of author : " + authorName + " Not Found");
         }
         return bookList;
     }
 
-
     @Override
-    public synchronized void addBook(int id, String bookName, double price, String description, double edition, String authorName, String bookCondition) {
-        // Building the SQL command by directly including the variables into the command string.
+    public void addBook(int id, String bookName, double price, String description, double edition, String authorName, String bookCondition) {
         String sql = "INSERT INTO PUBLIC.BOOKS (bookname, author_name, price, edition, description) VALUES (?, ?, ?, ?, ?)";
         try {
             Connection connection = getConnection(dbpath);
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1,bookName);
-            statement.setString(2,authorName);
-            statement.setDouble(3,price);
-            statement.setDouble(4,edition);
-            statement.setString(5,description);
+            statement.setString(1, bookName);
+            statement.setString(2, authorName);
+            statement.setDouble(3, price);
+            statement.setDouble(4, edition);
+            statement.setString(5, description);
 
             connection.setAutoCommit(false); // Start transaction
             try {
@@ -195,7 +191,37 @@ public class BookDatabaseImpl implements BookDatabase {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
+        }
+    }
+
+    @Override
+    public void addBook(Book addBook) throws BookCreationException {
+        String sql = "INSERT INTO PUBLIC.BOOKS (bookname, author_name, price, edition, description) VALUES (?, ?, ?, ?, ?)";
+        try {
+            Connection connection = getConnection(dbpath);
+
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, addBook.getBookName());
+            statement.setString(2, addBook.getAuthorName());
+            statement.setDouble(3, addBook.getPrice());
+            statement.setDouble(4, addBook.getBookEdition());
+            statement.setString(5, addBook.getDescription());
+
+            connection.setAutoCommit(false); // Start transaction
+            try {
+                statement.executeUpdate(sql);
+                connection.commit(); // Commit transaction
+            } catch (SQLException e) {
+                connection.rollback(); // Rollback transaction in case of error
+                throw e;
+            } finally {
+                connection.setAutoCommit(true); // Restore auto-commit mode
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new BookCreationException("Unable to add book into the table " + addBook.getBookName());
         }
     }
 }
+

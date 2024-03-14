@@ -71,7 +71,7 @@ public class ChangeAccount extends AppCompatActivity {
 
         String  enteredUsername,enteredPassword,enteredAddress;
 
-         enteredUsername = userObj.getName();
+         enteredUsername = userObj.getUsername();
          enteredPassword = userObj.getPassword();
          enteredAddress = userObj.getAddress();
 

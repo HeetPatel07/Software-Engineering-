@@ -2,7 +2,6 @@ package com.example.myapplication.business.management;
 
 import com.example.myapplication.Models.User;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
-import com.example.myapplication.persistence.Database;
 import com.example.myapplication.persistence.subinterfaces.UserDatabase;
 
 public class AccountManagement {
@@ -26,6 +25,10 @@ public class AccountManagement {
 
         // If both username and password meet the criteria, attempt to add the user to the database
         return database.addUser(userName, password, type, address);
+    }
+
+    public void logoutUser(){
+        AuthenticatedUser.getInstance().setUser(null);
     }
 
 
@@ -59,7 +62,7 @@ public class AccountManagement {
             throw new IllegalArgumentException("Username must be longer than 3 characters.");
         }
 
-        authenticatedUser.setName(newUsername);
+        authenticatedUser.setUsername(newUsername);
         return database.updateUsername(authenticatedUser.getUserID(), newUsername);
     }
 

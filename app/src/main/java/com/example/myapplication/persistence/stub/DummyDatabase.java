@@ -2,7 +2,7 @@ package com.example.myapplication.persistence.stub;
 
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.User;
-import com.example.myapplication.business.utlis.RandomGenerator;
+import com.example.myapplication.persistence.stub.utlis.RandomGenerator;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 import com.example.myapplication.persistence.Database;
 import com.example.myapplication.persistence.subinterfaces.UserDatabase;
@@ -31,10 +31,10 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
     }
 
     public Optional<User> findUserWithUsername(String username) {
-        return users.stream().filter(user -> user.getName().equals(username)).findFirst();
+        return users.stream().filter(user -> user.getUsername().equals(username)).findFirst();
 
     }
-    public List<Book> findBookWithBookName(String bookName) {
+    public List<Book> findBooksWithBookName(String bookName) {
         return books.stream().filter(book -> book.getBookName().equals(bookName)).toList();
 
     }
@@ -57,6 +57,11 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
         return false;
     }
 
+    @Override
+    public void addUser(User user) {
+
+    }
+
     public void addBook(int id, String bookName,
                         double price, String description,
                         double edition, String authorName,String bookCondition) {
@@ -69,6 +74,12 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
 
         books.add(book);
     }
+
+    @Override
+    public void addBook(Book addBook) {
+        books.add(addBook);
+    }
+
     @Override
     public boolean updateUserPassword(int userID, String newPassword) {
         return false;

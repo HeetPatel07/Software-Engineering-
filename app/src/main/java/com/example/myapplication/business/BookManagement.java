@@ -19,7 +19,7 @@ public class BookManagement {
     }
 
     public List<Book> findBooksWithBookName(String bookName){
-        return dummyDatabase.findBookWithBookName(bookName);
+        return dummyDatabase.findBooksWithBookName(bookName);
     }
 
     public Book findBookWithID(int id){

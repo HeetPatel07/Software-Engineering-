@@ -42,7 +42,7 @@ public class UserTest {
     @Test
     public void testGetterAndSetter(){
 
-        assertEquals("testUser1", testUser1.getName());
+        assertEquals("testUser1", testUser1.getUsername());
         assertEquals(1 , testUser1.getUserID());
         assertEquals("type1", testUser1.getType());
         assertEquals("Address1", testUser1.getAddress());

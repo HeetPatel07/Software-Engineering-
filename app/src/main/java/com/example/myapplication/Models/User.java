@@ -2,18 +2,15 @@ package com.example.myapplication.Models;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
     private final int userID;
-    private String name;
+    private String username;
     private String password;
     private String type;
     private String address;
 
     public User(String userName, int nID, String password, String nType, String nAddress){
-        this.name = userName;
+        this.username = userName;
         this.userID = nID;
         this.password = password;
         this.type = nType;
@@ -35,8 +32,8 @@ public class User {
             return false;
         }
     }
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
     public int getUserID() {
         return userID;
@@ -50,8 +47,8 @@ public class User {
         return address;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setType(String type) {
@@ -69,7 +66,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "name='" + username + '\'' +
                 ", userID=" + userID +
                 ", password='" + password + '\'' +
                 ", type='" + type + '\'' +

@@ -20,7 +20,7 @@ public class BookManagement implements FindableBook,Sortable {
     }
 
     public List<Book> findBooksWithBookName(String bookName){
-        return database.findBookWithBookName(bookName);
+        return database.findBooksWithBookName(bookName);
     }
 
     public Book findBookWithID(int id){

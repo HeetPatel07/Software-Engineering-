@@ -1,6 +1,7 @@
 package com.example.myapplication.business;
 
 import com.example.myapplication.Models.Book;
+import com.example.myapplication.persistence.exceptions.BookNotFoundException;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 
 import java.util.List;
@@ -19,11 +20,23 @@ public class BookManagement {
     }
 
     public List<Book> findBooksWithBookName(String bookName){
-        return dummyDatabase.findBooksWithBookName(bookName);
+
+        try {
+            return dummyDatabase.findBooksWithBookName(bookName);
+        }catch( BookNotFoundException e){
+            System.out.println("Error in dummy database");
+            return null;
+        }
     }
 
     public Book findBookWithID(int id){
-        Optional<Book> bookWithID = dummyDatabase.findBookWithID(id);
+        Optional<Book> bookWithID=null;
+        try {
+            bookWithID = dummyDatabase.findBookWithID(id);
+        }catch(BookNotFoundException e){
+            System.out.println("Error in dummy database");
+            return null;
+        }
         return bookWithID.orElse(null);
     }
 

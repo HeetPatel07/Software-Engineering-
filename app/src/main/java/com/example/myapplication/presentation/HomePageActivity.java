@@ -19,6 +19,7 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.BookManagement;
+import com.example.myapplication.persistence.exceptions.BookNotFoundException;
 import com.example.myapplication.persistence.utils.DBHelper;
 
 
@@ -65,25 +66,34 @@ public class HomePageActivity extends AppCompatActivity {
     private void performSearch() {
         //getting the input in the search bar
         String searchQuery = searchContentView.getText().toString().toLowerCase();
+        try {
+            if (!searchQuery.isEmpty()) {
+                List<Book> filteredBooks = books.findBooksWithBookName(searchQuery);
 
-        if (!searchQuery.isEmpty()) {
-            List<Book> filteredBooks = books.findBooksWithBookName(searchQuery);
-            if (!filteredBooks.isEmpty()) {
-                refreshBookList(filteredBooks);
+                if (!filteredBooks.isEmpty()) {
+                    refreshBookList(filteredBooks);
+                } else {
+                    Toast.makeText(HomePageActivity.this, "No books found.", Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Toast.makeText(HomePageActivity.this, "No books found.", Toast.LENGTH_SHORT).show();
+                // If search query is empty, show all books
+                refreshBookList(books.viewBooks());
             }
-        } else {
-            // If search query is empty, show all books
-            refreshBookList(books.viewBooks());
+        }catch(BookNotFoundException e){
+            Toast.makeText(HomePageActivity.this, "Error finding some books.", Toast.LENGTH_SHORT).show();
+
         }
     }
     private List<Book> filterBooksByQuery(String query) {
         List<Book> filteredBooks = new ArrayList<>();
-        for (Book book : books.findBooksWithBookName(query)) {
-            if (book.getBookName().toLowerCase().contains(query)) {
-                filteredBooks.add(book);
+        try {
+            for (Book book : books.findBooksWithBookName(query)) {
+                if (book.getBookName().toLowerCase().contains(query)) {
+                    filteredBooks.add(book);
+                }
             }
+        }catch( BookNotFoundException e){
+            Toast.makeText(this,"Error loading some books",Toast.LENGTH_SHORT).show();
         }
         return filteredBooks;
     }

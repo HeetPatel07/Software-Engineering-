@@ -1,6 +1,7 @@
 package com.example.myapplication.business.management;
 
 import com.example.myapplication.Models.Book;
+import com.example.myapplication.persistence.exceptions.BookNotFoundException;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 
 import java.util.Comparator;
@@ -19,18 +20,37 @@ public class BookManagement implements FindableBook,Sortable {
         return database.getBooks();
     }
 
-    public List<Book> findBooksWithBookName(String bookName){
-        return database.findBooksWithBookName(bookName);
+    public List<Book> findBooksWithBookName(String bookName) throws BookNotFoundException {
+        List<Book>result=null;
+
+        try {
+        database.findBooksWithBookName(bookName);
+        }catch(BookNotFoundException e){
+            throw new BookNotFoundException("No books with name found");
+        }
+        return result;
     }
 
     public Book findBookWithID(int id){
-        Optional<Book> bookWithID = database.findBookWithID(id);
+
+        Optional<Book> bookWithID =null;
+        try {
+            bookWithID = database.findBookWithID(id);
+        }catch(BookNotFoundException e){
+            System.out.println("No books with ");
+        }
         return bookWithID.orElse(null);
     }
 
     @Override
     public List<Book> findBookWithAuthorName(String authorName) {
-        return database.findBooksWithAuthorName(authorName);
+        List<Book> result=null;
+        try {
+            return database.findBooksWithAuthorName(authorName);
+        }catch(BookNotFoundException e){
+            System.out.println("Error in finding the books by"+authorName);
+        }
+        return result;
     }
     @Override
     public List<Book> sortByPrice(List<Book> originalist) {

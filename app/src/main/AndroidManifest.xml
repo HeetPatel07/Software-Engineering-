@@ -73,6 +73,10 @@
         <!-- favourite books page -->
         <activity android:name=".presentation.FavouriteBooksActivity"
             android:exported="true"/>
+
+        <!-- favourite books page -->
+        <activity android:name=".presentation.CheckoutActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>

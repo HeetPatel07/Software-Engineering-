@@ -1,4 +1,5 @@
 package com.example.myapplication.presentation;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,113 +17,113 @@ import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.Models.User;
 
-
-
 public class ChangeAccount extends AppCompatActivity {
 
     private AccountManagement accountManagement;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        //make sure the use is created and then only we come to this code
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_profile_activity);
 
+        // Initialize AccountManagement
+        accountManagement = new AccountManagement(Services.getUserDatabase());
+
+        // RadioGroup and RadioButtons initialization
         RadioGroup group = findViewById(R.id.radio_userType);
         RadioButton radioStu = findViewById(R.id.radio_student);
         RadioButton radioProf = findViewById(R.id.radio_professor);
 
-        accountManagement = new AccountManagement(Services.getUserDatabase());
+        // Disable RadioButtons once one is selected
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // Disable both RadioButtons once one is selected
                 radioStu.setEnabled(false);
                 radioProf.setEnabled(false);
             }
         });
 
-
+        // Button initialization
         Button confirm = findViewById(R.id.account_confirm);
         Button back = findViewById(R.id.button_back_account_management);
 
+        // Back button click listener
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // Navigate back to the previous activity
                 Intent signUp = new Intent(ChangeAccount.this, LoggedinActivity.class);
                 startActivity(signUp);
+                // Display a toast message
                 Toast.makeText(ChangeAccount.this, "Changes unsaved", Toast.LENGTH_SHORT).show();
             }
-
         });
 
-
-        // Set the text for the button to reuse the same layout
+        // Set the text for the confirm button
         confirm.setText("Update");
 
-        EditText username,address,password;
-         username = findViewById(R.id.enter_username_field);
-         address = findViewById(R.id.enter_address_field);
-         password = findViewById(R.id.enter_password_field);
+        // EditText initialization
+        EditText username = findViewById(R.id.enter_username_field);
+        EditText address = findViewById(R.id.enter_address_field);
+        EditText password = findViewById(R.id.enter_password_field);
 
-
+        // Get the current user information
         User userObj = AuthenticatedUser.getInstance().getUser();
-
-        String  enteredUsername,enteredPassword,enteredAddress;
-
-         enteredUsername = userObj.getName();
-         enteredPassword = userObj.getPassword();
-         enteredAddress = userObj.getAddress();
-
+        String enteredUsername = userObj.getName();
+        String enteredPassword = userObj.getPassword();
+        String enteredAddress = userObj.getAddress();
         String type = userObj.getType();
-         RadioGroup radioGroup = findViewById(R.id.radio_userType);
 
         // Pre-select the RadioButton based on the userType
         if ("Student".equals(type)) {
-            radioGroup.check(R.id.radio_student);
+            group.check(R.id.radio_student);
         } else if ("Professor".equals(type)) {
-            radioGroup.check(R.id.radio_professor);
+            group.check(R.id.radio_professor);
         }
 
-         username.setText(enteredUsername);
-         password.setText(enteredPassword);
-         address.setText(enteredAddress);
+        // Set EditText fields with the current user information
+        username.setText(enteredUsername);
+        password.setText(enteredPassword);
+        address.setText(enteredAddress);
 
+        // Confirm button click listener
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get updated user information from EditText fields
                 EditText newUsername = findViewById(R.id.enter_username_field);
                 EditText newAddress = findViewById(R.id.enter_address_field);
                 EditText newPassword = findViewById(R.id.enter_password_field);
 
-                String newName, newAdd, newPass;
-
-                newName = newUsername.getText().toString();
-                newAdd = newAddress.getText().toString();
-                newPass = newPassword.getText().toString();
+                String newName = newUsername.getText().toString();
+                String newAdd = newAddress.getText().toString();
+                String newPass = newPassword.getText().toString();
 
                 try {
-                    if(newAdd.isEmpty()) throw new IllegalArgumentException("Please enter the address correctly. No empty address allowed.");
-                    if(type.isEmpty()) throw new IllegalArgumentException("Please select your role.");
+                    // Validate input fields
+                    if (newAdd.isEmpty()) throw new IllegalArgumentException("Please enter the address correctly. No empty address allowed.");
+                    if (type.isEmpty()) throw new IllegalArgumentException("Please select your role.");
 
+                    // Update user information
                     boolean newUsernameSetup = accountManagement.setNewUserName(newName);
                     boolean newUserAdd = accountManagement.setNewUserAddress(newAdd);
                     boolean newUserPassword = accountManagement.setNewPassword(newPass);
 
+                    // Display appropriate message based on update status
                     if (newUsernameSetup && newUserAdd && newUserPassword) {
-                        Toast.makeText(ChangeAccount.this, "user info set up successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangeAccount.this, "User info set up successfully", Toast.LENGTH_SHORT).show();
+                        // Navigate back to the previous activity
                         Intent signUp = new Intent(ChangeAccount.this, LoggedinActivity.class);
                         startActivity(signUp);
                     } else {
-                        if(!newUsernameSetup){
-                            Toast.makeText(ChangeAccount.this, "Username updated failed", Toast.LENGTH_SHORT).show();
+                        if (!newUsernameSetup) {
+                            Toast.makeText(ChangeAccount.this, "Username update failed", Toast.LENGTH_SHORT).show();
                         }
-                        if(!newUserAdd){
-                            Toast.makeText(ChangeAccount.this, "Address updated failed", Toast.LENGTH_SHORT).show();
+                        if (!newUserAdd) {
+                            Toast.makeText(ChangeAccount.this, "Address update failed", Toast.LENGTH_SHORT).show();
                         }
-                        if(!newUserPassword){
-                            Toast.makeText(ChangeAccount.this, "Password updated failed", Toast.LENGTH_SHORT).show();
+                        if (!newUserPassword) {
+                            Toast.makeText(ChangeAccount.this, "Password update failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 } catch (IllegalArgumentException e) {

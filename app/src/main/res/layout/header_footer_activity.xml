@@ -46,6 +46,14 @@
             android:layout_weight="1"
             app:srcCompat="@drawable/profile_picture" />
 
+        <ImageView
+            android:id="@+id/cartButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="3dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/shoppingcart" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

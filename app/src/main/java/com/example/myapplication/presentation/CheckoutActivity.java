@@ -37,11 +37,14 @@ public class CheckoutActivity extends AppCompatActivity {
 
         TextView heading= findViewById(R.id.booksSaleHeading);
 
+        TextView message= findViewById(R.id.messageCheckout1);
+
         findViewById(R.id.button_back_library).setVisibility(View.GONE);
 
         LinearLayout box= findViewById(R.id.saleOfBooksContainer);
 
         heading.setText("Checkout Page");
+        message.setText("Your cart so far");
 
         FooterUtility.initFooterButtons(this);
     }

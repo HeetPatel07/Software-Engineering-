@@ -42,7 +42,7 @@
                 android:layout_weight="1"
                 android:textColor="@color/black"
                 android:text="Sell a Book (recycle)"
-                android:textSize="24sp" />
+                android:textSize="50dp" />
 
             <ImageView
                 android:id="@+id/SellBooks"
@@ -69,7 +69,7 @@
                 android:layout_weight="1"
                 android:textColor="@color/black"
                 android:text="View your books for Sale"
-                android:textSize="24sp" />
+                android:textSize="50dp" />
 
             <ImageView
                 android:id="@+id/viewBooksForSale"

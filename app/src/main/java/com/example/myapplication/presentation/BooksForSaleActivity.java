@@ -41,6 +41,9 @@ public class BooksForSaleActivity extends AppCompatActivity {
 
         Button backToLibrary = findViewById(R.id.button_back_library);
 
+        TextView message= findViewById((R.id.messageCheckout1));
+        message.setVisibility(View.GONE);
+
         backToLibrary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

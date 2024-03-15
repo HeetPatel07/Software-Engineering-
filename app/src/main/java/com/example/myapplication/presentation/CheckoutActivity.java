@@ -14,9 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
+import com.example.myapplication.presentation.BooksUtility;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
-import com.example.myapplication.business.management.BookManagement;
+import com.example.myapplication.business.management.CheckoutManagement;
 import com.example.myapplication.business.management.SellBooksManagement;
 import com.example.myapplication.Models.User;
 import com.example.myapplication.persistence.utils.DBHelper;
@@ -31,22 +32,23 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private User authenticatedUser;
 
+    private CheckoutManagement shoppingCart;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.books_for_sale_view_activity);
+        FooterUtility.initFooterButtons(this);
+        shoppingCart = CheckoutManagement.getInstance();    //getting the shopping cart to show information
 
         TextView heading= findViewById(R.id.booksSaleHeading);
-
         TextView message= findViewById(R.id.messageCheckout1);
 
         findViewById(R.id.button_back_library).setVisibility(View.GONE);
 
-        LinearLayout box= findViewById(R.id.saleOfBooksContainer);
-
         heading.setText("Checkout Page");
         message.setText("Your cart so far");
-
-        FooterUtility.initFooterButtons(this);
+        LinearLayout box= findViewById(R.id.saleOfBooksContainer);
+        new BooksUtility(box, shoppingCart.getCheckoutBooks());
     }
 
 }

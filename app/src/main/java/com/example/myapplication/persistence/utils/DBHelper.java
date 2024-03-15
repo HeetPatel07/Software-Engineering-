@@ -47,7 +47,7 @@ public class DBHelper {
             String[] components = asset.split("/");
             String copyPath = directory.toString() + "/" + components[components.length - 1];
 
-            char[] buffer = new char[10000];
+            char[] buffer = new char[15000];
             int count;
 
             File outFile = new File(copyPath);

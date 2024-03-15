@@ -38,7 +38,7 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page_activity);
 
-        DBHelper.copyDatabaseToDevice(this);
+        DBHelper.resetDB(this);
         books = new BookManagement(Services.getBookDatabase());
 
         FooterUtility.initFooterButtons(this);

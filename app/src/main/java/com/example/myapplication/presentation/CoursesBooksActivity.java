@@ -25,25 +25,21 @@ import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.business.management.CourseManagement;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 
 public class CoursesBooksActivity extends AppCompatActivity {
 
-    private HashMap<String, Button> courseButtonsMap = new HashMap<>();
 
-    //initialize courseManagement
     private static CourseManagement courseManagement;
-    private Map<String, Course> courses = new HashMap<>();
-    private BookManagement bookManagement;
-    private AuthenticatedUser authUser;
-
-
+    List<Course> courseList;
+    AuthenticatedUser authUser;
     protected void onResume() {
         super.onResume();
         // Refresh the courses and books display
-        courses = courseManagement.getCourses(); // Ensure you're getting the updated courses map
+        courseList = courseManagement.getCourse(); // Ensure you're getting the updated courses map
         displayCoursesAndRequiredBooks();
     }
 
@@ -51,31 +47,10 @@ public class CoursesBooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.course_page_activity);
         FooterUtility.initFooterButtons(this);
-        courseManagement = new CourseManagement();
-        bookManagement = new BookManagement(Services.getBookDatabase());
+        courseManagement = new CourseManagement(Services.getCourseRequiredBookDatabase());
         authUser = AuthenticatedUser.getInstance();
 
-        //button to add the course
-        Button addcourse = findViewById(R.id.addCourseButton);
-        addcourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //get the course name
-                EditText courseInput = findViewById(R.id.courseInput);
-                String courseName = courseInput.getText().toString();
-
-                if(courseManagement.addCourse(courseName)){
-                    Toast.makeText(CoursesBooksActivity.this,"Course Added", Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(CoursesBooksActivity.this,"Failed to add a course", Toast.LENGTH_SHORT).show();
-                }
-
-                courses = courseManagement.getCourses();
-                displayCoursesAndRequiredBooks();
-
-            }
-        });
-
+        courseList = courseManagement.getCourse();
         displayCoursesAndRequiredBooks();
     }
 
@@ -83,18 +58,21 @@ public class CoursesBooksActivity extends AppCompatActivity {
         LinearLayout courseBookContainer = findViewById(R.id.courseBookContainer);
         courseBookContainer.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(this);
+        String userType = authUser.getUser().getType();
 
-        //temp code. get course set from course management directly
-        //need to use prof or student own course set
-        for (Map.Entry<String, Course> course : courses.entrySet()) {
+        for (Course course : courseList) {
             View courseBookView = inflater.inflate(R.layout.course_books_activity, courseBookContainer, false);
             //set course name
             TextView courseNameView = courseBookView.findViewById(R.id.courseName);
-            String courseName = course.getValue().getCourseName();
+            String courseName = course.getCourseName();
             courseNameView.setText(courseName);
 
             //add book button operations
             Button addBookButton = courseBookView.findViewById(R.id.addBookButton);
+            if ("Student".equalsIgnoreCase(userType)) {
+                addBookButton.setVisibility(View.GONE); // Hide the add book button for students
+            }
+
             addBookButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -105,29 +83,24 @@ public class CoursesBooksActivity extends AppCompatActivity {
             });
 
             LinearLayout courseInfoContainer = courseBookView.findViewById(R.id.courseBookInfoLayout);
-            Set<Integer> requredBookIDsSet =  courseManagement.getCourseRequiredBookIDs(courseName);
+            Set<Book> requredBookSet =  course.getRequiredBookSet();
 
-            for(Integer bookId : requredBookIDsSet){
 
-                Book book = bookManagement.findBookWithID(bookId);
-
+            for(Book book : requredBookSet){
                 View bookView = inflater.inflate(R.layout.book_item_activity, courseInfoContainer, false);
 
                 TextView bookName = bookView.findViewById(R.id.bookName);
                 TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
 
                 TextView bookPrice = bookView.findViewById(R.id.bookPrice);
-                ImageView button = bookView.findViewById(R.id.bookDelete);
 
                 bookName.setText(String.format("Book Name: %s", book.getBookName()));
                 bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
-
                 bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
 
                 Button bookButton = bookView.findViewById(R.id.bookAction);
                 String buttonName = "Add to Cart";
                 bookButton.setText(buttonName);
-                courseButtonsMap.put(courseName, bookButton);
                 bookButton.setOnClickListener(new View.OnClickListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -141,7 +114,10 @@ public class CoursesBooksActivity extends AppCompatActivity {
                     }
                 });
 
-                ImageView deleteButton = bookView.findViewById(R.id.bookDelete); // Assuming this is called within an Activity
+                ImageView deleteButton = bookView.findViewById(R.id.bookDelete);
+                if ("Student".equalsIgnoreCase(userType)) {
+                    deleteButton.setVisibility(View.GONE); // Hide the add book button for students
+                }
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -150,23 +126,22 @@ public class CoursesBooksActivity extends AppCompatActivity {
                                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        //confirmation of delete
-                                        if(courseManagement.deleteRequiredBookInCourse(courseName, bookId)){
-                                            // Show a Toast message or log for successful deletion
+                                        try {
+                                            courseManagement.deleteRequiredBookInCourse(courseName, book.getId());
+                                            courseList = courseManagement.getCourse();
                                             Toast.makeText(CoursesBooksActivity.this, "Book deleted successfully", Toast.LENGTH_SHORT).show();
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    displayCoursesAndRequiredBooks();
-                                                }
-                                            });
+                                            runOnUiThread(() -> displayCoursesAndRequiredBooks());
+                                        } catch (Exception e) {
+                                            // Handle failure
+                                            Toast.makeText(CoursesBooksActivity.this, "Failed to delete book", Toast.LENGTH_SHORT).show();
                                         }
                                     }
+
                                 })
                                 .setNegativeButton("Discard", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        //cancel the dialog
+                                        //cancel the dialog and do nothing
                                     }
                                 });
                         builder.create().show();

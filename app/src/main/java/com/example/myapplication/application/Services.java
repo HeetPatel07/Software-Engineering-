@@ -2,10 +2,12 @@ package com.example.myapplication.application;
 
 
 import com.example.myapplication.persistence.implementation.BookDatabaseImpl;
+import com.example.myapplication.persistence.implementation.CourseRequiredBookDatabaseImpl;
 import com.example.myapplication.persistence.implementation.FavoriteBooksDatabaseImpl;
 import com.example.myapplication.persistence.implementation.SellBooksDatabaseImpl;
 import com.example.myapplication.persistence.implementation.UserDatabaseImpl;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
+import com.example.myapplication.persistence.subinterfaces.CourseRequiredBookDatabase;
 import com.example.myapplication.persistence.subinterfaces.FavoriteBooksDatabase;
 import com.example.myapplication.persistence.subinterfaces.SellBooksDatabase;
 import com.example.myapplication.persistence.subinterfaces.UserDatabase;
@@ -16,6 +18,8 @@ public class Services {
     private static SellBooksDatabase sellBooksDatabase;
 
     private static FavoriteBooksDatabaseImpl favBookDatabase;
+
+    private static CourseRequiredBookDatabaseImpl courseRequiredBoookDatabase;
 
     public static synchronized BookDatabase getBookDatabase(){
         if(bookDatabase == null){
@@ -43,6 +47,13 @@ public class Services {
             favBookDatabase = new FavoriteBooksDatabaseImpl(Main.getDBPathName());
         }
         return favBookDatabase;
+    }
+
+    public static synchronized CourseRequiredBookDatabase getCourseRequiredBookDatabase(){
+        if(courseRequiredBoookDatabase == null){
+            courseRequiredBoookDatabase = new CourseRequiredBookDatabaseImpl(Main.getDBPathName());
+        }
+        return courseRequiredBoookDatabase;
     }
 
 }

@@ -1,56 +1,43 @@
 package com.example.myapplication.business.management;
 
+import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Course;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import com.example.myapplication.persistence.exceptions.BookNotFoundException;
+import com.example.myapplication.persistence.subinterfaces.CourseRequiredBookDatabase;
+
+import java.util.List;
 
 public class CourseManagement {
 
-    private Map<String, Course> coursesMap;
-
-    public CourseManagement() {
-        coursesMap = new HashMap<>();
+    private CourseRequiredBookDatabase courseRequiredBookDatabase;
+    public CourseManagement(CourseRequiredBookDatabase database) {
+        this.courseRequiredBookDatabase = database;
     }
 
-    public Map<String, Course> getCourses() {
-        return new HashMap<>(coursesMap);
-    }
+    public List<Course> getCourse() {
+        List<Course> result=null;
 
-    public Course getCourse(String courseName) {
-        Course course = coursesMap.get(courseName);
-        if (course == null) {
-            throw new IllegalArgumentException("Course does not exist: " + courseName);
+        try {
+            result = courseRequiredBookDatabase.getCourseList();
+        }catch(Exception e){
+            System.out.println("Error of get course list from database.");
         }
-        return course;
+        return result;
     }
 
-    public Set<Integer> getCourseRequiredBookIDs(String courseName) {
-        Course course = getCourse(courseName); // This already throws an exception if the course does not exist
-        return course.getRequiredBookSet();
-    }
-
-    public boolean addCourse(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Course name cannot be null or empty.");
+    public void addRequiredBookToCourse(String courseName, int bookID){
+        try{
+            courseRequiredBookDatabase.addRequiredBookToCourse(courseName, bookID);
+        }catch (Exception e){
+            System.out.print("Error in adding required book to course: " + courseName);
         }
-        if (coursesMap.containsKey(name)) {
-            throw new IllegalArgumentException("Course already exists: " + name);
-        }
-        coursesMap.put(name, new Course(name));
-        return true;
     }
 
-    public boolean addRequiredBookToCourse(String courseName, int bookID) {
-        Course course = getCourse(courseName);
-        return course.getRequiredBookSet().add(bookID);
-    }
-
-    public boolean deleteRequiredBookInCourse(String courseName, int bookID) {
-        Course course = getCourse(courseName);
-        if (!course.getRequiredBookSet().contains(bookID)) {
-            throw new IllegalArgumentException("Attempting to delete a non-required book: " + bookID + " from course: " + courseName);
+    public void deleteRequiredBookInCourse(String courseName, int bookID) {
+        try{
+            courseRequiredBookDatabase.deleteRequiredBookFromCourse(courseName, bookID);
+        }catch (Exception e){
+            System.out.print("Error of delete required book in Course: " + courseName);
         }
-        return course.getRequiredBookSet().remove(bookID);
     }
 }

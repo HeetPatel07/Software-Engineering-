@@ -7,18 +7,17 @@ public class Course {
     private int courseID;
     private String courseName;
 
-    private final Set<Integer> requiredBookSet; //stored as book ids
+    private final Set<Book> requiredBookSet; //stored as book ids
 
     public Course(String courseName){
         this.courseName = courseName;
-        requiredBookSet = new HashSet<Integer>();
+        requiredBookSet = new HashSet<Book>();
     }
 
-    public Course(int courseID, String courseName){
-        this.courseID = courseID;
-        this.courseName = courseName;
-        requiredBookSet= new HashSet<Integer>();
+    public void addRequiredBook(Book book){
+        requiredBookSet.add(book);
     }
+
     public int getCourseID(){
         return courseID;
     }
@@ -27,7 +26,7 @@ public class Course {
         return courseName;
     }
 
-    public Set<Integer> getRequiredBookSet(){
+    public Set<Book> getRequiredBookSet(){
         return requiredBookSet;
     }
 

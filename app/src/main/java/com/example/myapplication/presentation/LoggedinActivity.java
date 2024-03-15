@@ -1,6 +1,7 @@
 package com.example.myapplication.presentation;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -32,7 +33,8 @@ public class LoggedinActivity extends AppCompatActivity {
         viewCourseBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoggedinActivity.this, "Under Construction", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoggedinActivity.this, CoursesBooksActivity.class);
+                startActivity(intent);
             }
         });
 

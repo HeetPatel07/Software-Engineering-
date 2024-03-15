@@ -34,7 +34,7 @@ public class AddBookPopupActivity extends AppCompatActivity {
 
         courseName = getIntent().getStringExtra("courseName");
         bookManagement = new BookManagement(Services.getBookDatabase());
-        courseManagement = new CourseManagement();
+        courseManagement = new CourseManagement(Services.getCourseRequiredBookDatabase());
         // button to back to course management page
         Button backButton = findViewById(R.id.backToCourse);
         backButton.setOnClickListener(new View.OnClickListener() {

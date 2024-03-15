@@ -1,5 +1,7 @@
 package com.example.myapplication.presentation;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -42,13 +44,60 @@ public class CheckoutActivity extends AppCompatActivity {
 
         TextView heading= findViewById(R.id.booksSaleHeading);
         TextView message= findViewById(R.id.messageCheckout1);
+        Button finishBuy= findViewById(R.id.finishBuying);
 
         findViewById(R.id.button_back_library).setVisibility(View.GONE);
+
 
         heading.setText("Checkout Page");
         message.setText("Your cart so far");
         LinearLayout box= findViewById(R.id.saleOfBooksContainer);
         new BooksUtility(box, shoppingCart.getCheckoutBooks());
+
+        finishBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showOrderConfirmationDialog(AuthenticatedUser.getInstance().getUser());
+//                if (!CheckoutManagement.getInstance().buyBooks(book)) {
+//                    Toast.makeText(booksContainer.getContext(), "Error in removing the book " + book.getBookName() + " please contact admin", Toast.LENGTH_SHORT).show();
+//                }
+            }
+        });
+    }
+
+
+
+    private void showOrderConfirmationDialog(User user) {
+        // Create AlertDialog Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(CheckoutActivity.this);
+
+        // Set dialog title
+        builder.setTitle("Order Confirmation");
+
+        // Set dialog message with user's address
+        builder.setMessage("Do you want to deliver to the following address?\n\n" + user.getAddress());
+
+        // Set positive button and its click listener
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle confirm button click
+                // Add your logic to proceed with the order
+            }
+        });
+
+        // Set negative button and its click listener
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle cancel button click
+                dialog.dismiss();
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 }

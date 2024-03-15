@@ -1,6 +1,7 @@
 package com.example.myapplication.business.management;
 
 import com.example.myapplication.Models.Book;
+
 import java.util.List;
 
 import com.example.myapplication.Models.User;
@@ -27,17 +28,17 @@ public class CheckoutManagement {
         return books;
     }
 
-    public void buyBook(Book book) throws CheckoutException{
+    public void buyBook(Book book) throws CheckoutException {
 
         if (addBookToList(book)) {
             addBookToList(book);
-            throw new CheckoutException("Book "+book.getBookName()+" added to the cart");
+            throw new CheckoutException("Book " + book.getBookName() + " added to the cart");
         } else {
-            throw new CheckoutException("Book"+book.getBookName()+"was not added to the cart cause it is already in your cart");
+            throw new CheckoutException("Book" + book.getBookName() + "was not added to the cart cause it is already in your cart");
         }
     }
 
-    private boolean addBookToList(Book book){
+    private boolean addBookToList(Book book) {
         try {
             // Check if the book already exists in the cart
             for (Book existingBook : books) {
@@ -53,5 +54,25 @@ public class CheckoutManagement {
             System.out.println("Error in adding " + book.getBookName() + " to the checkout page: " + e.getMessage());
         }
         return true;
+    }
+
+    public boolean removeBook(Book book) {
+        try {
+            // Check if the book exists in the cart
+            boolean isRemoved = books.removeIf(existingBook -> existingBook.getId() == book.getId());
+            if (isRemoved)
+                return true; // Book successfully removed
+
+        } catch (RuntimeException e) {
+            System.out.println("Error in removing " + book.getBookName() + " from the checkout page: " + e.getMessage());
+            return false; // Unable to remove book due to error
+        }
+
+        return false;
+    }
+
+    public boolean buyBooks(Book book) {
+       // try{}catch(){}
+        return false;
     }
 }

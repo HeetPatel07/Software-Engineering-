@@ -24,7 +24,7 @@ import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.Models.Rating;
 import com.example.myapplication.business.management.FavouriteBookManagement;
-import com.example.myapplication.persistence.exceptions.CheckoutException;
+import com.example.myapplication.customException.CheckoutException;
 
 import java.util.ArrayList;
 

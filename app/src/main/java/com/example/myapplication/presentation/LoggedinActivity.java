@@ -44,5 +44,15 @@ public class LoggedinActivity extends AppCompatActivity {
                 startActivity(requiredBook);
             }
         });
+
+
+        ImageView viewTransactions= findViewById(R.id.viewTransactions);
+        viewTransactions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent requiredBook = new Intent(LoggedinActivity.this, TransactionsActivity.class);
+                startActivity(requiredBook);
+            }
+        });
     }
 }

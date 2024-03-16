@@ -1,4 +1,4 @@
-package com.example.myapplication.persistence.exceptions;
+package com.example.myapplication.customException;
 
 import androidx.annotation.Nullable;
 

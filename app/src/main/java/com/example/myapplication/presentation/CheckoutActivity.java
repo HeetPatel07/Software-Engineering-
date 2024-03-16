@@ -54,13 +54,13 @@ public class CheckoutActivity extends AppCompatActivity {
         LinearLayout box= findViewById(R.id.saleOfBooksContainer);
         new BooksUtility(box, shoppingCart.getCheckoutBooks());
 
+        if(shoppingCart.isEmpty())
+            finishBuy.setVisibility(View.GONE);
+        else
         finishBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showOrderConfirmationDialog(AuthenticatedUser.getInstance().getUser());
-//                if (!CheckoutManagement.getInstance().buyBooks(book)) {
-//                    Toast.makeText(booksContainer.getContext(), "Error in removing the book " + book.getBookName() + " please contact admin", Toast.LENGTH_SHORT).show();
-//                }
             }
         });
     }

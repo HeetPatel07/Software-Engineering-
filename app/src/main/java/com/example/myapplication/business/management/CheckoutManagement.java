@@ -4,11 +4,7 @@ import com.example.myapplication.Models.Book;
 
 import java.util.List;
 
-import com.example.myapplication.Models.User;
-import com.example.myapplication.business.authentication.AuthenticatedUser;
-import com.example.myapplication.persistence.exceptions.BookNotFoundException;
-import com.example.myapplication.persistence.exceptions.CheckoutException;
-import com.example.myapplication.persistence.subinterfaces.BookDatabase;
+import com.example.myapplication.customException.CheckoutException;
 
 import java.util.ArrayList;
 
@@ -74,5 +70,9 @@ public class CheckoutManagement {
     public boolean buyBooks(Book book) {
        // try{}catch(){}
         return false;
+    }
+
+    public boolean isEmpty() {
+        return  books.isEmpty();
     }
 }

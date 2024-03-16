@@ -26,7 +26,7 @@ public class BookManagement implements FindableBook,Sortable {
         List<Book>result=null;
 
         try {
-        database.findBooksWithBookName(bookName);
+        result = database.findBooksWithBookName(bookName);
         }catch(BookNotFoundException e){
             throw new BookNotFoundException("No books with name found");
         }

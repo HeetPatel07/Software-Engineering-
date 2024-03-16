@@ -4,10 +4,12 @@ package com.example.myapplication.application;
 import com.example.myapplication.persistence.implementation.BookDatabaseImpl;
 import com.example.myapplication.persistence.implementation.FavoriteBooksDatabaseImpl;
 import com.example.myapplication.persistence.implementation.SellBooksDatabaseImpl;
+import com.example.myapplication.persistence.implementation.TransactionDatabaseImpl;
 import com.example.myapplication.persistence.implementation.UserDatabaseImpl;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 import com.example.myapplication.persistence.subinterfaces.FavoriteBooksDatabase;
 import com.example.myapplication.persistence.subinterfaces.SellBooksDatabase;
+import com.example.myapplication.persistence.subinterfaces.TransactionDatabase;
 import com.example.myapplication.persistence.subinterfaces.UserDatabase;
 
 public class Services {
@@ -15,7 +17,9 @@ public class Services {
     private static UserDatabase userDatabase;
     private static SellBooksDatabase sellBooksDatabase;
 
-    private static FavoriteBooksDatabaseImpl favBookDatabase;
+    private static FavoriteBooksDatabase favBookDatabase;
+
+    private static TransactionDatabase transactionDatabase;
 
     public static synchronized BookDatabase getBookDatabase(){
         if(bookDatabase == null){
@@ -45,5 +49,11 @@ public class Services {
         return favBookDatabase;
     }
 
-}
+    public static synchronized TransactionDatabase getTransactionDatabase() {
+        if(transactionDatabase == null) {
+            transactionDatabase = new TransactionDatabaseImpl(Main.getDBPathName());
+        }
+        return transactionDatabase;
+    }
 
+}

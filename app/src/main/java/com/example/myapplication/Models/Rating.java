@@ -43,7 +43,7 @@ public class Rating {
         //deprecated
         rating = nRating;
     }
-    public void setComment (String nComment, User currUser) throws RuntimeException{
+    public void setComment (String nComment, User currUser) {
         //deprecated
         comment = nComment;
     }

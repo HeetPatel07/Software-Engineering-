@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +18,9 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.CheckoutManagement;
 import com.example.myapplication.business.management.FavouriteBookManagement;
+import com.example.myapplication.customException.CheckoutException;
 
 import java.util.List;
 
@@ -26,6 +29,7 @@ public class FavouriteBooksActivity extends AppCompatActivity {
     private LinearLayout booksContainer;
 
     private FavouriteBookManagement favBooksDB;
+    private CheckoutManagement shoppingCart = new CheckoutManagement();
     private List<Book>userList;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,10 +97,14 @@ public class FavouriteBooksActivity extends AppCompatActivity {
         buyBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Check if the user is logged in before allowing to buy
-                    // Show under construction alert for buy button
 
-            }
+                    // add this to the shopping cart
+                    try {
+                        shoppingCart.buyBook(book);
+                    } catch (CheckoutException mssg) {
+                        Toast.makeText(FavouriteBooksActivity.this, mssg.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
         });
     }
 }

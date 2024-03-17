@@ -2,7 +2,6 @@ package com.example.myapplication.persistence.implementation;
 
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.User;
-import com.example.myapplication.persistence.subinterfaces.FavoriteBooksDatabase;
 import com.example.myapplication.persistence.subinterfaces.TransactionDatabase;
 
 import java.sql.Connection;
@@ -27,7 +26,7 @@ public class TransactionDatabaseImpl implements TransactionDatabase {
         sql="SELECT b.id, b.bookname, b.author_name, BS.price, b.edition, b.description, BS.book_condition FROM BOOKS b INNER JOIN FAVOURITEBOOK BF on b.id = BF.book_id INNER JOIN BOOKFORSALE BS ON b.id = BS.book_id WHERE BF.user_id = ?;";
 
         try{
-            Connection connection = FavoriteBooksDatabase.super.getConnection(dbpath);
+            Connection connection = TransactionDatabase.super.getConnection(dbpath);
 
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1,user.getUserID());

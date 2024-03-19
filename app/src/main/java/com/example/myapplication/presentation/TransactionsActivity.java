@@ -1,4 +1,5 @@
 package com.example.myapplication.presentation;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,14 +11,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Models.Book;
+import com.example.myapplication.Models.Transaction;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.CheckoutManagement;
 import com.example.myapplication.business.management.FavouriteBookManagement;
+import com.example.myapplication.customException.CheckoutException;
 
 import java.util.List;
 
@@ -25,41 +30,40 @@ public class TransactionsActivity extends AppCompatActivity {
 
     private LinearLayout booksContainer;
 
-    private FavouriteBookManagement favBooksDB;
-    private List<Book>userList;
+    private CheckoutManagement purchaseHistory;
+    private List<Book> userList;
+    private List<Transaction> history;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.books_for_sale_view_activity);
 
-        // button_back_library;
-        //messageCheckout1
-        //booksSaleHeading
-        //finishBuying
-        //saleOfBooksContainer
         FooterUtility.initFooterButtons(this);
         findViewById(R.id.button_back_library).setVisibility(View.GONE);
         findViewById(R.id.messageCheckout1).setVisibility(View.GONE);
         findViewById(R.id.finishBuying).setVisibility(View.GONE);
 
-       // findViewById(R.id.)
-
-        TextView heading= findViewById(R.id.booksSaleHeading);
+        TextView heading = findViewById(R.id.booksSaleHeading);
 
         heading.setText("Past Purchases");
 
-        booksContainer= findViewById(R.id.saleOfBooksContainer);
+        booksContainer = findViewById(R.id.saleOfBooksContainer);
 
+        purchaseHistory = new CheckoutManagement(Services.getTransactionDatabase());
 
-        favBooksDB = new FavouriteBookManagement(Services.getFavBooksDatabase());
+        try {
+            history = purchaseHistory.pastPurchases();
+        }catch (CheckoutException e) {
+            Toast.makeText(TransactionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
 
-       // setupBookList();
+        for( Book book : history)
     }
 
 
     private void setupBookList() {
-        userList= favBooksDB.getFavBooks(AuthenticatedUser.getInstance().getUser().getUserID());
+        //    userList= favBooksDB.getFavBooks(AuthenticatedUser.getInstance().getUser().getUserID());
         refreshBookList(userList);
     }
 
@@ -84,8 +88,8 @@ public class TransactionsActivity extends AppCompatActivity {
         TextView bookName = bookView.findViewById(R.id.bookName);
         TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
         TextView bookPrice = bookView.findViewById(R.id.bookPrice);
-        TextView bookcondition= bookView.findViewById(R.id.bookCondition);
-        Button buyBook= bookView.findViewById(R.id.bookAction);
+        TextView bookcondition = bookView.findViewById(R.id.bookCondition);
+        Button buyBook = bookView.findViewById(R.id.bookAction);
         ImageView deleteFavBook = bookView.findViewById(R.id.bookDelete);
 
         bookName.setText(String.format("Book Name: %s", book.getBookName()));
@@ -99,8 +103,8 @@ public class TransactionsActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 int bookId = book.getId();
-                int usrId =AuthenticatedUser.getInstance().getUser().getUserID();
-                favBooksDB.removeFavBook(usrId,bookId);
+                int usrId = AuthenticatedUser.getInstance().getUser().getUserID();
+                //          favBooksDB.removeFavBook(usrId,bookId);
                 Intent requiredBook = new Intent(TransactionsActivity.this, FavouriteBooksActivity.class);
                 startActivity(requiredBook);
             }

@@ -2,18 +2,26 @@ package com.example.myapplication.business.management;
 
 import com.example.myapplication.Models.Book;
 
+import java.sql.SQLException;
 import java.util.List;
 
+import com.example.myapplication.Models.Transaction;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.customException.CheckoutException;
+import com.example.myapplication.persistence.subinterfaces.FavoriteBooksDatabase;
+import com.example.myapplication.persistence.subinterfaces.TransactionDatabase;
 
 import java.util.ArrayList;
 
 
 public class CheckoutManagement {
     private static List<Book> books = new ArrayList<>();
-    private static final CheckoutManagement shoppingCart = new CheckoutManagement();
 
-    public CheckoutManagement() {
+    private TransactionDatabase purchaseHistory;
+    private static final CheckoutManagement shoppingCart = null;
+
+    public CheckoutManagement(TransactionDatabase DB) {
+        purchaseHistory=DB;
     } //no class will be able to call this
 
     public static CheckoutManagement getInstance() {
@@ -65,6 +73,18 @@ public class CheckoutManagement {
         }
 
         return false;
+    }
+
+    public List<Transaction> pastPurchases() throws CheckoutException {
+        List<Transaction> result=null;
+
+        try{
+            result=purchaseHistory.getPurchaseHistory(AuthenticatedUser.getInstance().getUser());
+        }catch(CheckoutException e){
+            throw new CheckoutException(e.getMessage());
+        }
+
+        return result;
     }
 
     public boolean buyBooks(Book book) {

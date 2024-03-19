@@ -3,11 +3,13 @@ package com.example.myapplication.persistence.implementation;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Transaction;
 import com.example.myapplication.Models.User;
+import com.example.myapplication.customException.CheckoutException;
 import com.example.myapplication.persistence.subinterfaces.TransactionDatabase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class TransactionDatabaseImpl implements TransactionDatabase {
     }
 
     @Override
-    public synchronized List<Transaction> getPurchaseHistory(User user) {
+    public synchronized List<Transaction> getPurchaseHistory(User user) throws CheckoutException {
 
         List<Transaction> purchaseHistory = new ArrayList<>();
 
@@ -49,8 +51,9 @@ public class TransactionDatabaseImpl implements TransactionDatabase {
             }
         }
 
-        catch (Exception e){
-            e.printStackTrace();
+        catch (SQLException e){
+            System.out.println("Error in reading the past transactions");
+            throw new CheckoutException("Error in loading the past transactions");
         }
         return purchaseHistory;
     }

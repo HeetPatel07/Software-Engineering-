@@ -26,6 +26,10 @@ public class Transaction {
         return price;
     }
 
+    public Book getSoldBook(){
+        return book;
+    }
+
     public void addTransaction(User user,Book book) throws CheckoutException {
 
     }

@@ -2,8 +2,8 @@ package com.example.myapplication.persistence.subinterfaces;
 
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.persistence.Database;
-import com.example.myapplication.persistence.exceptions.BookCreationException;
-import com.example.myapplication.persistence.exceptions.BookNotFoundException;
+import com.example.myapplication.customException.BookCreationException;
+import com.example.myapplication.customException.BookNotFoundException;
 
 import java.util.List;
 import java.util.Optional;

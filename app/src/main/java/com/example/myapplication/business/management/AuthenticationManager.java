@@ -3,7 +3,7 @@ package com.example.myapplication.business.management;
 import com.example.myapplication.Models.User;
 import com.example.myapplication.business.authentication.Authenticate;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
-import com.example.myapplication.persistence.exceptions.UserNotFoundException;
+import com.example.myapplication.customException.UserNotFoundException;
 import com.example.myapplication.persistence.subinterfaces.UserDatabase;
 
 import java.util.Optional;

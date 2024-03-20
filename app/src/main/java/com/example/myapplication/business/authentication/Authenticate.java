@@ -1,6 +1,6 @@
 package com.example.myapplication.business.authentication;
 
-import com.example.myapplication.persistence.exceptions.UserNotFoundException;
+import com.example.myapplication.customException.UserNotFoundException;
 
 public interface Authenticate {
 

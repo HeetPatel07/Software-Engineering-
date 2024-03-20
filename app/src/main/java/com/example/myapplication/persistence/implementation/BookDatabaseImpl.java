@@ -1,12 +1,10 @@
 package com.example.myapplication.persistence.implementation;
 
-import android.app.admin.SecurityLog;
-
 import com.example.myapplication.Models.Book;
 
 import com.example.myapplication.Models.Rating;
-import com.example.myapplication.persistence.exceptions.BookCreationException;
-import com.example.myapplication.persistence.exceptions.BookNotFoundException;
+import com.example.myapplication.customException.BookCreationException;
+import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 import com.example.myapplication.persistence.subinterfaces.RatingDatabase;
 

@@ -2,8 +2,8 @@ package com.example.myapplication.persistence.subinterfaces;
 
 import com.example.myapplication.Models.User;
 import com.example.myapplication.persistence.Database;
-import com.example.myapplication.persistence.exceptions.UserCreationException;
-import com.example.myapplication.persistence.exceptions.UserNotFoundException;
+import com.example.myapplication.customException.UserCreationException;
+import com.example.myapplication.customException.UserNotFoundException;
 
 import java.util.Optional;
 

@@ -19,11 +19,10 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.BookManagement;
-import com.example.myapplication.persistence.exceptions.BookNotFoundException;
+import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.persistence.utils.DBHelper;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
@@ -39,7 +38,7 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page_activity);
 
-        DBHelper.resetDB(this);
+        DBHelper.copyDatabaseToDevice(this);
         books = new BookManagement(Services.getBookDatabase());
 
         FooterUtility.initFooterButtons(this);

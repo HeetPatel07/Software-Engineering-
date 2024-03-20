@@ -131,34 +131,5 @@ public class BookDatabaseImpl implements BookDatabase {
         throw new BookNotFoundException("Book with ID : " + id + " was not Found");
     }
 
-
-    @Override
-    public void addBook(Book addBook) throws BookCreationException {
-        String sql = "INSERT INTO PUBLIC.BOOKS (bookname, author_name, price, edition, description) VALUES (?, ?, ?, ?, ?)";
-        try {
-            Connection connection = getConnection(dbpath);
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, addBook.getBookName());
-            statement.setString(2, addBook.getAuthorName());
-            statement.setDouble(3, addBook.getPrice());
-            statement.setDouble(4, addBook.getBookEdition());
-            statement.setString(5, addBook.getDescription());
-
-            connection.setAutoCommit(false); // Start transaction
-            try {
-                statement.executeUpdate(sql);
-                connection.commit(); // Commit transaction
-            } catch (SQLException e) {
-                connection.rollback(); // Rollback transaction in case of error
-                throw e;
-            } finally {
-                connection.setAutoCommit(true); // Restore auto-commit mode
-                connection.close();
-            }
-        } catch (SQLException e) {
-            throw new BookCreationException("Unable to add book into the table " + addBook.getBookName());
-        }
-    }
 }
 

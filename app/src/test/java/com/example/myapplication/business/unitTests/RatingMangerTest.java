@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import com.example.myapplication.Models.Rating;
 import com.example.myapplication.Models.User;
-import com.example.myapplication.business.RatingManger;
 
 import org.junit.Test;
 

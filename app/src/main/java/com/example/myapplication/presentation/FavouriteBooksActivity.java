@@ -1,4 +1,5 @@
 package com.example.myapplication.presentation;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.CheckoutManagement;
 import com.example.myapplication.business.management.FavouriteBookManagement;
+import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.customException.CheckoutException;
 
 import java.util.List;
@@ -30,7 +32,7 @@ public class FavouriteBooksActivity extends AppCompatActivity {
 
     private FavouriteBookManagement favBooksDB;
     private CheckoutManagement shoppingCart = new CheckoutManagement(Services.getTransactionDatabase());
-    private List<Book>userList;
+    private List<Book> userList;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -42,14 +44,21 @@ public class FavouriteBooksActivity extends AppCompatActivity {
         setupBookList();
     }
 
+
     private void initializeViews() {
         booksContainer = findViewById(R.id.favBooksContainer);
     }
 
+
     private void setupBookList() {
-        userList= favBooksDB.getFavBooks(AuthenticatedUser.getInstance().getUser().getUserID());
+        try {
+            userList = favBooksDB.getFavBooks(AuthenticatedUser.getInstance().getUser().getUserID());
+        } catch (BookNotFoundException e) {
+            Toast.makeText(FavouriteBooksActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
         refreshBookList(userList);
     }
+
 
 
     private void refreshBookList(List<Book> books) {
@@ -72,9 +81,9 @@ public class FavouriteBooksActivity extends AppCompatActivity {
         TextView bookName = bookView.findViewById(R.id.bookName);
         TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
         TextView bookPrice = bookView.findViewById(R.id.bookPrice);
-        TextView bookcondition= bookView.findViewById(R.id.bookCondition);
-        Button buyBook= bookView.findViewById(R.id.bookAction);
-      ImageView deleteFavBook = bookView.findViewById(R.id.bookDelete);
+        TextView bookcondition = bookView.findViewById(R.id.bookCondition);
+        Button buyBook = bookView.findViewById(R.id.bookAction);
+        ImageView deleteFavBook = bookView.findViewById(R.id.bookDelete);
 
         bookName.setText(String.format("Book Name: %s", book.getBookName()));
         bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
@@ -84,11 +93,10 @@ public class FavouriteBooksActivity extends AppCompatActivity {
 
         deleteFavBook.setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View v) {
                 int bookId = book.getId();
-                int usrId =AuthenticatedUser.getInstance().getUser().getUserID();
-                favBooksDB.removeFavBook(usrId,bookId);
+                int usrId = AuthenticatedUser.getInstance().getUser().getUserID();
+                favBooksDB.removeFavBook(usrId, bookId);
                 Intent requiredBook = new Intent(FavouriteBooksActivity.this, FavouriteBooksActivity.class);
                 startActivity(requiredBook);
             }
@@ -98,13 +106,13 @@ public class FavouriteBooksActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    // add this to the shopping cart
-                    try {
-                        shoppingCart.buyBook(book);
-                    } catch (CheckoutException mssg) {
-                        Toast.makeText(FavouriteBooksActivity.this, mssg.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                // add this to the shopping cart
+                try {
+                    shoppingCart.buyBook(book);
+                } catch (CheckoutException mssg) {
+                    Toast.makeText(FavouriteBooksActivity.this, mssg.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
         });
     }
 }

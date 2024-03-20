@@ -7,7 +7,7 @@ public class Transaction {
     private String deliveredTo;
     Book book;
     private double price;
-//t.book_id, t.amount, t.address,b.bookname, b.author_name
+
     public Transaction(String deliveredTo,Double amount,Book book){
 
         this.deliveredTo=deliveredTo;
@@ -25,15 +25,5 @@ public class Transaction {
     public double getAmountPaid(){
         return price;
     }
-
-    public Book getSoldBook(){
-        return book;
-    }
-
-    public void addTransaction(User user,Book book) throws CheckoutException {
-
-    }
-
-
 
 }

@@ -1,6 +1,7 @@
 package com.example.myapplication.persistence.implementation;
 
 import com.example.myapplication.Models.Book;
+import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.persistence.subinterfaces.FavoriteBooksDatabase;
 
 import java.sql.Connection;
@@ -17,7 +18,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
         this.dbpath = dbpath;
     }
     @Override
-    public synchronized List<Book> getFavoriteBooks(int userId) {
+    public synchronized List<Book> getFavoriteBooks(int userId) throws BookNotFoundException {
         List<Book> bookList = new ArrayList<>();
 
         String sql;
@@ -42,8 +43,9 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
                     bookList.add(new Book(id, bookName, price, description, edition, authorName, bookCondition));
                 }
         }
-        catch (Exception e){
+        catch (SQLException e){
             e.printStackTrace();
+            throw new BookNotFoundException("Error in loading you favourite books");
         }
         return bookList;
     }

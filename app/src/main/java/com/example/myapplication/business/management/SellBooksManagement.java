@@ -18,10 +18,7 @@ public class SellBooksManagement {
         this.user=user;
     }
 
-
     public String bookExists(int id, float price, String condition) {
-
-
         Book book = manager.findBookWithID(id);
 
         if (book != null) {

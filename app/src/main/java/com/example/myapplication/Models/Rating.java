@@ -37,24 +37,10 @@ public class Rating {
 
     public String getAuthorName(){return name;}
 
-    public int getAuthorID() { return authorID; }
-
-    public void setRating (int nRating, User currUser){
-        //deprecated
-        rating = nRating;
-    }
-    public void setComment (String nComment, User currUser) {
-        //deprecated
-        comment = nComment;
-    }
     public void setRating(int newRating){
         rating = newRating;
     }
     public void setRating(String newComment){
-        comment = newComment;
-    }
-    public void setRating(int newRating, String newComment){
-        rating = newRating;
         comment = newComment;
     }
 

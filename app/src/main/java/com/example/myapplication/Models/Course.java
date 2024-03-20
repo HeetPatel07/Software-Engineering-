@@ -18,10 +18,6 @@ public class Course {
         requiredBookSet.add(book);
     }
 
-    public int getCourseID(){
-        return courseID;
-    }
-
     public String getCourseName(){
         return courseName;
     }

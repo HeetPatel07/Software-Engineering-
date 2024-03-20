@@ -4,6 +4,7 @@ import com.example.myapplication.Models.Book;
 
 import java.util.List;
 
+import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.persistence.subinterfaces.FavoriteBooksDatabase;
 
 
@@ -43,8 +44,8 @@ public class FavouriteBookManagement {
         return false;
     }
 
-    public List<Book> getFavBooks(int userId) {
+    public List<Book> getFavBooks(int userId) throws BookNotFoundException {
         if (userId < 0) throw new IllegalArgumentException("The userId is invalid for this action");
-        return favouriteBookDatabase.getFavoriteBooks(userId);
+            return favouriteBookDatabase.getFavoriteBooks(userId);
     }
 }

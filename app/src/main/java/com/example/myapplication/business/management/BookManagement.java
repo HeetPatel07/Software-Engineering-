@@ -45,37 +45,17 @@ public class BookManagement implements FindableBook,Sortable {
     }
 
     @Override
-    public List<Book> findBookWithAuthorName(String authorName) {
-        List<Book> result=null;
-        try {
-            return database.findBooksWithAuthorName(authorName);
-        }catch(BookNotFoundException e){
-            System.out.println("Error in finding the books by"+authorName);
-        }
-        return result;
-    }
-    @Override
     public List<Book> sortByPrice(List<Book> originalist) {
         return originalist.stream().sorted(Comparator.comparingDouble(Book::getPrice)).toList();
     }
+
     @Override
     public List<Book> sortByBookName(List<Book> originalist) {
-        return originalist.stream().sorted(Comparator.comparing(Book::getBookName)).toList();
+        return null;
     }
+
     @Override
     public List<Book> sortByRating(List<Book> originalist) {
         return originalist.stream().sorted(Comparator.comparingDouble(Book::getOverallBookRating)).toList();
-    }
-
-    public boolean sellBook(int bookID){
-        return sellBook(findBookWithID(bookID));
-    }
-    public boolean sellBook(Book book){
-        if(book != null) {
-            book.stockpile++;
-            return true;
-        } else {
-            return false;
-        }
     }
 }

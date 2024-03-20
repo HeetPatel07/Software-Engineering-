@@ -9,7 +9,6 @@ public class BookProperties {
 
     private String condition;
 
-
     private double edition;
 
     BookProperties(String description,double edition,String condition){

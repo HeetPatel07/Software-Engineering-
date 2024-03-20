@@ -94,7 +94,7 @@ public class TransactionsActivity extends AppCompatActivity {
 
         bookName.setText(String.format("Book Name: %s", book.getBookName()));
         bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
-        bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
+        bookPrice.setText(String.format("Book Price: $%.2f", transaction.getAmountPaid()));
         bookcondition.setText(String.format("Delivered to: %s",transaction.getDeliveredTo()));
 
 

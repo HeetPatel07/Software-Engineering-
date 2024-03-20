@@ -4,6 +4,7 @@ import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.management.BookManagement;
 
 import  com.example.myapplication.Models.Book;
+import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.persistence.stub.DummyDatabase;
 
 import org.junit.Before;
@@ -60,7 +61,7 @@ public class BookManagementTest {
         System.out.println("Book list retrieval Test passed");
     }
 
-    @Test public void findBookUsingName(){
+    @Test public void findBookUsingName() throws BookNotFoundException {
 
         System.out.println("Testing the search method for books using names");
 

@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.management.AuthenticationManager;
+import com.example.myapplication.customException.UserCreationException;
 import com.example.myapplication.persistence.stub.DummyDatabase;
 
 public class AccountmanagementTest
@@ -31,13 +32,12 @@ public class AccountmanagementTest
     }
 
     @Test
-    public  void testCreateNewUserValidInput()
-    {
+    public  void testCreateNewUserValidInput() throws UserCreationException {
 
         String userName1 = "yyy";   //invalid input for username
         String password1 = "nil3";  //invalid input for password
         String address1 = "testAddress";
-        assertThrows(IllegalArgumentException.class, ()->
+        assertThrows(UserCreationException.class, ()->
                 accountManagement.createNewUser(userName1,password1,"Professor",address1));
 
         String userName = "Sample";
@@ -49,8 +49,7 @@ public class AccountmanagementTest
 
 
     @Test
-    public void testValidSetNewPassword()
-    {
+    public void testValidSetNewPassword() throws UserCreationException {
         String userName = "TastyFood";
         String password = "original";
         String address = "testAddress";

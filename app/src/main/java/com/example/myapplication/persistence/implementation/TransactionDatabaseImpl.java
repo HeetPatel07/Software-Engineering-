@@ -28,7 +28,7 @@ public class TransactionDatabaseImpl implements TransactionDatabase {
         String sql;
         Book bookSold;
 
-        sql="SELECT t.book_id, t.amount, t.address,b.bookname, b.author_name FROM TRANSACTIONS t JOIN BOOKS b ON b.id = t.book_id WHERE t.user_id = ?";
+        sql="SELECT t.book_id, t.amount, t.address,b.bookname, b.author_name, b.edition FROM TRANSACTIONS t JOIN BOOKS b ON b.id = t.book_id WHERE t.user_id = ?";
 
         try{
             Connection connection = TransactionDatabase.super.getConnection(dbpath);
@@ -46,7 +46,7 @@ public class TransactionDatabaseImpl implements TransactionDatabase {
                 double price = rs.getBigDecimal("amount").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
 
-                bookSold= new Book(id,bookName,0,null,edition,authorName,null);
+                bookSold= new Book(id,bookName,price,null,edition,authorName,null);
                 purchaseHistory.add(new Transaction(deliveredTo,price,bookSold));
             }
         }

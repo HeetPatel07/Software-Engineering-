@@ -50,6 +50,7 @@ public class TransactionsActivity extends AppCompatActivity {
         booksContainer = findViewById(R.id.saleOfBooksContainer);
 
         setupBookList();
+        refreshBookList();
 
     }
 
@@ -65,7 +66,7 @@ public class TransactionsActivity extends AppCompatActivity {
     }
 
 
-    private void refreshBookList(List<Book> books) {
+    private void refreshBookList() {
         booksContainer.removeAllViews();
 
         for( Transaction transaction : history){
@@ -94,9 +95,9 @@ public class TransactionsActivity extends AppCompatActivity {
         bookName.setText(String.format("Book Name: %s", book.getBookName()));
         bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
         bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
-        buyBook.setText(String.format("Delivered to: %s",transaction.getDeliveredTo()));
+        bookcondition.setText(String.format("Delivered to: %s",transaction.getDeliveredTo()));
 
-        bookcondition.setVisibility(View.GONE);
+
         deleteFavBook.setVisibility(View.GONE);
         buyBook.setVisibility(View.GONE);
 

@@ -1,14 +1,20 @@
 package com.example.myapplication.presentation;
+
+import android.app.Service;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.app.AlertDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.AccountManagement;
 
 public class LoggedinActivity extends AppCompatActivity {
 
@@ -38,7 +44,7 @@ public class LoggedinActivity extends AppCompatActivity {
             }
         });
 
-        ImageView viewFavBooks= findViewById(R.id.viewFavouriteBooks);
+        ImageView viewFavBooks = findViewById(R.id.viewFavouriteBooks);
         viewFavBooks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +54,7 @@ public class LoggedinActivity extends AppCompatActivity {
         });
 
 
-        ImageView viewTransactions= findViewById(R.id.viewTransactions);
+        ImageView viewTransactions = findViewById(R.id.viewTransactions);
         viewTransactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,5 +62,35 @@ public class LoggedinActivity extends AppCompatActivity {
                 startActivity(requiredBook);
             }
         });
+
+        Button logoutButton = findViewById(R.id.logoutButton);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(LoggedinActivity.this);
+                builder.setTitle("Confirm Logout")
+                        .setMessage("Are you sure you want to logout?")
+                        .setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Perform logout actions
+                                Intent requiredBook = new Intent(LoggedinActivity.this, HomePageActivity.class);
+                                startActivity(requiredBook);
+                                AccountManagement logout = new AccountManagement(Services.getUserDatabase());
+                                logout.logoutUser();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Dismiss the dialog
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
+
+
     }
 }

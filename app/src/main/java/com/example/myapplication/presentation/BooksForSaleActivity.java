@@ -39,22 +39,8 @@ public class BooksForSaleActivity extends AppCompatActivity {
         FooterUtility.initFooterButtons(this);
         setupBookList();
 
-        Button backToLibrary = findViewById(R.id.button_back_library);
-
         TextView message= findViewById((R.id.messageCheckout1));
         message.setVisibility(View.GONE);
-
-        backToLibrary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Create an intent to start the SellBooksActivity
-                Intent backToLibrary = new Intent(BooksForSaleActivity.this, LibraryActivity.class);
-                startActivity(backToLibrary);
-                // Finish the current activity if needed
-                finish();
-            }
-        });
-
 
     }
 

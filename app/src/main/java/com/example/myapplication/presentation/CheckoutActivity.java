@@ -46,8 +46,6 @@ public class CheckoutActivity extends AppCompatActivity {
         TextView message = findViewById(R.id.messageCheckout1);
         Button finishBuy = findViewById(R.id.finishBuying);
 
-        findViewById(R.id.button_back_library).setVisibility(View.GONE);
-
 
         heading.setText("Checkout Page");
         message.setText("Your cart so far");

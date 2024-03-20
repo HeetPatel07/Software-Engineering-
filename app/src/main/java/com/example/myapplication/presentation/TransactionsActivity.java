@@ -39,7 +39,7 @@ public class TransactionsActivity extends AppCompatActivity {
         setContentView(R.layout.books_for_sale_view_activity);
 
         FooterUtility.initFooterButtons(this);
-        findViewById(R.id.button_back_library).setVisibility(View.GONE);
+
         findViewById(R.id.messageCheckout1).setVisibility(View.GONE);
         findViewById(R.id.finishBuying).setVisibility(View.GONE);
 

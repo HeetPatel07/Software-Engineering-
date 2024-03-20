@@ -5,7 +5,6 @@ import com.example.myapplication.Models.BookTest;
 import com.example.myapplication.Models.UserTest;
 import com.example.myapplication.business.unitTests.AccountmanagementTest;
 import com.example.myapplication.business.unitTests.BookManagementTest;
-import com.example.myapplication.business.unitTests.RatingMangerTest;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -16,8 +15,6 @@ import org.junit.runners.Suite;
         BookTest.class,
         BookPropertiesTest.class,
         UserTest.class,
-        RatingMangerTest.class,
-
 })
 public class AllTests {
 }

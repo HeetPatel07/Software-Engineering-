@@ -132,36 +132,6 @@ public class BookDatabaseImpl implements BookDatabase {
     }
 
 
-//    @Override
-//    public void addBook(int id, String bookName, double price, String description, double edition, String authorName, String bookCondition) {
-//        String sql = "INSERT INTO PUBLIC.BOOKS (bookname, author_name, price, edition, description) VALUES (?, ?, ?, ?, ?)";
-//        try {
-//            Connection connection = getConnection(dbpath);
-//
-//            PreparedStatement statement = connection.prepareStatement(sql);
-//            statement.setString(1, bookName);
-//            statement.setString(2, authorName);
-//            statement.setDouble(3, price);
-//            statement.setDouble(4, edition);
-//            statement.setString(5, description);
-//
-//            connection.setAutoCommit(false); // Start transaction
-//            try {
-//                statement.executeUpdate(sql);
-//                connection.commit(); // Commit transaction
-//            } catch (SQLException e) {
-//                connection.rollback(); // Rollback transaction in case of error
-//                throw e;
-//            } finally {
-//                connection.setAutoCommit(true); // Restore auto-commit mode
-//            }
-//
-//
-//        } catch (SQLException e) {
-//
-//        }
-//    }
-
     @Override
     public void addBook(Book addBook) throws BookCreationException {
         String sql = "INSERT INTO PUBLIC.BOOKS (bookname, author_name, price, edition, description) VALUES (?, ?, ?, ?, ?)";

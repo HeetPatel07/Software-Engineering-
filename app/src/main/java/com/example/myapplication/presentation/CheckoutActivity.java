@@ -1,4 +1,5 @@
 package com.example.myapplication.presentation;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,12 +11,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
+import com.example.myapplication.customException.CheckoutException;
 import com.example.myapplication.presentation.BooksUtility;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
@@ -30,41 +33,37 @@ public class CheckoutActivity extends AppCompatActivity {
 
     private LinearLayout booksContainer;
 
-    private SellBooksManagement manager;
-
-    private User authenticatedUser;
-
     private CheckoutManagement shoppingCart;
 
+    @SuppressLint("SuspiciousIndentation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.books_for_sale_view_activity);
         FooterUtility.initFooterButtons(this);
         shoppingCart = new CheckoutManagement(Services.getTransactionDatabase());    //getting the shopping cart to show information
 
-        TextView heading= findViewById(R.id.booksSaleHeading);
-        TextView message= findViewById(R.id.messageCheckout1);
-        Button finishBuy= findViewById(R.id.finishBuying);
+        TextView heading = findViewById(R.id.booksSaleHeading);
+        TextView message = findViewById(R.id.messageCheckout1);
+        Button finishBuy = findViewById(R.id.finishBuying);
 
         findViewById(R.id.button_back_library).setVisibility(View.GONE);
 
 
         heading.setText("Checkout Page");
         message.setText("Your cart so far");
-        LinearLayout box= findViewById(R.id.saleOfBooksContainer);
-        new BooksUtility(box, shoppingCart.getCheckoutBooks());
+         booksContainer = findViewById(R.id.saleOfBooksContainer);
+        new BooksUtility(booksContainer, shoppingCart.getCheckoutBooks());
 
-        if(shoppingCart.isEmpty())
+        if (shoppingCart.isEmpty())
             finishBuy.setVisibility(View.GONE);
         else
-        finishBuy.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showOrderConfirmationDialog(AuthenticatedUser.getInstance().getUser());
-            }
-        });
+            finishBuy.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showOrderConfirmationDialog(AuthenticatedUser.getInstance().getUser());
+                }
+            });
     }
-
 
 
     private void showOrderConfirmationDialog(User user) {
@@ -81,8 +80,12 @@ public class CheckoutActivity extends AppCompatActivity {
         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Handle confirm button click
-                // Add your logic to proceed with the order
+                try {
+                    shoppingCart.finishTransaction();
+                    new BooksUtility(booksContainer, shoppingCart.getCheckoutBooks());
+                } catch (CheckoutException e) {
+                    Toast.makeText(CheckoutActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

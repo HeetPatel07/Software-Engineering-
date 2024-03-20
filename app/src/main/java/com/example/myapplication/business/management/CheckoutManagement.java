@@ -21,7 +21,7 @@ public class CheckoutManagement {
     private static final CheckoutManagement shoppingCart = null;
 
     public CheckoutManagement(TransactionDatabase DB) {
-        purchaseHistory=DB;
+        purchaseHistory = DB;
     } //no class will be able to call this
 
     public static CheckoutManagement getInstance() {
@@ -42,6 +42,7 @@ public class CheckoutManagement {
         }
     }
 
+
     private boolean addBookToList(Book book) {
         try {
             // Check if the book already exists in the cart
@@ -60,6 +61,7 @@ public class CheckoutManagement {
         return true;
     }
 
+
     public boolean removeBook(Book book) {
         try {
             // Check if the book exists in the cart
@@ -75,24 +77,32 @@ public class CheckoutManagement {
         return false;
     }
 
-    public List<Transaction> pastPurchases() throws CheckoutException {
-        List<Transaction> result=null;
 
-        try{
-            result=purchaseHistory.getPurchaseHistory(AuthenticatedUser.getInstance().getUser());
-        }catch(CheckoutException e){
+    public List<Transaction> pastPurchases() throws CheckoutException {
+        List<Transaction> result = null;
+
+        try {
+            result = purchaseHistory.getPurchaseHistory(AuthenticatedUser.getInstance().getUser());
+        } catch (CheckoutException e) {
             throw new CheckoutException(e.getMessage());
         }
 
         return result;
     }
 
-    public boolean buyBooks(Book book) {
-       // try{}catch(){}
-        return false;
+    public void finishTransaction() throws CheckoutException {
+
+        if (books.isEmpty()) {
+            throw new CheckoutException("No books in you cart");
+        }
+        //checking out all the books in the cart
+        for (Book book : books)
+            purchaseHistory.deleteBookForSale(AuthenticatedUser.getInstance().getUser(), book);
+        books.clear();
     }
 
+
     public boolean isEmpty() {
-        return  books.isEmpty();
+        return books.isEmpty();
     }
 }

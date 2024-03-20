@@ -59,13 +59,67 @@ public class TransactionDatabaseImpl implements TransactionDatabase {
     }
 
     @Override
-    public synchronized boolean deleteBookForSale(User user, Book book) {
-        return false;
+    public synchronized boolean deleteBookForSale(User user, Book book) throws CheckoutException {
+        String deleteBookSql = "DELETE FROM BOOKFORSALE WHERE book_id = ? ";
+        String insertTransactionSql = "INSERT INTO TRANSACTIONS (user_id, book_id, amount, address) VALUES (?, ?, ?, ?)";
+
+        Connection connection = null;
+        PreparedStatement deleteStatement = null;
+        PreparedStatement insertStatement = null;
+
+        try {
+            connection = TransactionDatabase.super.getConnection(dbpath);
+            connection.setAutoCommit(false); // Start transaction
+
+            // Delete book from the books for sale
+            deleteStatement = connection.prepareStatement(deleteBookSql);
+            deleteStatement.setInt(1, book.getId());
+            int rowsDeleted = deleteStatement.executeUpdate();
+
+            if (rowsDeleted == 0) {
+                throw new CheckoutException("Failed to delete the book from the user's sale list.");
+            }
+
+          //  INSERT INTO TRANSACTIONS VALUES (9,3, 10, 84.75,'990 Pembina Road')
+
+            // Insert transaction data into the TRANSACTIONS table
+            insertStatement = connection.prepareStatement(insertTransactionSql);
+            insertStatement.setInt(1, user.getUserID());
+            insertStatement.setInt(2, book.getId());
+            insertStatement.setDouble(3, book.getPrice());
+            insertStatement.setString(4, user.getAddress());
+            insertStatement.executeUpdate();
+
+            connection.commit(); // Commit transaction
+            return true;
+        } catch (SQLException e) {
+            try {
+                if (connection != null) {
+                    connection.rollback(); // Rollback if any exception occurs
+                }
+            } catch (SQLException rollbackEx) {
+                System.err.println("Error rolling back transaction: " + rollbackEx.getMessage());
+            }
+            throw new CheckoutException("Error deleting book for sale and adding transaction: " + e.getMessage());
+        } finally {
+            // Close resources
+            try {
+                if (deleteStatement != null) {
+                    deleteStatement.close();
+                }
+                if (insertStatement != null) {
+                    insertStatement.close();
+                }
+                if (connection != null) {
+                    connection.setAutoCommit(true); // Reset auto-commit mode
+                    connection.close();
+                }
+            } catch (SQLException closeEx) {
+                System.err.println("Error closing resources: " + closeEx.getMessage());
+            }
+        }
     }
 
-    @Override
-    public synchronized boolean addSaleBook(int userId, int bookId, String bookCondition, double price) {
-        return false;
-    }
+
 }
 

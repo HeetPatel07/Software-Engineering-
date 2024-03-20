@@ -11,8 +11,6 @@ import java.util.List;
 public interface TransactionDatabase extends Database {
     List<Transaction> getPurchaseHistory(User user) throws CheckoutException;
 
-    boolean deleteBookForSale(User user,Book book);
-
-    boolean addSaleBook(int userId, int bookId, String bookCondition, double price);
+    boolean deleteBookForSale(User user,Book book) throws CheckoutException;
 
 }

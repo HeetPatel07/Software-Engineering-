@@ -30,8 +30,6 @@ import java.util.Optional;
 public class BookDatabaseImpl implements BookDatabase {
     private final String dbpath;
 
-
-
     public BookDatabaseImpl(String dbpath) {
         this.dbpath = dbpath;
     }
@@ -62,16 +60,17 @@ public class BookDatabaseImpl implements BookDatabase {
     }
 
 
-    @Override
     public synchronized List<Book> findBooksWithBookName(String bookName) throws BookNotFoundException {
         List<Book> bookList = new ArrayList<>();
 
-        String booksSql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition FROM BOOKS b INNER JOIN BOOKFORSALE BF on b.id=BF.book_id " + "WHERE b.bookname=?";
+        String booksSql = "SELECT b.id, b.bookname, b.author_name, BF.price, b.edition, b.description, BF.book_condition FROM BOOKS b JOIN BOOKFORSALE BF ON b.id=BF.book_id WHERE LOWER(b.bookname) LIKE LOWER(?)";
 
-        try {
-            Connection connection = BookDatabase.super.getConnection(dbpath);
-            PreparedStatement statement = connection.prepareStatement(booksSql);
-            statement.setString(1, bookName);
+        try (Connection connection = BookDatabase.super.getConnection(dbpath);
+             PreparedStatement statement = connection.prepareStatement(booksSql)) {
+
+            // Concatenate '%' to bookName to search for any occurrence
+            String likeParam = "%" + bookName + "%";
+            statement.setString(1, likeParam);
 
             ResultSet rs = statement.executeQuery();
 
@@ -84,15 +83,13 @@ public class BookDatabaseImpl implements BookDatabase {
                 String description = rs.getString("description");
                 String bookCondition = rs.getString("book_condition");
                 bookList.add(new Book(id, bookname, price, description, edition, authorName, bookCondition));
-
-
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        if (bookList.size() == 0) {
-            throw new BookNotFoundException("Couldn't find book with name : " + bookName);
+        if (bookList.isEmpty()) {
+            throw new BookNotFoundException("Couldn't find book with name: " + bookName);
         }
 
         return bookList;
@@ -101,7 +98,7 @@ public class BookDatabaseImpl implements BookDatabase {
     @Override
     public synchronized Optional<Book> findBookWithID(int id) throws BookNotFoundException {
 
-        String sql = "SELECT b.id, b.bookname, b.author_name, b.price, b.edition ,b.description, BF.book_condition AS cond FROM BOOKS b INNER JOIN BOOKFORSALE BF on b.id=BF.book_id WHERE b.id=?";
+        String sql = "SELECT b.id, b.bookname, b.author_name, BF.price, b.edition ,b.description, BF.book_condition AS cond FROM BOOKS b INNER JOIN BOOKFORSALE BF on b.id=BF.book_id WHERE b.id=?";
 
         try {
             Connection connection = BookDatabase.super.getConnection(dbpath);

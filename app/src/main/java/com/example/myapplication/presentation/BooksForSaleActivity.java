@@ -1,6 +1,6 @@
 package com.example.myapplication.presentation;
+
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +18,7 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.SellBooksManagement;
 import com.example.myapplication.Models.User;
+import com.example.myapplication.presentation.utils.FooterUtility;
 
 import java.util.List;
 
@@ -33,13 +34,13 @@ public class BooksForSaleActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.books_for_sale_view_activity);
+        findViewById(R.id.finishBuying).setVisibility(View.GONE);
         initializeViews();
-        authenticatedUser=AuthenticatedUser.getInstance().getUser();
-        manager= new SellBooksManagement(Services.getBookDatabase(), Services.getSellBooksDatabase(), authenticatedUser);
+        authenticatedUser = AuthenticatedUser.getInstance().getUser();
+        manager = new SellBooksManagement(Services.getBookDatabase(), Services.getSellBooksDatabase(), authenticatedUser);
         FooterUtility.initFooterButtons(this);
         setupBookList();
-
-        TextView message= findViewById((R.id.messageCheckout1));
+        TextView message = findViewById((R.id.messageCheckout1));
         message.setVisibility(View.GONE);
 
     }
@@ -50,7 +51,7 @@ public class BooksForSaleActivity extends AppCompatActivity {
 
     private void setupBookList() {
         int id = AuthenticatedUser.getInstance().getUser().getUserID();
-        List<Book>userList= manager.getUsedBooksForSale(id);
+        List<Book> userList = manager.getUsedBooksForSale(id);
         refreshBookList(userList);
     }
 
@@ -75,8 +76,8 @@ public class BooksForSaleActivity extends AppCompatActivity {
         TextView bookName = bookView.findViewById(R.id.bookName);
         TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
         TextView bookPrice = bookView.findViewById(R.id.bookPrice);
-        TextView bookcondition= bookView.findViewById(R.id.bookCondition);
-        Button buyBook= bookView.findViewById(R.id.bookAction);
+        TextView bookcondition = bookView.findViewById(R.id.bookCondition);
+        Button buyBook = bookView.findViewById(R.id.bookAction);
         ImageView deleteFavBook = bookView.findViewById(R.id.bookDelete);
 
         bookName.setText(String.format("Book Name: %s", book.getBookName()));

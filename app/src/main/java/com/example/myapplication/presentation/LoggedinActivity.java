@@ -1,6 +1,5 @@
 package com.example.myapplication.presentation;
 
-import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
-import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.AccountManagement;
+import com.example.myapplication.presentation.utils.FooterUtility;
 
 public class LoggedinActivity extends AppCompatActivity {
 

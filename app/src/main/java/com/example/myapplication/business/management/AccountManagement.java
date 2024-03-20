@@ -2,6 +2,7 @@ package com.example.myapplication.business.management;
 
 import com.example.myapplication.Models.User;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.customException.UserCreationException;
 import com.example.myapplication.persistence.subinterfaces.UserDatabase;
 
 public class AccountManagement {
@@ -11,16 +12,16 @@ public class AccountManagement {
         this.database =  database;
     }
 
-    public boolean createNewUser(String userName, String password, String type, String address) {
+    public boolean createNewUser(String userName, String password, String type, String address) throws UserCreationException {
 
         // Check if the username length is not greater than 3
         if(userName == null || userName.length() <= 3) {
-            throw new IllegalArgumentException("Username must be longer than 3 characters.");
+            throw new UserCreationException("Username must be longer than 3 characters.");
         }
 
         // Check if the password length is not greater than 4
         if(password == null || password.length() <= 4) {
-            throw new IllegalArgumentException("Password must be longer than 4 characters.");
+            throw new UserCreationException("Password must be longer than 4 characters.");
         }
 
         // If both username and password meet the criteria, attempt to add the user to the database
@@ -49,7 +50,7 @@ public class AccountManagement {
         return database.updateUserPassword(authenticatedUser.getUserID(), newPassword);
     }
 
-    public boolean setNewUserName(String newUsername){
+    public boolean setNewUserName(String newUsername) throws UserCreationException {
         User authenticatedUser = AuthenticatedUser.getInstance().getUser();
 
         if(authenticatedUser == null){
@@ -59,7 +60,7 @@ public class AccountManagement {
 
         // Check if the username length is not greater than 3
         if(newUsername == null || newUsername.length() <= 3) {
-            throw new IllegalArgumentException("Username must be longer than 3 characters.");
+            throw new UserCreationException("Username must be longer than 3 characters.");
         }
 
         authenticatedUser.setUsername(newUsername);

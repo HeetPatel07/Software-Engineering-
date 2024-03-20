@@ -1,4 +1,4 @@
-package com.example.myapplication.presentation;
+package com.example.myapplication.presentation.utils;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;

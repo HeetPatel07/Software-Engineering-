@@ -16,6 +16,7 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.Models.User;
+import com.example.myapplication.customException.UserCreationException;
 
 public class ChangeAccount extends AppCompatActivity {
 
@@ -101,8 +102,10 @@ public class ChangeAccount extends AppCompatActivity {
 
                 try {
                     // Validate input fields
-                    if (newAdd.isEmpty()) throw new IllegalArgumentException("Please enter the address correctly. No empty address allowed.");
-                    if (type.isEmpty()) throw new IllegalArgumentException("Please select your role.");
+                    if (newAdd.isEmpty())
+                        throw new IllegalArgumentException("Please enter the address correctly. No empty address allowed.");
+                    if (type.isEmpty())
+                        throw new IllegalArgumentException("Please select your role.");
 
                     // Update user information
                     boolean newUsernameSetup = accountManagement.setNewUserName(newName);
@@ -126,7 +129,7 @@ public class ChangeAccount extends AppCompatActivity {
                             Toast.makeText(ChangeAccount.this, "Password update failed", Toast.LENGTH_SHORT).show();
                         }
                     }
-                } catch (IllegalArgumentException e) {
+                } catch (UserCreationException e) {
                     // Catch IllegalArgumentException to show specific error messages
                     Toast.makeText(ChangeAccount.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }

@@ -3,12 +3,9 @@ package com.example.myapplication.presentation;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,18 +13,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
 import com.example.myapplication.customException.CheckoutException;
-import com.example.myapplication.presentation.BooksUtility;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.CheckoutManagement;
-import com.example.myapplication.business.management.SellBooksManagement;
 import com.example.myapplication.Models.User;
-import com.example.myapplication.persistence.utils.DBHelper;
-
-import java.util.List;
+import com.example.myapplication.presentation.utils.BooksUtility;
+import com.example.myapplication.presentation.utils.FooterUtility;
 
 public class CheckoutActivity extends AppCompatActivity {
 

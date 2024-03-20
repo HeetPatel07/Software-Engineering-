@@ -1,4 +1,4 @@
-package com.example.myapplication.presentation;
+package com.example.myapplication.presentation.utils;
 
 import android.content.Intent;
 import android.widget.ImageView;
@@ -10,6 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.myapplication.Models.User;
 import com.example.myapplication.R;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.presentation.CheckoutActivity;
+import com.example.myapplication.presentation.HomePageActivity;
+import com.example.myapplication.presentation.LibraryActivity;
+import com.example.myapplication.presentation.LoggedinActivity;
+import com.example.myapplication.presentation.LoginActivity;
 
 public class FooterUtility {
 

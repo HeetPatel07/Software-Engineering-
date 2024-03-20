@@ -13,6 +13,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.customException.UserCreationException;
 
 
 public class AccountActivity extends AppCompatActivity {
@@ -61,10 +62,10 @@ public class AccountActivity extends AppCompatActivity {
 
         Intent intent;
 
-        if(AuthenticatedUser.getInstance().getUser()==null) {
-             intent = new Intent(this, LoginActivity.class);
+        if (AuthenticatedUser.getInstance().getUser() == null) {
+            intent = new Intent(this, LoginActivity.class);
 
-        }else{
+        } else {
             intent = new Intent(this, ChangeAccount.class);
         }
 
@@ -77,26 +78,24 @@ public class AccountActivity extends AppCompatActivity {
         String address = enterAddressField.getText().toString();
         String password = enterPasswordField.getText().toString();
         String type = "";
-        if(studentTypeButton.isChecked()){
+        if (studentTypeButton.isChecked()) {
             type = studentTypeButton.getText().toString();
-        }else if(professorTypeButton.isChecked()){
+        } else if (professorTypeButton.isChecked()) {
             type = professorTypeButton.getText().toString();
         }
 
         try {
-            if(address.isEmpty()) throw new IllegalArgumentException("Please enter the address correctly.. No empty address allowed.");
-            if(type.isEmpty()) throw new IllegalArgumentException("Please select your role.");
 
             boolean userCreated = accountManagement.createNewUser(username, password, type, address);
             if (userCreated) {
                 Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show();
-
                 navigateToLoginActivity(); // Optionally navigate to login activity upon successful account creation
             } else {
                 Toast.makeText(this, "Failed to create account", Toast.LENGTH_SHORT).show();
             }
-        } catch (IllegalArgumentException e) {
-            // Catch IllegalArgumentException to show specific error messages
+
+        } catch (UserCreationException e) {
+            // Catch exceptions here to show specific error messages
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 

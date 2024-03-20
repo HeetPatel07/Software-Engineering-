@@ -1,9 +1,6 @@
 package com.example.myapplication.presentation;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +16,9 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Transaction;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
-import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.CheckoutManagement;
-import com.example.myapplication.business.management.FavouriteBookManagement;
 import com.example.myapplication.customException.CheckoutException;
+import com.example.myapplication.presentation.utils.FooterUtility;
 
 import java.util.List;
 

@@ -33,7 +33,7 @@ public class SellBooksDatabaseImpl implements SellBooksDatabase {
         List<Book> bookList = new ArrayList<>();
 
         String sql;
-        sql="SELECT b.id, b.bookname, b.author_name,BF.user_id, b.price, b.edition, b.description, BF.book_condition FROM BOOKS b JOIN BOOKFORSALE BF ON BF.book_id=b.id WHERE BF.user_id=?;";
+        sql="SELECT b.id, b.bookname, b.author_name,BF.user_id, BF.price, b.edition, b.description, BF.book_condition FROM BOOKS b JOIN BOOKFORSALE BF ON BF.book_id=b.id WHERE BF.user_id=?;";
         try{
             Connection connection = SellBooksDatabase.super.getConnection(dbpath);
 

@@ -1,44 +1,39 @@
 package com.example.myapplication.bussinessITtests;
 
-import static com.example.myapplication.persistence.stub.DummyDatabase.dummyDatabase;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import java.sql.Connection;
 
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.management.AuthenticationManager;
-import com.example.myapplication.persistence.Database;
+import com.example.myapplication.customException.UserCreationException;
 import com.example.myapplication.persistence.implementation.UserDatabaseImpl;
 import com.example.myapplication.persistence.stub.DummyDatabase;
-import com.example.myapplication.persistence.subinterfaces.BookDatabase;
+import com.example.myapplication.persistence.subinterfaces.UserDatabase;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.DriverManager;
 
 public class AccountManagementTestIT {
 
     static AccountManagement accountManagement;
     static AuthenticationManager authenticationManager;
-
-    static UserDatabaseImpl db;
+/*
+    static UserDatabase db;
     protected String dbpath;
 
     public AccountManagementTestIT(String dbpath){
         this.dbpath = dbpath;
-        try {
             db= Services.getUserDatabase();
         }catch(SQLException e){
             System.out.println("Error in connecting to the datbase in the integration test for Account management");
         }
     }
 
-
+*/
 
 
     static boolean flag=false;     //set up flag
@@ -57,8 +52,7 @@ public class AccountManagementTestIT {
     }
 
     @Test
-    public  void testCreateNewUserValidInput()
-    {
+    public  void testCreateNewUserValidInput() throws UserCreationException {
 
         String userName1 = "yyy";   //invalid input for username
         String password1 = "nil3";  //invalid input for password
@@ -75,8 +69,7 @@ public class AccountManagementTestIT {
 
 
     @Test
-    public void testValidSetNewPassword()
-    {
+    public void testValidSetNewPassword() throws UserCreationException {
         String userName = "TastyFood";
         String password = "original";
         String address = "testAddress";

@@ -43,10 +43,6 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
         return books.stream().filter(book -> book.getId() == id).findFirst();
     }
 
-    @Override
-    public List<Book> findBooksWithAuthorName(String authorName) {
-        return null;
-    }
 
     public boolean addUser(String userName, String nPassword, String nType, String nAddress) {
         if (findUserWithUsername(userName).isEmpty()) {

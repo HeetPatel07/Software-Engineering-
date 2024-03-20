@@ -14,33 +14,33 @@ import java.util.List;
 
 /**
  * try {
- *         Connection connection = BookDatabase.super.getConnection();
- *         System.out.println(connection);
- *         }
- *         catch (SQLException e){
- *         }
-
+ * Connection connection = BookDatabase.super.getConnection();
+ * System.out.println(connection);
+ * }
+ * catch (SQLException e){
+ * }
+ * <p>
  * For add, update, delete methods use transactions and write the queries
  */
 public class SellBooksDatabaseImpl implements SellBooksDatabase {
     private final String dbpath;
-    public SellBooksDatabaseImpl(String dbpath){
+
+    public SellBooksDatabaseImpl(String dbpath) {
         this.dbpath = dbpath;
     }
+
     @Override
     public List<Book> getBooksForSale(int userId) {
-
         List<Book> bookList = new ArrayList<>();
 
-        String sql;
-        sql="SELECT b.id, b.bookname, b.author_name,BF.user_id, BF.price, b.edition, b.description, BF.book_condition FROM BOOKS b JOIN BOOKFORSALE BF ON BF.book_id=b.id WHERE BF.user_id=?;";
-        try{
-            Connection connection = SellBooksDatabase.super.getConnection(dbpath);
+        String sql = "SELECT b.id, b.bookname, b.author_name, BF.price, b.edition, b.description, BF.book_condition FROM BOOKS b JOIN BOOKFORSALE BF ON BF.book_id = b.id WHERE BF.user_id = ?";
 
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,userId);
+        try (Connection connection = SellBooksDatabase.super.getConnection(dbpath);
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
+            statement.setInt(1, userId);
             ResultSet rs = statement.executeQuery();
+
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String bookName = rs.getString("bookname");
@@ -51,8 +51,7 @@ public class SellBooksDatabaseImpl implements SellBooksDatabase {
                 String bookCondition = rs.getString("book_condition");
                 bookList.add(new Book(id, bookName, price, description, edition, authorName, bookCondition));
             }
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return bookList;
@@ -60,59 +59,40 @@ public class SellBooksDatabaseImpl implements SellBooksDatabase {
 
     @Override
     public boolean deleteSaleBook(int userId, int bookId) {
-        // Constructing SQL query directly with variables (be cautious of SQL injection)
-        String sql = "DELETE FROM PUBLIC.BOOKFORSALE WHERE user_id = " + userId + " AND book_id = " + bookId;
+        String sql = "DELETE FROM PUBLIC.BOOKFORSALE WHERE user_id = ? AND book_id = ?";
 
         try (Connection connection = getConnection(dbpath);
-             Statement statement = connection.createStatement()) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            connection.setAutoCommit(false); // Start transaction
-            try {
-                int rowsAffected = statement.executeUpdate(sql); // Execute the update
-                connection.commit(); // Commit transaction
+            statement.setInt(1, userId);
+            statement.setInt(2, bookId);
+            int rowsAffected = statement.executeUpdate();
 
-                return rowsAffected > 0; // Return true if rows were deleted
-
-            } catch (SQLException e) {
-                connection.rollback(); // Rollback transaction in case of error
-                e.printStackTrace();
-                return false;
-            } finally {
-                connection.setAutoCommit(true); // Restore auto-commit mode
-            }
-
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
 
-
     @Override
     public boolean addSaleBook(int userId, int bookId, String bookCondition, double price) {
-        String sql = "INSERT INTO PUBLIC.BOOKFORSALE (book_id, user_id, book_condition, price) VALUES ("
-                + bookId + ", " + userId + ", '" + bookCondition + "', " + price + ")";
+        String sql = "INSERT INTO PUBLIC.BOOKFORSALE (book_id, user_id, book_condition, price) VALUES (?, ?, ?, ?)";
+
         try (Connection connection = getConnection(dbpath);
-             Statement statement = connection.createStatement()) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
 
-            connection.setAutoCommit(false); // Start transaction
-            try {
-                int rowsAffected = statement.executeUpdate(sql); // Execute the insertion
-                connection.commit(); // Commit transaction
+            statement.setInt(1, bookId);
+            statement.setInt(2, userId);
+            statement.setString(3, bookCondition);
+            statement.setDouble(4, price);
+            int rowsAffected = statement.executeUpdate();
 
-                return rowsAffected > 0; // Return true if rows were inserted
-
-            } catch (SQLException e) {
-                connection.rollback(); // Rollback transaction in case of error
-                e.printStackTrace();
-                return false;
-            } finally {
-                connection.setAutoCommit(true); // Restore auto-commit mode
-            }
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
 }

@@ -132,63 +132,35 @@ public class BookDatabaseImpl implements BookDatabase {
     }
 
 
-    @Override
-    public synchronized List<Book> findBooksWithAuthorName(String authorName) throws BookNotFoundException {
-        List<Book> bookList = new ArrayList<>();
-        // Directly incorporating variables into the SQL string should be handled with caution.
-        String sql = "SELECT * FROM PUBLIC.BOOKS WHERE author_name = ?;";
-
-        try {
-            Connection connection = BookDatabase.super.getConnection(dbpath);
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, authorName);
-            ResultSet rs = statement.executeQuery(sql);
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String bookname = rs.getString("bookname");
-                double price = rs.getBigDecimal("price").doubleValue();
-                double edition = rs.getBigDecimal("edition").doubleValue();
-                String description = rs.getString("description");
-                bookList.add(new Book(id, bookname, price, description, edition, authorName, null));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        if (bookList.size() == 0) {
-            throw new BookNotFoundException("Books of author : " + authorName + " Not Found");
-        }
-        return bookList;
-    }
-
-    @Override
-    public void addBook(int id, String bookName, double price, String description, double edition, String authorName, String bookCondition) {
-        String sql = "INSERT INTO PUBLIC.BOOKS (bookname, author_name, price, edition, description) VALUES (?, ?, ?, ?, ?)";
-        try {
-            Connection connection = getConnection(dbpath);
-
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, bookName);
-            statement.setString(2, authorName);
-            statement.setDouble(3, price);
-            statement.setDouble(4, edition);
-            statement.setString(5, description);
-
-            connection.setAutoCommit(false); // Start transaction
-            try {
-                statement.executeUpdate(sql);
-                connection.commit(); // Commit transaction
-            } catch (SQLException e) {
-                connection.rollback(); // Rollback transaction in case of error
-                throw e;
-            } finally {
-                connection.setAutoCommit(true); // Restore auto-commit mode
-            }
-
-
-        } catch (SQLException e) {
-
-        }
-    }
+//    @Override
+//    public void addBook(int id, String bookName, double price, String description, double edition, String authorName, String bookCondition) {
+//        String sql = "INSERT INTO PUBLIC.BOOKS (bookname, author_name, price, edition, description) VALUES (?, ?, ?, ?, ?)";
+//        try {
+//            Connection connection = getConnection(dbpath);
+//
+//            PreparedStatement statement = connection.prepareStatement(sql);
+//            statement.setString(1, bookName);
+//            statement.setString(2, authorName);
+//            statement.setDouble(3, price);
+//            statement.setDouble(4, edition);
+//            statement.setString(5, description);
+//
+//            connection.setAutoCommit(false); // Start transaction
+//            try {
+//                statement.executeUpdate(sql);
+//                connection.commit(); // Commit transaction
+//            } catch (SQLException e) {
+//                connection.rollback(); // Rollback transaction in case of error
+//                throw e;
+//            } finally {
+//                connection.setAutoCommit(true); // Restore auto-commit mode
+//            }
+//
+//
+//        } catch (SQLException e) {
+//
+//        }
+//    }
 
     @Override
     public void addBook(Book addBook) throws BookCreationException {

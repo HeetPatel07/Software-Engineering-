@@ -18,7 +18,9 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.CheckoutManagement;
 import com.example.myapplication.business.management.FavouriteBookManagement;
+import com.example.myapplication.customException.CheckoutException;
 
 import java.util.List;
 
@@ -27,6 +29,8 @@ public class FavouriteBooksActivity extends AppCompatActivity {
     private LinearLayout booksContainer;
 
     private FavouriteBookManagement favBooksDB;
+    private CheckoutManagement shoppingCart = new CheckoutManagement(Services.getTransactionDatabase());
+    private List<Book>userList;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,7 +40,6 @@ public class FavouriteBooksActivity extends AppCompatActivity {
         initializeViews();
         FooterUtility.initFooterButtons(this);
         setupBookList();
-
     }
 
     private void initializeViews() {
@@ -44,7 +47,7 @@ public class FavouriteBooksActivity extends AppCompatActivity {
     }
 
     private void setupBookList() {
-        List<Book>userList= favBooksDB.getFavBooks(AuthenticatedUser.getInstance().getUser().getUserID());
+        userList= favBooksDB.getFavBooks(AuthenticatedUser.getInstance().getUser().getUserID());
         refreshBookList(userList);
     }
 
@@ -91,43 +94,17 @@ public class FavouriteBooksActivity extends AppCompatActivity {
             }
         });
 
-
-
         buyBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Check if the user is logged in before allowing to buy
-                    // Show under construction alert for buy button
-                    showBuyAlert();
-            }
+
+                    // add this to the shopping cart
+                    try {
+                        shoppingCart.buyBook(book);
+                    } catch (CheckoutException mssg) {
+                        Toast.makeText(FavouriteBooksActivity.this, mssg.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
         });
     }
-
-
-    private void showBuyAlert() {
-        new AlertDialog.Builder(this)
-                .setTitle("Do you want to buy this book?")
-                .setMessage("This book will be sent to: " + AuthenticatedUser.getInstance().getUser().getAddress())
-
-                // Set a "Yes" button and its listener
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Code to execute when "Yes" is pressed
-                        dialog.dismiss(); // Dismiss the dialog
-                    }
-                })
-
-                // Set a "No" button and its listener
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Code to execute when "No" is pressed
-                        dialog.dismiss(); // Dismiss the dialog
-                    }
-                })
-
-                // Set the icon
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
-
 }

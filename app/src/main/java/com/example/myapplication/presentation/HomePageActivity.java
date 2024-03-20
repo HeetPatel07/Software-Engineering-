@@ -84,19 +84,6 @@ public class HomePageActivity extends AppCompatActivity {
 
         }
     }
-    private List<Book> filterBooksByQuery(String query) {
-        List<Book> filteredBooks = new ArrayList<>();
-        try {
-            for (Book book : books.findBooksWithBookName(query)) {
-                if (book.getBookName().toLowerCase().contains(query)) {
-                    filteredBooks.add(book);
-                }
-            }
-        }catch( BookNotFoundException e){
-            Toast.makeText(this,"Error loading some books",Toast.LENGTH_SHORT).show();
-        }
-        return filteredBooks;
-    }
 
     private void refreshBookList(List<Book> list) {
         Spinner sort= findViewById(R.id.sortable);

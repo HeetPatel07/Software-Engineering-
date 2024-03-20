@@ -1,8 +1,9 @@
 package com.example.myapplication.presentation;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+
+import com.example.myapplication.business.management.CheckoutManagement;
+
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,14 +24,16 @@ import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.Models.Rating;
 import com.example.myapplication.business.management.FavouriteBookManagement;
+import com.example.myapplication.customException.CheckoutException;
 
 import java.util.ArrayList;
 
 public class BookInfoActivity extends AppCompatActivity {
     // Declare variables
     User currUser;
-    BookManagement bookList = new BookManagement(Services.getBookDatabase());
-    FavouriteBookManagement saveBookManager= new FavouriteBookManagement(Services.getFavBooksDatabase());
+    private BookManagement bookList = new BookManagement(Services.getBookDatabase());
+    private CheckoutManagement shoppingCart = new CheckoutManagement(Services.getTransactionDatabase());
+    private FavouriteBookManagement saveBookManager = new FavouriteBookManagement(Services.getFavBooksDatabase());
 
     // UI elements
     private LinearLayout commentContainer;
@@ -71,8 +74,12 @@ public class BookInfoActivity extends AppCompatActivity {
                     Toast.makeText(BookInfoActivity.this, "Login Firstly", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
                 } else {
-                    // Show under construction alert for buy button
-                    showBuyAlert();
+                    // add this to the shopping cart
+                    try {
+                        shoppingCart.buyBook(book);
+                    } catch (CheckoutException mssg) {
+                        Toast.makeText(BookInfoActivity.this, mssg.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -85,50 +92,19 @@ public class BookInfoActivity extends AppCompatActivity {
                     startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
                 } else {
                     //add this to the favourite books list
-                    saveBookManager.addFavBook(currUser.getUserID(),book);
-                    Toast.makeText(BookInfoActivity.this, "Book"+book.getBookName()+" is now in your favourite books", Toast.LENGTH_SHORT).show();
+                    saveBookManager.addFavBook(currUser.getUserID(), book);
+                    Toast.makeText(BookInfoActivity.this, "Book" + book.getBookName() + " is now in your favourite books", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    // Function to create and show the "Under Construction" alert
-    private void showBuyAlert() {
-        new AlertDialog.Builder(this)
-                .setTitle("Do you want to buy this book?")
-                .setMessage("This book will be sent to: " + currUser.getAddress())
-
-                // Set a "Yes" button and its listener
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Code to execute when "Yes" is pressed
-                        dialog.dismiss(); // Dismiss the dialog
-                    }
-                })
-
-                // Set a "No" button and its listener
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Code to execute when "No" is pressed
-                        dialog.dismiss(); // Dismiss the dialog
-                    }
-                })
-
-                // Set the icon
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
-
     @SuppressLint("ObsoleteSdkInt")
     private Book getBookFromIntent() {
         int bookId = getIntent().getIntExtra("bookId", -1);
-        if (bookId != -1) {
-            // Use BookManager to get book by ID
-            return bookList.findBookWithID(bookId);
-        } else {
-            // Handle the case where book ID is not provided
-            return null;
-        }
+        // Use BookManager to get book by ID
+        return bookList.findBookWithID(bookId);
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -191,11 +167,11 @@ public class BookInfoActivity extends AppCompatActivity {
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void configureCommentView(View commentView, Rating rating) {
         // Configure and display the rating and comment in the comment view
-        TextView outUserName= commentView.findViewById(R.id.userNameComment);
+        TextView outUserName = commentView.findViewById(R.id.userNameComment);
         TextView outRating = commentView.findViewById(R.id.userRating);
         TextView outComment = commentView.findViewById(R.id.userComment);
         outRating.setText("Rating: " + rating.getRating() + " / 5");
         outComment.setText("Comment: " + rating.getComment());
-        outUserName.setText("Username: "+rating.getAuthorName());
+        outUserName.setText("Username: " + rating.getAuthorName());
     }
 }

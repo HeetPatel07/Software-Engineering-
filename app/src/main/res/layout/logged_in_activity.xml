@@ -93,6 +93,29 @@
                     app:srcCompat="@drawable/right" />
             </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border"
+                android:padding="15dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:textColor="@color/black"
+                    android:text="Transactions"
+                    android:textSize="40dp" />
+
+                <ImageView
+                    android:id="@+id/viewTransactions"
+                    android:layout_width="100dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="0dp"
+                    app:srcCompat="@drawable/right" />
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
     <include

@@ -5,11 +5,13 @@ import com.example.myapplication.persistence.implementation.BookDatabaseImpl;
 import com.example.myapplication.persistence.implementation.CourseRequiredBookDatabaseImpl;
 import com.example.myapplication.persistence.implementation.FavoriteBooksDatabaseImpl;
 import com.example.myapplication.persistence.implementation.SellBooksDatabaseImpl;
+import com.example.myapplication.persistence.implementation.TransactionDatabaseImpl;
 import com.example.myapplication.persistence.implementation.UserDatabaseImpl;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 import com.example.myapplication.persistence.subinterfaces.CourseRequiredBookDatabase;
 import com.example.myapplication.persistence.subinterfaces.FavoriteBooksDatabase;
 import com.example.myapplication.persistence.subinterfaces.SellBooksDatabase;
+import com.example.myapplication.persistence.subinterfaces.TransactionDatabase;
 import com.example.myapplication.persistence.subinterfaces.UserDatabase;
 
 public class Services {
@@ -17,7 +19,9 @@ public class Services {
     private static UserDatabase userDatabase;
     private static SellBooksDatabase sellBooksDatabase;
 
-    private static FavoriteBooksDatabaseImpl favBookDatabase;
+    private static FavoriteBooksDatabase favBookDatabase;
+
+    private static TransactionDatabase transactionDatabase;
 
     private static CourseRequiredBookDatabaseImpl courseRequiredBoookDatabase;
 
@@ -49,6 +53,12 @@ public class Services {
         return favBookDatabase;
     }
 
+    public static synchronized TransactionDatabase getTransactionDatabase() {
+        if(transactionDatabase == null) {
+            transactionDatabase = new TransactionDatabaseImpl(Main.getDBPathName());
+        }
+        return transactionDatabase;
+    }
     public static synchronized CourseRequiredBookDatabase getCourseRequiredBookDatabase(){
         if(courseRequiredBoookDatabase == null){
             courseRequiredBoookDatabase = new CourseRequiredBookDatabaseImpl(Main.getDBPathName());
@@ -58,3 +68,4 @@ public class Services {
 
 }
 
+}

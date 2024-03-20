@@ -74,8 +74,12 @@
         <activity android:name=".presentation.FavouriteBooksActivity"
             android:exported="true"/>
 
-        <!-- favourite books page -->
+        <!-- Checkout page -->
         <activity android:name=".presentation.CheckoutActivity"
+            android:exported="true"/>
+
+        <!-- Transactions page -->
+        <activity android:name=".presentation.TransactionsActivity"
             android:exported="true"/>
     </application>
 

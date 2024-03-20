@@ -40,7 +40,7 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.books_for_sale_view_activity);
         FooterUtility.initFooterButtons(this);
-        shoppingCart = CheckoutManagement.getInstance();    //getting the shopping cart to show information
+        shoppingCart = new CheckoutManagement(Services.getTransactionDatabase());    //getting the shopping cart to show information
 
         TextView heading= findViewById(R.id.booksSaleHeading);
         TextView message= findViewById(R.id.messageCheckout1);

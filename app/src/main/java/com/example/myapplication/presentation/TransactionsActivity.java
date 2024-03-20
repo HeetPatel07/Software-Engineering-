@@ -31,7 +31,6 @@ public class TransactionsActivity extends AppCompatActivity {
     private LinearLayout booksContainer;
 
     private CheckoutManagement purchaseHistory;
-    private List<Book> userList;
     private List<Transaction> history;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,29 +49,28 @@ public class TransactionsActivity extends AppCompatActivity {
 
         booksContainer = findViewById(R.id.saleOfBooksContainer);
 
-        purchaseHistory = new CheckoutManagement(Services.getTransactionDatabase());
+        setupBookList();
 
-        try {
-            history = purchaseHistory.pastPurchases();
-        }catch (CheckoutException e) {
-            Toast.makeText(TransactionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-
-        for( Book book : history)
     }
 
 
     private void setupBookList() {
-        //    userList= favBooksDB.getFavBooks(AuthenticatedUser.getInstance().getUser().getUserID());
-        refreshBookList(userList);
+        //the database connection is established
+        purchaseHistory = new CheckoutManagement(Services.getTransactionDatabase());
+        try {
+            history = purchaseHistory.pastPurchases();  //getting the past purchases list
+        }catch (CheckoutException e) {
+            Toast.makeText(TransactionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
 
     private void refreshBookList(List<Book> books) {
         booksContainer.removeAllViews();
-        for (Book book : books) {
+
+        for( Transaction transaction : history){
             View bookView = createBookView();
-            configureBookView(bookView, book);
+            configureBookView(bookView, transaction);
             booksContainer.addView(bookView);
         }
     }
@@ -83,8 +81,9 @@ public class TransactionsActivity extends AppCompatActivity {
     }
 
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
-    private void configureBookView(View bookView, Book book) {
+    private void configureBookView(View bookView, Transaction transaction) {
 
+        Book book= transaction.getBook();
         TextView bookName = bookView.findViewById(R.id.bookName);
         TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
         TextView bookPrice = bookView.findViewById(R.id.bookPrice);
@@ -95,28 +94,11 @@ public class TransactionsActivity extends AppCompatActivity {
         bookName.setText(String.format("Book Name: %s", book.getBookName()));
         bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
         bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
-        bookcondition.setText(String.format("Book Condition: %s", book.getCondition()));
-        buyBook.setText(String.format("Buy"));
+        buyBook.setText(String.format("Delivered to: %s",transaction.getDeliveredTo()));
 
-        deleteFavBook.setOnClickListener(new View.OnClickListener() {
-            @Override
+        bookcondition.setVisibility(View.GONE);
+        deleteFavBook.setVisibility(View.GONE);
+        buyBook.setVisibility(View.GONE);
 
-            public void onClick(View v) {
-                int bookId = book.getId();
-                int usrId = AuthenticatedUser.getInstance().getUser().getUserID();
-                //          favBooksDB.removeFavBook(usrId,bookId);
-                Intent requiredBook = new Intent(TransactionsActivity.this, FavouriteBooksActivity.class);
-                startActivity(requiredBook);
-            }
-        });
-
-        buyBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Check if the user is logged in before allowing to buy
-                // Show under construction alert for buy button
-
-            }
-        });
     }
 }

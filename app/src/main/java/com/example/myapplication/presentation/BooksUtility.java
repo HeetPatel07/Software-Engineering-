@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.User;
 import com.example.myapplication.R;
+import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.CheckoutManagement;
 import com.example.myapplication.business.management.FavouriteBookManagement;
@@ -76,8 +77,8 @@ public class BooksUtility {
         deleteBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (!CheckoutManagement.getInstance().removeBook(book)) {
+                    CheckoutManagement cart= new CheckoutManagement(Services.getTransactionDatabase());
+                if (!cart.removeBook(book)) {
                     Toast.makeText(booksContainer.getContext(), "Error in removing the book " + book.getBookName() + " please contact admin", Toast.LENGTH_SHORT).show();
                 }
                 refreshBookList(books);

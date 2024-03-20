@@ -29,7 +29,7 @@ public class FavouriteBooksActivity extends AppCompatActivity {
     private LinearLayout booksContainer;
 
     private FavouriteBookManagement favBooksDB;
-    private CheckoutManagement shoppingCart = new CheckoutManagement();
+    private CheckoutManagement shoppingCart = new CheckoutManagement(Services.getTransactionDatabase());
     private List<Book>userList;
 
     protected void onCreate(Bundle savedInstanceState) {

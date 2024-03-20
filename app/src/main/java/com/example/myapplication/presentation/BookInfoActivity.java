@@ -32,7 +32,7 @@ public class BookInfoActivity extends AppCompatActivity {
     // Declare variables
     User currUser;
     private BookManagement bookList = new BookManagement(Services.getBookDatabase());
-    private CheckoutManagement shoppingCart = new CheckoutManagement();
+    private CheckoutManagement shoppingCart = new CheckoutManagement(Services.getTransactionDatabase());
     private FavouriteBookManagement saveBookManager = new FavouriteBookManagement(Services.getFavBooksDatabase());
 
     // UI elements

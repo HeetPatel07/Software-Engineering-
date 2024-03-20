@@ -20,7 +20,6 @@ import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.CheckoutManagement;
 import com.example.myapplication.business.management.FavouriteBookManagement;
 import com.example.myapplication.customException.BookNotFoundException;
-import com.example.myapplication.customException.CheckoutException;
 import com.example.myapplication.presentation.utils.FooterUtility;
 
 import java.util.List;

@@ -76,4 +76,6 @@ public class Book {
     public ArrayList<Rating> getRatings(){
         return properties.getRatings();
     }
+
+    public boolean equals(Book b) {return b!= null && id == b.id;}
 }

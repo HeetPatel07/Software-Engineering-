@@ -60,13 +60,12 @@ public class CheckoutManagement {
     public boolean removeBook(Book book) {
         try {
             // Check if the book exists in the cart
-            boolean isRemoved = books.removeIf(existingBook -> existingBook.equals(book));
-            if (isRemoved)  return true; // Book successfully removed
+            // return true if Book successfully removed
+            return books.removeIf(existingBook -> existingBook.equals(book));
         } catch (RuntimeException e) {
             System.out.println("Error in removing " + book.getBookName() + " from the checkout page: " + e.getMessage());
             return false; // Unable to remove book due to error
         }
-        return false;
     }
 
 

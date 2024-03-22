@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="condition_options">
-        <item>User</item>
+        <item>Used</item>
         <item>Used but usable</item>
     </string-array>
 
@@ -10,5 +10,25 @@
     <item>Sort by: Price low-high</item>
     <item>Sort by: Rating low-high</item>
 </string-array>
+
+
+    <string-array name="booklist">
+        <item>The Great Gatsby</item>
+        <item>George Orwell</item>
+        <item>To Kill a Mockingbird</item>
+        <item>Pride and Prejudice</item>
+        <item>Moby-Dick</item>
+        <item>Moby-Dick 2</item>
+        <item>Introduction to Sociology</item>
+        <item>Organic Chemistry</item>
+        <item>Psychology: Themes and Variations</item>
+        <item>Fundamentals of Nursing</item>
+        <item>Microeconomics</item>
+        <item>Linear Algebra and Its Applications</item>
+        <item>Principles of Marketing</item>
+        <item>Fundamentals of Physics</item>
+        <item>Introduction to Political Science</item>
+        <item>Essential Cell Biology</item>
+    </string-array>
 </resources>
 

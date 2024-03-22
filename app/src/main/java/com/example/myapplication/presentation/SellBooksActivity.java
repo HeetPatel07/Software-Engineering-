@@ -1,6 +1,7 @@
 package com.example.myapplication.presentation;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -17,11 +18,11 @@ import com.example.myapplication.presentation.utils.FooterUtility;
 
 
 public class SellBooksActivity extends AppCompatActivity {
-    private EditText BookID;
+    private Spinner BookID;
     private EditText price;
     private Spinner condition;
-
     private SellBooksManagement sellBooks;
+    String[] bookOptions;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,9 +36,20 @@ public class SellBooksActivity extends AppCompatActivity {
 
 
     private void initializeViews(){
-        BookID= findViewById(R.id.enter_Book_ID);
+        BookID= findViewById(R.id.bookSpinner);
         price= findViewById(R.id.enter_price_field);
         condition= findViewById(R.id.spinnerCondition);
+
+        bookOptions=getResources().getStringArray(R.array.booklist);
+
+        // Create an ArrayAdapter using the book options array
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, bookOptions);
+
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+// Apply the adapter to the spinner
+        BookID.setAdapter(adapter);
 
         setUpDoneButton();
     }
@@ -54,13 +66,10 @@ public class SellBooksActivity extends AppCompatActivity {
     private void attemptSale() {
 
         try{
-            String bookIDText= BookID.getText().toString();
+             int bookID = BookID.getSelectedItemPosition();
             String priceText= price.getText().toString();
             String bookCondition= (String)condition.getSelectedItem();
 
-            if (BookID.getText().toString().isEmpty()) {
-                throw new NumberFormatException("Please enter a valid ISBN number");
-            }
             if(priceText.isEmpty()){
                 throw new NumberFormatException("Please enter a selling valid price");
             }
@@ -69,7 +78,7 @@ public class SellBooksActivity extends AppCompatActivity {
             }
 
             float bookPrice = Float.parseFloat(price.getText().toString());
-            int bookID = Integer.parseInt(bookIDText);
+
             //extreme edge cases
             if(bookID < 0)
                 throw new NumberFormatException("Please enter a selling valid price");

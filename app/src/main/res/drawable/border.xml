@@ -3,7 +3,7 @@
     <!-- Background Color -->
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="#BEBEBE" /> <!-- Specify your desired background color here -->
+            <solid android:color="#E9E6EC" /> <!-- Specify your desired background color here -->
         </shape>
     </item>
     <!-- Border -->

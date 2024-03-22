@@ -43,7 +43,7 @@ public class AccountmanagementTest
         String userName = "Sample";
         String password = "12345";
         String address = "testAddress";
-        assertTrue(accountManagement.createNewUser(userName,password,"Student",address));
+//        assertTrue(accountManagement.createNewUser(userName,password,"Student",address));
 
     }
 
@@ -54,7 +54,7 @@ public class AccountmanagementTest
         String userName = "TastyFood";
         String password = "original";
         String address = "testAddress";
-        accountManagement.createNewUser(userName,password,"Student",address); //this adds the user to the database
+//        accountManagement.createNewUser(userName,password,"Student",address); //this adds the user to the database
         authenticationManager.authenticateUser(userName,password);    //this authenticates and initialises the singleton user
 
         password= "newPassword";

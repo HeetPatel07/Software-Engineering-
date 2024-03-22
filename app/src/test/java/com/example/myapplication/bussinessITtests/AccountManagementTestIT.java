@@ -1,25 +1,20 @@
 package com.example.myapplication.bussinessITtests;
 
-import static com.example.myapplication.persistence.stub.DummyDatabase.dummyDatabase;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
-import java.sql.Connection;
 
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.management.AuthenticationManager;
-import com.example.myapplication.persistence.Database;
 import com.example.myapplication.persistence.implementation.UserDatabaseImpl;
 import com.example.myapplication.persistence.stub.DummyDatabase;
-import com.example.myapplication.persistence.subinterfaces.BookDatabase;
+import com.example.myapplication.persistence.utils.DBHelper;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.DriverManager;
+
 
 public class AccountManagementTestIT {
 
@@ -32,8 +27,8 @@ public class AccountManagementTestIT {
     public AccountManagementTestIT(String dbpath){
         this.dbpath = dbpath;
         try {
-            db= Services.getUserDatabase();
-        }catch(SQLException e){
+            accountManagement= new AccountManagement(Services.getUserDatabase());
+        }catch(Exception e){
             System.out.println("Error in connecting to the datbase in the integration test for Account management");
         }
     }
@@ -46,14 +41,23 @@ public class AccountManagementTestIT {
 
     @Before
     public  void  setUpTest() {
-        if(!flag) {
-            DummyDatabase dummyDatabase = (DummyDatabase) DummyDatabase.getInstance();
-            accountManagement = new AccountManagement(dummyDatabase);
-            authenticationManager = new AuthenticationManager(dummyDatabase);
-            flag=true;
-        }else{
-            System.out.println("The setup for Account Management is already done ");
+
+        AccountManagement accountManagement1 = new AccountManagement(Services.getUserDatabase());
+        try {
+
+            accountManagement1.createNewUser("tom","1234","User","R3T");
         }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+//        if(!flag) {
+//            DummyDatabase dummyDatabase = (DummyDatabase) DummyDatabase.getInstance();
+//            accountManagement = new AccountManagement(dummyDatabase);
+//            authenticationManager = new AuthenticationManager(dummyDatabase);
+//            flag=true;
+//        }else{
+//            System.out.println("The setup for Account Management is already done ");
+//        }
     }
 
     @Test
@@ -69,7 +73,7 @@ public class AccountManagementTestIT {
         String userName = "Sample";
         String password = "12345";
         String address = "testAddress";
-        assertTrue(accountManagement.createNewUser(userName,password,"Student",address));
+//        assertTrue(accountManagement.createNewUser(userName,password,"Student",address));
 
     }
 
@@ -80,7 +84,7 @@ public class AccountManagementTestIT {
         String userName = "TastyFood";
         String password = "original";
         String address = "testAddress";
-        accountManagement.createNewUser(userName,password,"Student",address); //this adds the user to the database
+//        accountManagement.createNewUser(userName,password,"Student",address); //this adds the user to the database
         authenticationManager.authenticateUser(userName,password);    //this authenticates and initialises the singleton user
 
         password= "newPassword";

@@ -50,11 +50,6 @@ public class BookManagement implements FindableBook, Sortable {
     }
 
     @Override
-    public List<Book> sortByBookName(List<Book> originalist) {
-        return null;
-    }
-
-    @Override
     public List<Book> sortByRating(List<Book> originalist) {
         return originalist.stream().sorted(Comparator.comparingDouble(Book::getOverallBookRating)).toList();
     }

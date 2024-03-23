@@ -28,40 +28,6 @@ public class RatingDatabaseImpl implements RatingDatabase {
     }
 
     @Override
-
-    //comment
-    public synchronized boolean addRating(int userId, int bookId, int rating, String comment) {
-
-        String sql = "INSERT INTO PUBLIC.COMMENTS(book_id,user_id,rating,comment_text) VALUES (?,?,?,?);";
-
-        try {
-            Connection connection = RatingDatabase.super.getConnection(dbpath);
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, bookId);
-            statement.setInt(2, userId);
-            statement.setDouble(3, rating);
-            statement.setString(4, comment);
-
-            connection.setAutoCommit(false); // Start transaction
-            try {
-                statement.executeUpdate();
-                connection.commit(); // Commit transaction
-                return true;
-            } catch (SQLException e) {
-                connection.rollback(); // Rollback transaction in case of error
-                throw e;
-            } finally {
-                connection.setAutoCommit(true); // Restore auto-commit mode
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-
-    }
-
-    @Override
     public synchronized List<Rating> getRatingsOfBook(int bookId) {
 
         String sql = "SELECT R.rating , R.comment_text , R.user_id ,usr.username FROM COMMENTS R JOIN USERS usr on usr.id = R.user_id where R.book_id = ?;";
@@ -88,8 +54,4 @@ public class RatingDatabaseImpl implements RatingDatabase {
         return ratings;
     }
 
-//    @Override
-//    public void deleteRating(int userId, int ratingId) {
-//
-//    }
 }

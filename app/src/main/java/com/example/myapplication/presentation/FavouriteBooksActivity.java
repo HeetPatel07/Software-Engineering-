@@ -59,7 +59,6 @@ public class FavouriteBooksActivity extends AppCompatActivity {
     }
 
 
-
     private void refreshBookList(List<Book> books) {
         booksContainer.removeAllViews();
         for (Book book : books) {

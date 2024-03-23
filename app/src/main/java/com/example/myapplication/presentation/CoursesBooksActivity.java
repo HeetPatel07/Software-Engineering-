@@ -33,6 +33,7 @@ public class CoursesBooksActivity extends AppCompatActivity {
     private static CourseManagement courseManagement;
     List<Course> courseList;
     AuthenticatedUser authUser;
+
     protected void onResume() {
         super.onResume();
         // Refresh the courses and books display
@@ -51,7 +52,7 @@ public class CoursesBooksActivity extends AppCompatActivity {
         displayCoursesAndRequiredBooks();
     }
 
-    private void displayCoursesAndRequiredBooks(){
+    private void displayCoursesAndRequiredBooks() {
         LinearLayout courseBookContainer = findViewById(R.id.courseBookContainer);
         courseBookContainer.removeAllViews();
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -80,10 +81,10 @@ public class CoursesBooksActivity extends AppCompatActivity {
             });
 
             LinearLayout courseInfoContainer = courseBookView.findViewById(R.id.courseBookInfoLayout);
-            Set<Book> requredBookSet =  course.getRequiredBookSet();
+            Set<Book> requredBookSet = course.getRequiredBookSet();
 
 
-            for(Book book : requredBookSet){
+            for (Book book : requredBookSet) {
                 View bookView = inflater.inflate(R.layout.book_item_activity, courseInfoContainer, false);
 
                 TextView bookName = bookView.findViewById(R.id.bookName);
@@ -144,8 +145,6 @@ public class CoursesBooksActivity extends AppCompatActivity {
                         builder.create().show();
                     }
                 });
-
-
                 courseInfoContainer.addView(bookView);
             }
             courseBookContainer.addView(courseBookView);

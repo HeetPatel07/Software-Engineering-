@@ -9,37 +9,37 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public class BookManagement implements FindableBook,Sortable {
+public class BookManagement implements FindableBook, Sortable {
 
     protected final BookDatabase database;
-    private final List<Book> checkOut= new ArrayList<>();
+    private final List<Book> checkOut = new ArrayList<>();
 
     public BookManagement(BookDatabase database) {
         this.database = database;
     }
 
-    public List<Book> viewBooks(){
+    public List<Book> viewBooks() {
         return database.getBooks();
     }
 
     public List<Book> findBooksWithBookName(String bookName) throws BookNotFoundException {
-        List<Book>result=null;
+        List<Book> result = null;
 
         try {
-        result = database.findBooksWithBookName(bookName);
-        }catch(BookNotFoundException e){
+            result = database.findBooksWithBookName(bookName);
+        } catch (BookNotFoundException e) {
             throw new BookNotFoundException("No books with name found");
         }
         return result;
     }
 
-    public Book findBookWithID(int id){
+    public Book findBookWithID(int id) {
 
-        Optional<Book> bookWithID =null;
+        Optional<Book> bookWithID = null;
         try {
             bookWithID = database.findBookWithID(id);
-        }catch(BookNotFoundException e){
-            System.out.println("No books with id:"+id+" found");
+        } catch (BookNotFoundException e) {
+            System.out.println("No books with id:" + id + " found");
         }
         return bookWithID.orElse(null);
     }

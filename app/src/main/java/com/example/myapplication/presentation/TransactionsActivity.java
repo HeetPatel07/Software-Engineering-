@@ -56,7 +56,7 @@ public class TransactionsActivity extends AppCompatActivity {
         purchaseHistory = new CheckoutManagement(Services.getTransactionDatabase());
         try {
             history = purchaseHistory.pastPurchases();  //getting the past purchases list
-        }catch (CheckoutException e) {
+        } catch (CheckoutException e) {
             Toast.makeText(TransactionsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
@@ -65,7 +65,7 @@ public class TransactionsActivity extends AppCompatActivity {
     private void refreshBookList() {
         booksContainer.removeAllViews();
 
-        for( Transaction transaction : history){
+        for (Transaction transaction : history) {
             View bookView = createBookView();
             configureBookView(bookView, transaction);
             booksContainer.addView(bookView);
@@ -80,7 +80,7 @@ public class TransactionsActivity extends AppCompatActivity {
     @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void configureBookView(View bookView, Transaction transaction) {
 
-        Book book= transaction.getBook();
+        Book book = transaction.getBook();
         TextView bookName = bookView.findViewById(R.id.bookName);
         TextView bookAuthor = bookView.findViewById(R.id.bookAuthor);
         TextView bookPrice = bookView.findViewById(R.id.bookPrice);
@@ -91,7 +91,7 @@ public class TransactionsActivity extends AppCompatActivity {
         bookName.setText(String.format("Book Name: %s", book.getBookName()));
         bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
         bookPrice.setText(String.format("Book Price: $%.2f", transaction.getAmountPaid()));
-        bookcondition.setText(String.format("Delivered to: %s",transaction.getDeliveredTo()));
+        bookcondition.setText(String.format("Delivered to: %s", transaction.getDeliveredTo()));
 
 
         deleteFavBook.setVisibility(View.GONE);

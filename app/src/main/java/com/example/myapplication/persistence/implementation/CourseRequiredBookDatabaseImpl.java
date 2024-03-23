@@ -15,14 +15,18 @@ import java.util.Map;
 
 public class CourseRequiredBookDatabaseImpl implements CourseRequiredBookDatabase {
     private String dbpath;
-    public CourseRequiredBookDatabaseImpl(String dbpath) {this.dbpath = dbpath;}
+
+    public CourseRequiredBookDatabaseImpl(String dbpath) {
+        this.dbpath = dbpath;
+    }
+
     @Override
     public List<Course> getCourseList() {
         List<Course> courseList = new ArrayList<>();
         String sql;
-        sql="SELECT c.course_id, c.courseName, b.id AS book_id, b.bookname, b.author_name, b.price, b.edition, b.description FROM PUBLIC.COURSES c JOIN PUBLIC.BOOKS b ON c.book_id = b.id;";
-        Map<String ,Course> courseMap = new HashMap<>();
-        try{
+        sql = "SELECT c.course_id, c.courseName, b.id AS book_id, b.bookname, b.author_name, b.price, b.edition, b.description FROM PUBLIC.COURSES c JOIN PUBLIC.BOOKS b ON c.book_id = b.id;";
+        Map<String, Course> courseMap = new HashMap<>();
+        try {
             Connection connection = CourseRequiredBookDatabase.super.getConnection(dbpath);
             PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -31,7 +35,7 @@ public class CourseRequiredBookDatabaseImpl implements CourseRequiredBookDatabas
                 int id = rs.getInt("course_id");
                 String courseName = rs.getString("courseName");
 
-                int bookId= rs.getInt("book_id");
+                int bookId = rs.getInt("book_id");
                 String bookname = rs.getString("bookname");
                 String authorName = rs.getString("author_name");
                 double price = rs.getBigDecimal("price").doubleValue();
@@ -39,9 +43,9 @@ public class CourseRequiredBookDatabaseImpl implements CourseRequiredBookDatabas
                 String description = rs.getString("description");
                 Course course = new Course(courseName);
                 Book book = new Book(bookId, bookname, price, description, edition, authorName, null);
-                if(courseMap.containsKey(courseName)){
+                if (courseMap.containsKey(courseName)) {
                     courseMap.get(courseName).addRequiredBook(book);
-                }else{
+                } else {
                     course.addRequiredBook(book);
                     courseMap.put(courseName, course);
                 }
@@ -50,15 +54,14 @@ public class CourseRequiredBookDatabaseImpl implements CourseRequiredBookDatabas
             courseMap.forEach((courseName, course) -> {
                 courseList.add(course);
             });
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return courseList;
     }
 
 
-    public void addRequiredBookToCourse(String courseName, int bookId){
+    public void addRequiredBookToCourse(String courseName, int bookId) {
         String sql = "INSERT INTO PUBLIC.COURSES (courseName, book_id) VALUES (?, ?);";
         try (Connection connection = CourseRequiredBookDatabase.super.getConnection(dbpath);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -71,7 +74,7 @@ public class CourseRequiredBookDatabaseImpl implements CourseRequiredBookDatabas
         }
     }
 
-    public void deleteRequiredBookFromCourse(String courseName, int bookId){
+    public void deleteRequiredBookFromCourse(String courseName, int bookId) {
         String sql = "DELETE FROM PUBLIC.COURSES WHERE courseName = ? AND book_id = ?;";
         try (Connection connection = CourseRequiredBookDatabase.super.getConnection(dbpath);
              PreparedStatement statement = connection.prepareStatement(sql)) {

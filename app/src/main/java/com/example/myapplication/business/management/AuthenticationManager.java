@@ -17,17 +17,17 @@ public class AuthenticationManager implements Authenticate {
     }
 
     @Override
-    public boolean authenticateUser(String username, String password){
-        Optional<User> userOptional =null;
+    public boolean authenticateUser(String username, String password) {
+        Optional<User> userOptional = null;
         try {
-             userOptional = this.database.findUserWithUsername(username);
-        }catch(UserNotFoundException e){
+            userOptional = this.database.findUserWithUsername(username);
+        } catch (UserNotFoundException e) {
             System.out.println("The user is not authenticated");
         }
 
-        if(userOptional.isPresent()){
+        if (userOptional.isPresent()) {
             User user = userOptional.get();
-            if(user.checkPassword(password)){
+            if (user.checkPassword(password)) {
                 AuthenticatedUser authenticatedUser = AuthenticatedUser.getInstance();
                 authenticatedUser.setUser(user);
                 return true;

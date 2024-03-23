@@ -25,42 +25,43 @@ public class Services {
 
     private static CourseRequiredBookDatabaseImpl courseRequiredBoookDatabase;
 
-    public static synchronized BookDatabase getBookDatabase(){
-        if(bookDatabase == null){
+    public static synchronized BookDatabase getBookDatabase() {
+        if (bookDatabase == null) {
             bookDatabase = new BookDatabaseImpl(Main.getDBPathName());
         }
         return bookDatabase;
     }
 
     public static synchronized UserDatabase getUserDatabase() {
-        if(userDatabase == null) {
+        if (userDatabase == null) {
             userDatabase = new UserDatabaseImpl(Main.getDBPathName());
         }
         return userDatabase;
     }
 
     public static synchronized SellBooksDatabase getSellBooksDatabase() {
-        if(sellBooksDatabase == null) {
+        if (sellBooksDatabase == null) {
             sellBooksDatabase = new SellBooksDatabaseImpl(Main.getDBPathName());
         }
         return sellBooksDatabase;
     }
 
     public static synchronized FavoriteBooksDatabase getFavBooksDatabase() {
-        if(favBookDatabase == null) {
+        if (favBookDatabase == null) {
             favBookDatabase = new FavoriteBooksDatabaseImpl(Main.getDBPathName());
         }
         return favBookDatabase;
     }
 
     public static synchronized TransactionDatabase getTransactionDatabase() {
-        if(transactionDatabase == null) {
+        if (transactionDatabase == null) {
             transactionDatabase = new TransactionDatabaseImpl(Main.getDBPathName());
         }
         return transactionDatabase;
     }
-    public static synchronized CourseRequiredBookDatabase getCourseRequiredBookDatabase(){
-        if(courseRequiredBoookDatabase == null){
+
+    public static synchronized CourseRequiredBookDatabase getCourseRequiredBookDatabase() {
+        if (courseRequiredBoookDatabase == null) {
             courseRequiredBoookDatabase = new CourseRequiredBookDatabaseImpl(Main.getDBPathName());
         }
         return courseRequiredBoookDatabase;

@@ -31,7 +31,7 @@ public class HomePageActivity extends AppCompatActivity {
     private LinearLayout booksContainer;
     private EditText searchContentView;
 
-    private BookManagement books ;
+    private BookManagement books;
 
 
     @Override
@@ -79,19 +79,19 @@ public class HomePageActivity extends AppCompatActivity {
                 // If search query is empty, show all books
                 refreshBookList(books.viewBooks());
             }
-        }catch(BookNotFoundException e){
+        } catch (BookNotFoundException e) {
             Toast.makeText(HomePageActivity.this, "Error finding some books.", Toast.LENGTH_SHORT).show();
 
         }
     }
 
     private void refreshBookList(List<Book> list) {
-        Spinner sort= findViewById(R.id.sortable);
+        Spinner sort = findViewById(R.id.sortable);
 
-        String sortOn= (String)sort.getSelectedItem();
+        String sortOn = (String) sort.getSelectedItem();
 
-         if(sortOn.equalsIgnoreCase("Sort by: Price"))  list= books.sortByPrice(list);
-         else if (sortOn.equalsIgnoreCase("Sort by: Rating")) list= books.sortByRating(list);
+        if (sortOn.equalsIgnoreCase("Sort by: Price")) list = books.sortByPrice(list);
+        else if (sortOn.equalsIgnoreCase("Sort by: Rating")) list = books.sortByRating(list);
 
 
         booksContainer.removeAllViews();
@@ -117,7 +117,7 @@ public class HomePageActivity extends AppCompatActivity {
 
         bookName.setText(String.format("Book Name: %s", book.getBookName()));
         bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
-        bookCondition.setText(String.format("Book Condition: %s",book.getCondition()));
+        bookCondition.setText(String.format("Book Condition: %s", book.getCondition()));
         bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
         button.setVisibility(View.GONE);
 

@@ -53,12 +53,12 @@ public class AddBookPopupActivity extends AppCompatActivity {
 
     }
 
-    private void showBookList(){
+    private void showBookList() {
         //book list
         booksContainer = findViewById(R.id.bookContainer);
         List<Book> books = bookManagement.viewBooks();
 
-        for(Book book: books){
+        for (Book book : books) {
             LayoutInflater inflater = LayoutInflater.from(this);
             View bookView = inflater.inflate(R.layout.book_item_activity, booksContainer, false);
 
@@ -70,7 +70,7 @@ public class AddBookPopupActivity extends AppCompatActivity {
 
             bookName.setText(String.format("Book Name: %s", book.getBookName()));
             bookAuthor.setText(String.format("Book Author: %s", book.getAuthorName()));
-            bookCondition.setText(String.format("Book Condition: %s",book.getCondition()));
+            bookCondition.setText(String.format("Book Condition: %s", book.getCondition()));
             bookPrice.setText(String.format("Book Price: $%.2f", book.getPrice()));
             button.setVisibility(View.GONE);
 

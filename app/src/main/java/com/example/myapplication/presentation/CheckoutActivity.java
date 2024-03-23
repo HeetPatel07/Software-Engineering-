@@ -42,7 +42,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
         heading.setText("Checkout Page");
         message.setText("Your cart so far");
-         booksContainer = findViewById(R.id.saleOfBooksContainer);
+        booksContainer = findViewById(R.id.saleOfBooksContainer);
         new BooksUtility(booksContainer, shoppingCart.getCheckoutBooks());
 
         if (shoppingCart.isEmpty())

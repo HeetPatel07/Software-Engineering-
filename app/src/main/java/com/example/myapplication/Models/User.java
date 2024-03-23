@@ -9,14 +9,15 @@ public class User {
     private String type;
     private String address;
 
-    public User(String userName, int nID, String password, String nType, String nAddress){
+    public User(String userName, int nID, String password, String nType, String nAddress) {
         this.username = userName;
         this.userID = nID;
         this.password = password;
         this.type = nType;
         this.address = nAddress;
     }
-    public boolean checkPassword(String input){
+
+    public boolean checkPassword(String input) {
         return password.equals(input);
     }
 
@@ -24,17 +25,19 @@ public class User {
         return password;
     }
 
-    public boolean setPassword(String oldPassword, String newPassword){
-        if(password.equals(oldPassword)){
+    public boolean setPassword(String oldPassword, String newPassword) {
+        if (password.equals(oldPassword)) {
             password = newPassword;
             return true;
         } else {
             return false;
         }
     }
+
     public String getUsername() {
         return username;
     }
+
     public int getUserID() {
         return userID;
     }
@@ -58,6 +61,7 @@ public class User {
     public void setAddress(String address) {
         this.address = address;
     }
+
     public boolean equalTo(User currUser) {
         return this.equals(currUser);
     }

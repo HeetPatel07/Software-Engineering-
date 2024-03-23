@@ -9,6 +9,8 @@ import java.util.List;
 public interface FavoriteBooksDatabase extends Database {
 
     List<Book> getFavoriteBooks(int userId) throws BookNotFoundException;
+
     boolean addFavoriteBook(int userId, int bookId);
+
     boolean deleteFavoriteBook(int userId, int bookId);
 }

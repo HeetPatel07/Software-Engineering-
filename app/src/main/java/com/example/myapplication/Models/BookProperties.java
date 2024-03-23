@@ -11,13 +11,16 @@ public class BookProperties {
 
     private double edition;
 
-    BookProperties(String description,double edition,String condition){
+    BookProperties(String description, double edition, String condition) {
         ratings = new ArrayList<Rating>();
         this.description = description;
         this.edition = edition;
         this.condition = condition;
     }
-    public String getCondition(){return condition;}
+
+    public String getCondition() {
+        return condition;
+    }
 
     public String getDescription() {
         return description;
@@ -35,17 +38,17 @@ public class BookProperties {
         this.edition = edition;
     }
 
-    public void addRating(Rating rating){
+    public void addRating(Rating rating) {
         ratings.add(rating);
     }
 
-    public int showOverallRating(){
-        if(ratings.size() == 0) return 0;
-        int total =0;
-        for(Rating rating:ratings){
-            total =  total + rating.getRating();
+    public int showOverallRating() {
+        if (ratings.size() == 0) return 0;
+        int total = 0;
+        for (Rating rating : ratings) {
+            total = total + rating.getRating();
         }
-        return total/ratings.size();
+        return total / ratings.size();
     }
 
     public ArrayList<Rating> getRatings() {

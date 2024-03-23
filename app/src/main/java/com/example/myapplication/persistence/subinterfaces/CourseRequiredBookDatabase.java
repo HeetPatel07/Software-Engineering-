@@ -10,5 +10,6 @@ public interface CourseRequiredBookDatabase extends Database {
     List<Course> getCourseList();
 
     void addRequiredBookToCourse(String courseName, int bookId);
+
     void deleteRequiredBookFromCourse(String courseName, int bookId);
 }

@@ -2,18 +2,18 @@ package com.example.myapplication.business.authentication;
 
 import com.example.myapplication.Models.User;
 
-public class AuthenticatedUser{
+public class AuthenticatedUser {
 
     private static final AuthenticatedUser authenticatedUser = new AuthenticatedUser();
 
-    private User user ;
+    private User user;
 
-    private AuthenticatedUser (){
+    private AuthenticatedUser() {
 
     }
 
-    public static AuthenticatedUser getInstance(){
-       return authenticatedUser;
+    public static AuthenticatedUser getInstance() {
+        return authenticatedUser;
     }
 
     public User getUser() {

@@ -16,7 +16,8 @@ import java.util.List;
 public class TransactionDatabaseImpl implements TransactionDatabase {
 
     private final String dbpath;
-    public TransactionDatabaseImpl(String dbpath){
+
+    public TransactionDatabaseImpl(String dbpath) {
         this.dbpath = dbpath;
     }
 
@@ -28,30 +29,28 @@ public class TransactionDatabaseImpl implements TransactionDatabase {
         String sql;
         Book bookSold;
 
-        sql="SELECT t.book_id, t.amount, t.address,b.bookname, b.author_name, b.edition FROM TRANSACTIONS t JOIN BOOKS b ON b.id = t.book_id WHERE t.user_id = ?";
+        sql = "SELECT t.book_id, t.amount, t.address,b.bookname, b.author_name, b.edition FROM TRANSACTIONS t JOIN BOOKS b ON b.id = t.book_id WHERE t.user_id = ?";
 
-        try{
+        try {
             Connection connection = TransactionDatabase.super.getConnection(dbpath);
 
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1,user.getUserID());
+            statement.setInt(1, user.getUserID());
 
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
 
                 int id = rs.getInt("book_id");
-                String deliveredTo= rs.getString("address");
+                String deliveredTo = rs.getString("address");
                 String bookName = rs.getString("bookname");
                 String authorName = rs.getString("author_name");
                 double price = rs.getBigDecimal("amount").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();
 
-                bookSold= new Book(id,bookName,price,null,edition,authorName,null);
-                purchaseHistory.add(new Transaction(deliveredTo,price,bookSold));
+                bookSold = new Book(id, bookName, price, null, edition, authorName, null);
+                purchaseHistory.add(new Transaction(deliveredTo, price, bookSold));
             }
-        }
-
-        catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Error in reading the past transactions");
             throw new CheckoutException("Error in loading the past transactions");
         }
@@ -80,7 +79,7 @@ public class TransactionDatabaseImpl implements TransactionDatabase {
                 throw new CheckoutException("Failed to delete the book from the user's sale list.");
             }
 
-          //  INSERT INTO TRANSACTIONS VALUES (9,3, 10, 84.75,'990 Pembina Road')
+            //  INSERT INTO TRANSACTIONS VALUES (9,3, 10, 84.75,'990 Pembina Road')
 
             // Insert transaction data into the TRANSACTIONS table
             insertStatement = connection.prepareStatement(insertTransactionSql);

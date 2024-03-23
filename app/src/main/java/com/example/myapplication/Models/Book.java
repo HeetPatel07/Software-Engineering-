@@ -13,17 +13,18 @@ public class Book {
 
     private final String authorName;
 
-    public Book(int id,String bookName, double price,
+    public Book(int id, String bookName, double price,
                 String bookDescription, double edition,
-                String authorName,String condition) {
+                String authorName, String condition) {
         this.id = id;
         this.bookName = bookName;
         this.price = price;
         this.authorName = authorName;
-        this.properties = new BookProperties(bookDescription,edition,condition);
+        this.properties = new BookProperties(bookDescription, edition, condition);
     }
-    public Book addUsedBook(double price,String condition){
-        return new Book(this.getId(),this.bookName,price,this.getDescription(),this.properties.getEdition(),this.getAuthorName(),condition);
+
+    public Book addUsedBook(double price, String condition) {
+        return new Book(this.getId(), this.bookName, price, this.getDescription(), this.properties.getEdition(), this.getAuthorName(), condition);
     }
 
     public int getId() {
@@ -34,11 +35,11 @@ public class Book {
         return bookName;
     }
 
-    public int getOverallBookRating(){
+    public int getOverallBookRating() {
         return properties.showOverallRating();
     }
 
-    public String getDescription(){
+    public String getDescription() {
         return properties.getDescription();
     }
 
@@ -46,11 +47,11 @@ public class Book {
         return authorName;
     }
 
-    public void addRating(int rating, String comment,int userID) {
-        this.properties.addRating(new Rating(rating, comment,userID));
+    public void addRating(int rating, String comment, int userID) {
+        this.properties.addRating(new Rating(rating, comment, userID));
     }
 
-    public void addRating(Rating rating){
+    public void addRating(Rating rating) {
         this.properties.addRating(rating);
     }
 
@@ -66,14 +67,15 @@ public class Book {
         this.price = price;
     }
 
-    public String getCondition(){
+    public String getCondition() {
         return this.properties.getCondition();
     }
+
     public double getBookEdition() {
         return this.properties.getEdition();
     }
 
-    public ArrayList<Rating> getRatings(){
+    public ArrayList<Rating> getRatings() {
         return properties.getRatings();
     }
 }

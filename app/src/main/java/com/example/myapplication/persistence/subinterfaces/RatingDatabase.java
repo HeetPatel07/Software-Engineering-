@@ -7,10 +7,6 @@ import java.util.List;
 
 public interface RatingDatabase extends Database {
 
-    boolean addRating(int userId,int bookId, int rating,String comment);
-
-//    void deleteRating(int userId, int ratingId); // Only Do this if rating id field is present
-
     List<Rating> getRatingsOfBook(int bookId);
 
 }

@@ -25,6 +25,7 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
     private DummyDatabase() {
 
     }
+
     @Override
     public List<Book> getBooks() {
         return books;
@@ -34,12 +35,13 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
         return users.stream().filter(user -> user.getUsername().equals(username)).findFirst();
 
     }
+
     public List<Book> findBooksWithBookName(String bookName) {
         return books.stream().filter(book -> book.getBookName().equals(bookName)).toList();
 
     }
 
-    public Optional<Book> findBookWithID(int id){
+    public Optional<Book> findBookWithID(int id) {
         return books.stream().filter(book -> book.getId() == id).findFirst();
     }
 
@@ -60,12 +62,12 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
 
     public void addBook(int id, String bookName,
                         double price, String description,
-                        double edition, String authorName,String bookCondition) {
-        Book book = new Book(id, bookName, price, description,edition, authorName,null);
-        for(int i =0 ; i<=10;i++){
+                        double edition, String authorName, String bookCondition) {
+        Book book = new Book(id, bookName, price, description, edition, authorName, null);
+        for (int i = 0; i <= 10; i++) {
             String comment = RandomGenerator.generateRandomComment().trim();
             int rating = RandomGenerator.generateRandomRating();
-            book.addRating(rating, comment,1);
+            book.addRating(rating, comment, 1);
         }
 
         books.add(book);

@@ -20,11 +20,11 @@ public class FavouriteBookManagement {
 
     public void addFavBook(int userId, Book book) {
 
-        if (userId < 0 || book ==null)
+        if (userId < 0 || book == null)
             throw new IllegalArgumentException("The userId or bookId is invalid for this action");
         try {
             favouriteBookDatabase.addFavoriteBook(userId, book.getId());
-          
+
         } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
@@ -46,6 +46,6 @@ public class FavouriteBookManagement {
 
     public List<Book> getFavBooks(int userId) throws BookNotFoundException {
         if (userId < 0) throw new IllegalArgumentException("The userId is invalid for this action");
-            return favouriteBookDatabase.getFavoriteBooks(userId);
+        return favouriteBookDatabase.getFavoriteBooks(userId);
     }
 }

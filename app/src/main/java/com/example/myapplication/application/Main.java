@@ -1,6 +1,7 @@
 package com.example.myapplication.application;
 
 import org.hsqldb.jdbcDriver;
+
 public class Main {
     private static String dbName = "BookEase";
 

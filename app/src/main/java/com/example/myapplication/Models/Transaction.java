@@ -8,21 +8,23 @@ public class Transaction {
     Book book;
     private double price;
 
-    public Transaction(String deliveredTo,Double amount,Book book){
+    public Transaction(String deliveredTo, Double amount, Book book) {
 
-        this.deliveredTo=deliveredTo;
-        this.price=amount;
-        this.book=book;
+        this.deliveredTo = deliveredTo;
+        this.price = amount;
+        this.book = book;
 
     }
 
-    public String getDeliveredTo(){
+    public String getDeliveredTo() {
         return deliveredTo;
     }
-    public Book getBook(){
+
+    public Book getBook() {
         return book;
     }
-    public double getAmountPaid(){
+
+    public double getAmountPaid() {
         return price;
     }
 

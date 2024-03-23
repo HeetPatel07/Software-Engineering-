@@ -1,4 +1,5 @@
 package com.example.myapplication.presentation;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -35,12 +36,12 @@ public class SellBooksActivity extends AppCompatActivity {
     }
 
 
-    private void initializeViews(){
-        BookID= findViewById(R.id.bookSpinner);
-        price= findViewById(R.id.enter_price_field);
-        condition= findViewById(R.id.spinnerCondition);
+    private void initializeViews() {
+        BookID = findViewById(R.id.bookSpinner);
+        price = findViewById(R.id.enter_price_field);
+        condition = findViewById(R.id.spinnerCondition);
 
-        bookOptions=getResources().getStringArray(R.array.booklist);
+        bookOptions = getResources().getStringArray(R.array.booklist);
 
         // Create an ArrayAdapter using the book options array
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, bookOptions);
@@ -65,12 +66,12 @@ public class SellBooksActivity extends AppCompatActivity {
 
     private void attemptSale() {
 
-        try{
-             int bookID = BookID.getSelectedItemPosition();
-            String priceText= price.getText().toString();
-            String bookCondition= (String)condition.getSelectedItem();
+        try {
+            int bookID = BookID.getSelectedItemPosition();
+            String priceText = price.getText().toString();
+            String bookCondition = (String) condition.getSelectedItem();
 
-            if(priceText.isEmpty()){
+            if (priceText.isEmpty()) {
                 throw new NumberFormatException("Please enter a selling valid price");
             }
             if (AuthenticatedUser.getInstance() == null) {
@@ -80,27 +81,26 @@ public class SellBooksActivity extends AppCompatActivity {
             float bookPrice = Float.parseFloat(price.getText().toString());
 
             //extreme edge cases
-            if(bookID < 0)
+            if (bookID < 0)
                 throw new NumberFormatException("Please enter a selling valid price");
 
-            if(Float.isNaN(bookPrice) || Float.isInfinite(bookPrice) || bookPrice<0)
+            if (Float.isNaN(bookPrice) || Float.isInfinite(bookPrice) || bookPrice < 0)
                 throw new NumberFormatException("Please enter a selling valid price");
 
 
+            String result = null;
+            result = sellBooks.bookExists(bookID, bookPrice, bookCondition);
 
-            String result=null;
-            result = sellBooks.bookExists(bookID, bookPrice,bookCondition);
-
-            if(result!=null) {
-                Toast.makeText(this, "Book " +result+ " added for sale", Toast.LENGTH_SHORT).show();
+            if (result != null) {
+                Toast.makeText(this, "Book " + result + " added for sale", Toast.LENGTH_SHORT).show();
                 navigateToLibraryPage();
-            }else{
+            } else {
                 Toast.makeText(this, "No such book can be added to sell", Toast.LENGTH_SHORT).show();
             }
 
-        }catch( NumberFormatException e){
+        } catch (NumberFormatException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }catch(IllegalStateException e){
+        } catch (IllegalStateException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }

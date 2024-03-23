@@ -42,7 +42,7 @@ public class RandomGenerator {
 
     public static int generateRandomRating() {
         Random random = new Random();
-        return random.nextInt(6)%5; // Generates a random number between 0 and 5
+        return random.nextInt(6) % 5; // Generates a random number between 0 and 5
     }
 
     // Function to generate a random string comment

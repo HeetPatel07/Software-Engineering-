@@ -8,7 +8,6 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.management.AuthenticationManager;
 import com.example.myapplication.persistence.implementation.UserDatabaseImpl;
-import com.example.myapplication.persistence.stub.DummyDatabase;
 import com.example.myapplication.persistence.utils.DBHelper;
 
 import org.junit.Before;
@@ -33,12 +32,6 @@ public class AccountManagementTestIT {
         }
     }
 
-
-
-
-    static boolean flag=false;     //set up flag
-
-
     @Before
     public  void  setUpTest() {
 
@@ -50,14 +43,6 @@ public class AccountManagementTestIT {
         catch (Exception e){
             e.printStackTrace();
         }
-//        if(!flag) {
-//            DummyDatabase dummyDatabase = (DummyDatabase) DummyDatabase.getInstance();
-//            accountManagement = new AccountManagement(dummyDatabase);
-//            authenticationManager = new AuthenticationManager(dummyDatabase);
-//            flag=true;
-//        }else{
-//            System.out.println("The setup for Account Management is already done ");
-//        }
     }
 
     @Test

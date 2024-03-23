@@ -8,8 +8,6 @@ public interface Sortable {
 
     List<Book> sortByPrice(List<Book> originalist);
 
-    List<Book> sortByBookName(List<Book> originalist);
-
     List<Book> sortByRating(List<Book> originalist);
 
 }

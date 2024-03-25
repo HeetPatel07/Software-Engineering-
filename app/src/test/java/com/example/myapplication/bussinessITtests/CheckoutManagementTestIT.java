@@ -23,10 +23,17 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class CheckoutManagenemtTestIT {
+public class CheckoutManagementTestIT {
 
 
     private File tempDB;
+    CheckoutManagement cm;
+    SellBooksDatabase addForSale;
+
+    Book book1;
+    Book book2;
+    Book book3;
+
 
     @Before
     public void setup() throws IOException {
@@ -39,24 +46,6 @@ public class CheckoutManagenemtTestIT {
         book3 = new Book(3, "book3", 0.1d, "description3", 1.0d, "book3Author", "New");
 
     }
-
-    CheckoutManagement cm;
-    SellBooksDatabase addForSale;
-
-    Book book1;
-    Book book2;
-    Book book3;
-
-  //  public boolean addSaleBook(int userId, int bookId, String bookCondition, double price) {
-
-
-      //  @Before
-    public void setUp() {
-        cm = new CheckoutManagement(Services.getTransactionDatabase());
-        book1 = new Book(1, "book1", 0.1d, "description1", 1.0d, "book1Author", "New");
-        book2 = new Book(2, "book2", 0.1d, "description2", 1.0d, "book2Author", "New");
-        book3 = new Book(3, "book3", 0.1d, "description3", 1.0d, "book3Author", "New");
-        }
 
     private void reset() {
         cm.removeBook(book1);

@@ -1,4 +1,4 @@
-package com.example.myapplication.business.unitTests;
+package com.example.myapplication.bussinessITtests;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,7 @@ import com.example.myapplication.business.management.AuthenticationManager;
 import com.example.myapplication.persistence.stub.DummyDatabase;
 
 
-public class AuthenticationManagerTest{
+public class AuthenticationManagerTestIT {
     private AuthenticationManager authenticationManager;
     DummyDatabase database = (DummyDatabase) DummyDatabase.getInstance();
     @Before

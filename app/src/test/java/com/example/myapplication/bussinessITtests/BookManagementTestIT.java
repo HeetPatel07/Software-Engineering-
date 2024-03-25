@@ -1,4 +1,4 @@
-package com.example.myapplication.business.unitTests;
+package com.example.myapplication.bussinessITtests;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.management.BookManagement;
@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class BookManagementTest {
+public class BookManagementTestIT {
 
     static BookManagement bookManagement_test;
     DummyDatabase data ;

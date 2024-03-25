@@ -99,23 +99,7 @@ public class UserDatabaseImpl implements UserDatabase {
     }
 
     @Override
-    public synchronized boolean addUser(String userName, String nPassword, String nType, String nAddress) {
-        String sql = String.format("INSERT INTO PUBLIC.USERS (username, password, address, type) VALUES ('%s', '%s', '%s', '%s')",
-                userName.replace("'", "''"), nPassword.replace("'", "''"), nAddress.replace("'", "''"), nType.replace("'", "''"));
-        try (Connection connection = getConnection(dbpath);
-             Statement statement = connection.createStatement()) {
-
-            int rowsAffected = statement.executeUpdate(sql);
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public synchronized void addUser(User user) throws UserCreationException {
+    public synchronized boolean addUser(User user) throws UserCreationException {
 
         String sql = "INSERT INTO PUBLIC.USERS (username,password,address,type) VALUES (?,?,?,?);";
         Connection connection = null;
@@ -129,8 +113,9 @@ public class UserDatabaseImpl implements UserDatabase {
 
             connection.setAutoCommit(false); // Start transaction
             try {
-                statement.executeUpdate(sql);
+                int rowsAffected = statement.executeUpdate();
                 connection.commit(); // Commit transaction
+                return rowsAffected > 0;
             } catch (SQLException e) {
                 connection.rollback(); // Rollback transaction in case of error
                 throw e;

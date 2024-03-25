@@ -56,8 +56,9 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
     }
 
     @Override
-    public void addUser(User user) {
+    public boolean addUser(User user) {
 
+        return false;
     }
 
     public void addBook(int id, String bookName,

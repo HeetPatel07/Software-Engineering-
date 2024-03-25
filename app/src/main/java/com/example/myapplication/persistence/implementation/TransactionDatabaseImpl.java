@@ -3,6 +3,7 @@ package com.example.myapplication.persistence.implementation;
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Transaction;
 import com.example.myapplication.Models.User;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.customException.CheckoutException;
 import com.example.myapplication.persistence.subinterfaces.TransactionDatabase;
 
@@ -29,31 +30,33 @@ public class TransactionDatabaseImpl implements TransactionDatabase {
         String sql;
         Book bookSold;
 
+
         sql = "SELECT t.book_id, t.amount, t.address,b.bookname, b.author_name, b.edition FROM TRANSACTIONS t JOIN BOOKS b ON b.id = t.book_id WHERE t.user_id = ?";
 
-        try {
-            Connection connection = TransactionDatabase.super.getConnection(dbpath);
+            try {
+                Connection connection = TransactionDatabase.super.getConnection(dbpath);
 
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, user.getUserID());
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setInt(1, user.getUserID());
 
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()) {
+                ResultSet rs = statement.executeQuery();
+                while (rs.next()) {
 
-                int id = rs.getInt("book_id");
-                String deliveredTo = rs.getString("address");
-                String bookName = rs.getString("bookname");
-                String authorName = rs.getString("author_name");
-                double price = rs.getBigDecimal("amount").doubleValue();
-                double edition = rs.getBigDecimal("edition").doubleValue();
+                    int id = rs.getInt("book_id");
+                    String deliveredTo = rs.getString("address");
+                    String bookName = rs.getString("bookname");
+                    String authorName = rs.getString("author_name");
+                    double price = rs.getBigDecimal("amount").doubleValue();
+                    double edition = rs.getBigDecimal("edition").doubleValue();
 
-                bookSold = new Book(id, bookName, price, null, edition, authorName, null);
-                purchaseHistory.add(new Transaction(deliveredTo, price, bookSold));
+                    bookSold = new Book(id, bookName, price, null, edition, authorName, null);
+                    purchaseHistory.add(new Transaction(deliveredTo, price, bookSold));
+                }
+            } catch (SQLException e) {
+                System.out.println("Error in reading the past transactions");
+                throw new CheckoutException("Error in loading the past transactions");
             }
-        } catch (SQLException e) {
-            System.out.println("Error in reading the past transactions");
-            throw new CheckoutException("Error in loading the past transactions");
-        }
+
         return purchaseHistory;
     }
 

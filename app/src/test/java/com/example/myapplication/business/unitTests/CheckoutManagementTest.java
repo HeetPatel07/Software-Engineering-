@@ -11,6 +11,7 @@ import com.example.myapplication.persistence.subinterfaces.TransactionDatabase;
 
 import static org.mockito.Mockito.mock;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -39,6 +40,7 @@ public class CheckoutManagementTest {
         cm.removeBook(book1);
         cm.removeBook(book2);
         cm.removeBook(book3);
+        assertTrue(cm.isEmpty());   //additional test after reset
     }
 
     @Test
@@ -61,5 +63,11 @@ public class CheckoutManagementTest {
         assertTrue(cm.buyBook(book2));
         assertTrue(cm.removeBook(book2));
         assertFalse(cm.removeBook(book2));
+    }
+
+    @After
+    public void finish(){
+        reset();
+        assertTrue(cm.isEmpty());
     }
 }

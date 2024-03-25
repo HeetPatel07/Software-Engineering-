@@ -17,8 +17,6 @@ public interface UserDatabase extends Database {
 
     boolean updateUserAddress(int userID, String newAddress);
 
-    boolean addUser(String userName, String nPassword, String nType, String nAddress);
-
-    void addUser(User user) throws UserCreationException;
+    boolean addUser(User user) throws UserCreationException;
 
 }

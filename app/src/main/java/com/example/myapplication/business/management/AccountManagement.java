@@ -26,7 +26,7 @@ public class AccountManagement {
         }
 
         // If both username and password meet the criteria, attempt to add the user to the database
-        return database.addUser(userName, password, type, address);
+        return database.addUser(new User(userName,0,password,type,address));
     }
 
     public void logoutUser() {

@@ -24,7 +24,6 @@ import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.Models.Rating;
 import com.example.myapplication.business.management.FavouriteBookManagement;
-import com.example.myapplication.customException.CheckoutException;
 import com.example.myapplication.presentation.utils.FooterUtility;
 
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ public class BookInfoActivity extends AppCompatActivity {
     private BookManagement bookList = new BookManagement(Services.getBookDatabase());
     private CheckoutManagement shoppingCart = new CheckoutManagement(Services.getTransactionDatabase());
     private FavouriteBookManagement saveBookManager = new FavouriteBookManagement(Services.getFavBooksDatabase());
-
     // UI elements
     private LinearLayout commentContainer;
 
@@ -76,10 +74,15 @@ public class BookInfoActivity extends AppCompatActivity {
                     startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
                 } else {
                     // add this to the shopping cart
-                    try {
-                        shoppingCart.buyBook(book);
-                    } catch (CheckoutException mssg) {
-                        Toast.makeText(BookInfoActivity.this, mssg.getMessage(), Toast.LENGTH_SHORT).show();
+                    if (shoppingCart.buyBook(book)) {
+                        Toast.makeText(BookInfoActivity.this,
+                                "Book " + book.getBookName() + " added to the cart",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(BookInfoActivity.this,
+                                "Book" + book.getBookName() +
+                                        "was not added to the cart cause it is already in your cart",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             }

@@ -32,14 +32,9 @@ public class CheckoutManagement {
         return books;
     }
 
-    public void buyBook(Book book) throws CheckoutException {
-
-        if (addBookToList(book)) {
-            addBookToList(book);
-            throw new CheckoutException("Book " + book.getBookName() + " added to the cart");
-        } else {
-            throw new CheckoutException("Book" + book.getBookName() + "was not added to the cart cause it is already in your cart");
-        }
+    public boolean buyBook(Book book) {
+        if(book == null) return false;
+        return addBookToList(book);
     }
 
 
@@ -47,7 +42,7 @@ public class CheckoutManagement {
         try {
             // Check if the book already exists in the cart
             for (Book existingBook : books) {
-                if (existingBook.getId() == book.getId()) {
+                if (existingBook.equals(book)) {
                     // Book already exists in the cart, do not add
                     System.out.println("Book " + book.getBookName() + " already exists in the checkout page");
                     return false;
@@ -65,16 +60,12 @@ public class CheckoutManagement {
     public boolean removeBook(Book book) {
         try {
             // Check if the book exists in the cart
-            boolean isRemoved = books.removeIf(existingBook -> existingBook.getId() == book.getId());
-            if (isRemoved)
-                return true; // Book successfully removed
-
+            // return true if Book successfully removed
+            return books.removeIf(existingBook -> existingBook.equals(book));
         } catch (RuntimeException e) {
             System.out.println("Error in removing " + book.getBookName() + " from the checkout page: " + e.getMessage());
             return false; // Unable to remove book due to error
         }
-
-        return false;
     }
 
 

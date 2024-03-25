@@ -20,7 +20,6 @@ import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.CheckoutManagement;
 import com.example.myapplication.business.management.FavouriteBookManagement;
 import com.example.myapplication.customException.BookNotFoundException;
-import com.example.myapplication.customException.CheckoutException;
 import com.example.myapplication.presentation.utils.FooterUtility;
 
 import java.util.List;
@@ -105,10 +104,15 @@ public class FavouriteBooksActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 // add this to the shopping cart
-                try {
-                    shoppingCart.buyBook(book);
-                } catch (CheckoutException mssg) {
-                    Toast.makeText(FavouriteBooksActivity.this, mssg.getMessage(), Toast.LENGTH_SHORT).show();
+                if(shoppingCart.buyBook(book)) {
+                    Toast.makeText(FavouriteBooksActivity.this,
+                            "Book " + book.getBookName() + " added to the cart",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(FavouriteBooksActivity.this,
+                            "Book" + book.getBookName() +
+                                    "was not added to the cart cause it is already in your cart",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
         });

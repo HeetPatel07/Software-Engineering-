@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 
 import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.management.AuthenticationManager;
+import com.example.myapplication.customException.UserCreationException;
 import com.example.myapplication.persistence.stub.DummyDatabase;
 
 public class AccountmanagementTest
@@ -14,9 +15,7 @@ public class AccountmanagementTest
     static AccountManagement accountManagement;
     static AuthenticationManager authenticationManager;
     static DummyDatabase dummyDatabase;
-
     static boolean flag=false;     //set up flag
-
 
     @Before
     public  void  setUpTest() {
@@ -31,43 +30,34 @@ public class AccountmanagementTest
     }
 
     @Test
-    public  void testCreateNewUserValidInput()
-    {
+    public  void testCreateNewUserValidInput() throws UserCreationException {
 
         String userName1 = "yyy";   //invalid input for username
         String password1 = "nil3";  //invalid input for password
         String address1 = "testAddress";
-        assertThrows(IllegalArgumentException.class, ()->
+        assertThrows(UserCreationException.class, ()->
                 accountManagement.createNewUser(userName1,password1,"Professor",address1));
 
         String userName = "Sample";
         String password = "12345";
         String address = "testAddress";
 //        assertTrue(accountManagement.createNewUser(userName,password,"Student",address));
-
     }
 
-
     @Test
-    public void testValidSetNewPassword()
-    {
+    public void testValidSetNewPassword() throws UserCreationException {
         String userName = "TastyFood";
         String password = "original";
         String address = "testAddress";
-//        accountManagement.createNewUser(userName,password,"Student",address); //this adds the user to the database
+        accountManagement.createNewUser(userName,password,"Student",address); //this adds the user to the database
         authenticationManager.authenticateUser(userName,password);    //this authenticates and initialises the singleton user
-
         password= "newPassword";
         boolean result = accountManagement.setNewPassword(password);
         assertFalse(result);
-
-
         password = "123";
         String finalPassword = password;
         assertThrows(IllegalArgumentException.class, ()->
                 accountManagement.setNewPassword(finalPassword));
-
-
     }
 }
 

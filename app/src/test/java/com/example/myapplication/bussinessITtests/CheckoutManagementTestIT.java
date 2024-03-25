@@ -28,14 +28,13 @@ import java.io.IOException;
 
 
 public class CheckoutManagementTestIT {
+
+    //Local variables used for testing
     private File tempDB;
     CheckoutManagement cm;
     SellBooksDatabase addForSale;
-
     AccountManagement newAccount;
-
     List<Transaction> pastHistory;
-
     Book book1;
     Book book2;
     Book book3;
@@ -70,8 +69,6 @@ public class CheckoutManagementTestIT {
 
     @Test
     public void HistoryTest() throws CheckoutException {
-
-
         reset();
         AuthenticatedUser.getInstance().setUser(new User("userName", 1, "password", "nType", "nAddress"));
         assertThrows(CheckoutException.class, () -> cm.finishTransaction());
@@ -106,24 +103,20 @@ public class CheckoutManagementTestIT {
     }
 
     @Test
-    public void pastPurchases() {
-
+    public void oldUserPastPurchases() {
 
         AccountManagement newAccount = new AccountManagement(Services.getUserDatabase());    //creating account
         AuthenticationManager manager = new AuthenticationManager(Services.getUserDatabase());   //logging in the user
 
         AuthenticatedUser.getInstance().setUser(new User("userName", 1, "password", "nType", "nAddress"));
 
-
         pastHistory = getList();     //the already existing user in the database
         assertFalse(pastHistory.isEmpty());
         newAccount.logoutUser();    //logging out the user and making a new user
-
     }
 
     @Test
     public void newUserPastPurchases() {
-
 
         AuthenticationManager manager = new AuthenticationManager(Services.getUserDatabase());   //logging in the user
 
@@ -131,16 +124,13 @@ public class CheckoutManagementTestIT {
             //the list for this user should be empty
             newAccount.createNewUser("IntegrationTest", "Sample", "Student", "University");
             manager.authenticateUser("IntegrationTest", "Sample");
-
         } catch (UserCreationException e) {
-
             System.out.println("The test should fail if a exception is thrown");
             fail("Second test in the function pastPurchases() failed");
         }
 
         pastHistory = getList();
         assertTrue(pastHistory.isEmpty());
-
 
         cm.buyBook(book1);
         cm.buyBook(book3);
@@ -151,6 +141,7 @@ public class CheckoutManagementTestIT {
             e.printStackTrace();
             fail("Third Test in the pastPurchases() failed");
         }
+
         pastHistory = getList();
         assertTrue(!pastHistory.isEmpty());
 
@@ -158,8 +149,7 @@ public class CheckoutManagementTestIT {
 
     @After
     public void finish() {
-
-        if(AuthenticatedUser.getInstance().getUser()!=null)
+        if (AuthenticatedUser.getInstance().getUser() != null)
             newAccount.logoutUser();    //logging out the user
 
         reset();

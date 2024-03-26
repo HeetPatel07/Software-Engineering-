@@ -31,16 +31,16 @@ public class BookManagementTestIT {
     @Before
     public void createTest() {
 
-            System.out.println("Starting integration test for AccessRecipes");
-            try {
-                this.tempDB = TestUtils.copyDB();
-            } catch (IOException e) {
-                System.out.println("Error starting the test");
-                fail();
-            }
+        System.out.println("Starting integration test for AccessRecipes");
+        try {
+            this.tempDB = TestUtils.copyDB();
+        } catch (IOException e) {
+            System.out.println("Error starting the test");
+            fail();
+        }
 
-            bookDatabase = Services.getBookDatabase();
-            addForSale = Services.getSellBooksDatabase();
+        bookDatabase = Services.getBookDatabase();
+        addForSale = Services.getSellBooksDatabase();
         bookManagement = new BookManagement(bookDatabase);
     }
 
@@ -83,7 +83,7 @@ public class BookManagementTestIT {
         list = findName("BIO");
         assertTrue(list.size() == 1);
 
-         book = list.remove(0);
+        book = list.remove(0);
 
         addForSale.addSaleBook(1, book.getId(), "TEST", book.getPrice());
 
@@ -94,13 +94,13 @@ public class BookManagementTestIT {
     @Test
     public void findBookID() {
 
-            book = bookManagement.findBookWithID(-1);
-            assertNull(book);
+        book = bookManagement.findBookWithID(-1);
+        assertNull(book);
 
-            book= bookManagement.findBookWithID(10000);
-            assertNull(book);
+        book = bookManagement.findBookWithID(10000);
+        assertNull(book);
 
-            book = bookManagement.findBookWithID(1);
-            assertNotNull(book);
+        book = bookManagement.findBookWithID(1);
+        assertNotNull(book);
     }
 }

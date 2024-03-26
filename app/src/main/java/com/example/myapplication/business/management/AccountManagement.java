@@ -35,16 +35,15 @@ public class AccountManagement {
 
 
     //don't need this method here
-    public boolean setNewPassword(String newPassword) {
+    public boolean setNewPassword(String newPassword) throws UserCreationException {
         User authenticatedUser = AuthenticatedUser.getInstance().getUser();
 
         if (authenticatedUser == null) {
-            System.out.println("User is not yet authenticated");
-            return false;
+            throw new UserCreationException("User is not yet authenticated");
         }
 
         if (newPassword == null || newPassword.length() <= 4) {
-            throw new IllegalArgumentException("Password must be longer than 4 characters.");
+            throw new UserCreationException("Password must be longer than 4 characters.");
         }
 
         authenticatedUser.setPassword(authenticatedUser.getPassword(), newPassword);

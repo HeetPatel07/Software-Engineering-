@@ -63,5 +63,4 @@ public class AuthenticationManagerTestIT {
         assertTrue(authenticateManager.authenticateUser("Test","password"));
     }
 
-
 }

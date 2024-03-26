@@ -1,5 +1,7 @@
 package com.example.myapplication.presentation;
 
+import com.example.myapplication.business.management.CheckoutManagement;
+
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,6 +22,7 @@ import com.example.myapplication.Models.Course;
 import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.CheckoutManagement;
 import com.example.myapplication.business.management.CourseManagement;
 import com.example.myapplication.presentation.utils.FooterUtility;
 
@@ -31,6 +34,7 @@ public class CoursesBooksActivity extends AppCompatActivity {
 
 
     private static CourseManagement courseManagement;
+    private CheckoutManagement shoppingCart = new CheckoutManagement(Services.getTransactionDatabase());
     List<Course> courseList;
     AuthenticatedUser authUser;
 
@@ -99,18 +103,35 @@ public class CoursesBooksActivity extends AppCompatActivity {
                 Button bookButton = bookView.findViewById(R.id.bookAction);
                 String buttonName = "Add to Cart";
                 bookButton.setText(buttonName);
+
+
                 bookButton.setOnClickListener(new View.OnClickListener() {
-                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(CoursesBooksActivity.this, "Book added to the cart", Toast.LENGTH_SHORT).show();
-                        // Change button text to indicate the book is added to the cart
-                        bookButton.setText("Added");
-                        bookButton.setEnabled(false);
-                        bookButton.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
-
+                        // Check if the user is logged in before allowing to buy
+                        if (AuthenticatedUser.getInstance().getUser() == null) {
+                            Toast.makeText(CoursesBooksActivity.this, "Login Firstly", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(CoursesBooksActivity.this, LoginActivity.class));
+                        } else {
+                            // add this to the shopping cart
+                            if (shoppingCart.buyBook(book)) {
+                                Toast.makeText(CoursesBooksActivity.this,
+                                        "Book " + book.getBookName() + " added to the cart",
+                                        Toast.LENGTH_SHORT).show();
+                                bookButton.setText("Added");
+                                bookButton.setEnabled(false);
+                                bookButton.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
+                            } else {
+                                Toast.makeText(CoursesBooksActivity.this,
+                                        "Book" + book.getBookName() +
+                                                "was not added to the cart cause it is already in your cart",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        ;
                     }
                 });
+
 
                 ImageView deleteButton = bookView.findViewById(R.id.bookDelete);
                 if ("Student".equalsIgnoreCase(userType)) {

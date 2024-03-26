@@ -26,7 +26,7 @@ public class AccountManagement {
         }
 
         // If both username and password meet the criteria, attempt to add the user to the database
-        return database.addUser(new User(userName,0,password,type,address));
+        return database.addUser(new User(userName, 0, password, type, address));
     }
 
     public void logoutUser() {
@@ -67,8 +67,19 @@ public class AccountManagement {
         return database.updateUsername(authenticatedUser.getUserID(), newUsername);
     }
 
-    public boolean setNewUserAddress(String newAddress) {
+    public boolean setNewUserAddress(String newAddress) throws UserCreationException {
         User authenticatedUser = AuthenticatedUser.getInstance().getUser();
+
+        if (authenticatedUser == null) {
+            System.out.println("User is not yet authenticated");
+            return false;
+        }
+
+        // Check if the username length is not greater than 3
+        if (newAddress == null) {
+            throw new UserCreationException("No address found");
+        }
+
         authenticatedUser.setAddress(newAddress);
         return database.updateUserAddress(authenticatedUser.getUserID(), newAddress);
     }

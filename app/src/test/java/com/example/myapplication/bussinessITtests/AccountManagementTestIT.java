@@ -8,14 +8,7 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.management.AuthenticationManager;
-import com.example.myapplication.business.management.BookManagement;
-
-import com.example.myapplication.Models.Book;
-import com.example.myapplication.business.management.CheckoutManagement;
-import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.customException.UserCreationException;
-import com.example.myapplication.persistence.subinterfaces.BookDatabase;
-import com.example.myapplication.persistence.subinterfaces.SellBooksDatabase;
 import com.example.myapplication.persistence.subinterfaces.UserDatabase;
 
 import org.junit.After;
@@ -85,7 +78,7 @@ public class AccountManagementTestIT {
         accountManagement.logoutUser();
         assertNull(AuthenticatedUser.getInstance().getUser());
 
-        authenticateManager.authenticateUser("userone", "123123");
+        authenticateManager.authenticateUser("userfour", "123123");
         assertNotNull(AuthenticatedUser.getInstance().getUser());
         accountManagement.logoutUser();
     }
@@ -98,15 +91,90 @@ public class AccountManagementTestIT {
             accountManagement.setNewPassword(null);
         });
 
-        authenticateManager.authenticateUser("userone", "123123");
+        authenticateManager.authenticateUser("usertwo", "123123");
 
         assertNotNull(AuthenticatedUser.getInstance().getUser());
 
         assertThrows(UserCreationException.class, () -> {
             accountManagement.setNewPassword(null);
+
         });
+        try {
+            assertTrue(accountManagement.setNewPassword("111000"));
+        } catch (UserCreationException e) {
+            System.out.println(e.getMessage());
+            fail();
+        }
+        assertTrue(AuthenticatedUser.getInstance().getUser().getPassword().equalsIgnoreCase("111000"));
+
+        accountManagement.logoutUser();
+
+        authenticateManager.authenticateUser("usertwo", "111000");
+
+        assertTrue(AuthenticatedUser.getInstance().getUser().getUsername().equals("usertwo"));
     }
 
+    private boolean setUsername(String name) {
+        try {
+            return accountManagement.setNewUserName(name);
+        } catch (UserCreationException e) {
+            System.out.println("Fail");
+            return false;
+        }
+    }
+
+    @Test
+    public void setUserNameTest() {
+        accountManagement.logoutUser();
+        assertFalse(setUsername("Testing"));
+
+        //logging in the user
+        authenticateManager.authenticateUser("userone", "123123");
+
+        assertFalse(setUsername(null));
+        assertFalse(setUsername("asd"));//the user name
+
+        assertTrue(setUsername("testing"));
+        assertTrue(AuthenticatedUser.getInstance().getUser().getUsername().equals("testing"));
+
+        assertFalse(setUsername("a"));
+        assertTrue(setUsername("test2"));
+        assertTrue(AuthenticatedUser.getInstance().getUser().getUsername().equals("test2"));
+
+
+        accountManagement.logoutUser();
+
+        authenticateManager.authenticateUser("test2", "123123");
+
+        assertTrue(AuthenticatedUser.getInstance().getUser().getUsername().equals("test2"));
+
+    }
+
+    private boolean setAddress(String address) {
+
+        try {
+            return accountManagement.setNewUserAddress(address);
+        } catch (UserCreationException e) {
+            System.out.println("Fail");
+            return false;
+        }
+    }
+
+    @Test
+    public void setNewUserAddressTest() {
+        accountManagement.logoutUser();
+        assertFalse(setAddress("address"));
+
+        authenticateManager.authenticateUser("userthree", "123123");
+
+        assertFalse(setAddress(null));
+        assertTrue(setAddress("."));
+
+        assertTrue(setAddress("testing address"));
+        assertTrue(AuthenticatedUser.getInstance().getUser().getAddress().equals("testing address"));
+
+
+    }
 
 
     @After

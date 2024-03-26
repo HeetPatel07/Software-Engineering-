@@ -87,8 +87,10 @@ public class CheckoutManagement {
             throw new CheckoutException("No books in you cart");
         }
         //checking out all the books in the cart
-        for (Book book : books)
+        for (Book book : books) {
+
             purchaseHistory.deleteBookForSale(AuthenticatedUser.getInstance().getUser(), book);
+        }
         books.clear();
     }
 

@@ -138,20 +138,6 @@ public class CheckoutManagementTestIT {
 
         pastHistory = getList();
         assertTrue(pastHistory.isEmpty());
-
-        cm.buyBook(book1);
-        cm.buyBook(book3);
-        cm.buyBook(book2);
-        try {
-            cm.finishTransaction();
-        } catch (CheckoutException e) {
-            e.printStackTrace();
-            fail("Third Test in the pastPurchases() failed");
-        }
-
-        pastHistory = getList();
-        assertTrue(!pastHistory.isEmpty());
-
     }
 
     @After

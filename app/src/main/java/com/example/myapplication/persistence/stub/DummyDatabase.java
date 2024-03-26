@@ -41,8 +41,8 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
 
     }
 
-    public Optional<Book> findBookWithID(int id) {
-        return books.stream().filter(book -> book.getId() == id).findFirst();
+    public Book findBookWithID(int id) {
+        return books.stream().filter(book -> book.getId() == id).findFirst().orElse(null);
     }
 
 

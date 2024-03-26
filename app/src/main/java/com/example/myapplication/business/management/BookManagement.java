@@ -12,7 +12,6 @@ import java.util.Optional;
 public class BookManagement implements FindableBook, Sortable {
 
     protected final BookDatabase database;
-    private final List<Book> checkOut = new ArrayList<>();
 
     public BookManagement(BookDatabase database) {
         this.database = database;
@@ -35,13 +34,15 @@ public class BookManagement implements FindableBook, Sortable {
 
     public Book findBookWithID(int id) {
 
-        Optional<Book> bookWithID = null;
+        Book bookWithID = null;
+        if (id < 0)
+            return null;
         try {
             bookWithID = database.findBookWithID(id);
         } catch (BookNotFoundException e) {
             System.out.println("No books with id:" + id + " found");
         }
-        return bookWithID.orElse(null);
+        return bookWithID;
     }
 
     @Override

@@ -13,5 +13,5 @@ public interface BookDatabase extends Database {
 
     List<Book> findBooksWithBookName(String bookName) throws BookNotFoundException;
 
-    Optional<Book> findBookWithID(int id) throws BookNotFoundException;
+    Book findBookWithID(int id) throws BookNotFoundException;
 }

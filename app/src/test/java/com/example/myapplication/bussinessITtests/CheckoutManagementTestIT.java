@@ -10,6 +10,7 @@ import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Transaction;
 import com.example.myapplication.Models.User;
 import com.example.myapplication.application.Services;
+import com.example.myapplication.business.authentication.Authenticate;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.AuthenticationManager;
 import com.example.myapplication.business.management.CheckoutManagement;
@@ -41,9 +42,15 @@ public class CheckoutManagementTestIT {
 
 
     @Before
-    public void setup() throws IOException {
+    public void setup() {
+
         System.out.println("Starting integration test for AccessRecipes");
-        this.tempDB = TestUtils.copyDB();
+        try {
+            this.tempDB = TestUtils.copyDB();
+        } catch (IOException e) {
+            System.out.println("Error starting the test");
+            fail();
+        }
 
         cm = new CheckoutManagement(Services.getTransactionDatabase());
         book1 = new Book(1, "book1", 0.1d, "description1", 1.0d, "book1Author", "New");
@@ -56,7 +63,6 @@ public class CheckoutManagementTestIT {
         addForSale.addSaleBook(book1.getId(), book1.getId(), "new", book1.getPrice());
         addForSale.addSaleBook(book2.getId(), book2.getId(), "new", book2.getPrice());
         addForSale.addSaleBook(book3.getId(), book3.getId(), "new", book3.getPrice());
-
     }
 
     private void reset() {
@@ -70,6 +76,7 @@ public class CheckoutManagementTestIT {
     @Test
     public void HistoryTest() throws CheckoutException {
         reset();
+
         AuthenticatedUser.getInstance().setUser(new User("userName", 1, "password", "nType", "nAddress"));
         assertThrows(CheckoutException.class, () -> cm.finishTransaction());
         //need to add also in the book for sale in the database
@@ -106,7 +113,7 @@ public class CheckoutManagementTestIT {
     public void oldUserPastPurchases() {
 
         AccountManagement newAccount = new AccountManagement(Services.getUserDatabase());    //creating account
-        AuthenticationManager manager = new AuthenticationManager(Services.getUserDatabase());   //logging in the user
+        Authenticate manager = new AuthenticationManager(Services.getUserDatabase());   //logging in the user
 
         AuthenticatedUser.getInstance().setUser(new User("userName", 1, "password", "nType", "nAddress"));
 
@@ -151,7 +158,6 @@ public class CheckoutManagementTestIT {
     public void finish() {
         if (AuthenticatedUser.getInstance().getUser() != null)
             newAccount.logoutUser();    //logging out the user
-
         reset();
     }
 }

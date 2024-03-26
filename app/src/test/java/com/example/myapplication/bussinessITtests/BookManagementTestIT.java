@@ -1,93 +1,106 @@
 package com.example.myapplication.bussinessITtests;
+
 import com.example.myapplication.application.Services;
-import com.example.myapplication.business.management.AccountManagement;
+
 import com.example.myapplication.business.management.BookManagement;
 
-import  com.example.myapplication.Models.Book;
+import com.example.myapplication.Models.Book;
 import com.example.myapplication.customException.BookNotFoundException;
-import com.example.myapplication.persistence.stub.DummyDatabase;
+import com.example.myapplication.persistence.subinterfaces.BookDatabase;
+import com.example.myapplication.persistence.subinterfaces.SellBooksDatabase;
 
-import org.junit.Before;
+
+import org.junit.*;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public class BookManagementTestIT {
 
-    static BookManagement bookManagement_test;
-    DummyDatabase data ;
-    private static boolean setup=false;
+    private BookDatabase bookDatabase;
+    private BookManagement bookManagement;
+    SellBooksDatabase addForSale;
+    private File tempDB;
+    List<Book> list;
+    Book book;
+
     @Before
-    public void createTest(){
+    public void createTest() {
 
-        if(!setup) {
-            data = (DummyDatabase) DummyDatabase.getInstance();
-            bookManagement_test = new BookManagement(data);
+            System.out.println("Starting integration test for AccessRecipes");
+            try {
+                this.tempDB = TestUtils.copyDB();
+            } catch (IOException e) {
+                System.out.println("Error starting the test");
+                fail();
+            }
 
-            data.addBook(1, "TestBook", 34.49, "good book",
-                    1.01, "Jhonny","New");
-
-            data.addBook(2, "anything", 87.49, "bad book",
-                    1.211, "Some person","NEW");
-
-            data.addBook(3, "anything", 89.49, "mid book",
-                    1.2211, "Some person","NEW");
-
-            setup=true;
-        }else {
-            System.out.println("Setup already executed.");
-        }
-
+            bookDatabase = Services.getBookDatabase();
+            addForSale = Services.getSellBooksDatabase();
+        bookManagement = new BookManagement(bookDatabase);
     }
-    @Test
-    public void instanceTest() {
 
-        AccountManagement accountManagement1 = new AccountManagement(Services.getUserDatabase());
+
+    /*Simple test of retrieving all the books from the database*/
+    @Test
+    public void testingRetrievalOfBooks() {
+        list = bookManagement.viewBooks();
+        assertTrue(!list.isEmpty());
+    }
+
+    public List<Book> findName(String name) {
+        List<Book> result = null;
+
         try {
-
-            accountManagement1.createNewUser("tom1234", "12345678", "User", "R3T");
-        } catch (Exception e) {
-            e.printStackTrace();
+            result = bookManagement.findBooksWithBookName(name);
+        } catch (BookNotFoundException e) {
+            System.out.println("Bad error thrown from Database");
         }
+
+
+        return result;
     }
 
-    //testing the view books right now we added one book
     @Test
-        public void listRetrevial(){
+    public void findBooksWithBookName() {
 
-        System.out.println("Testing the book list retrieval method");
+        list = findName("WrongBook");
+        assertTrue(list.size() == 0);
 
-        assertNotEquals(0,bookManagement_test.viewBooks().size());
+        list = findName("moby");//this should return 2 books
+        assertTrue(list.size() == 2);
 
-        System.out.println("Book list retrieval Test passed");
+        list = findName("Moby"); // checking the case sensitivity
+        assertTrue(list.size() == 2);
+
+        list = findName("bio");
+        assertTrue(list.size() == 1);
+
+        list = findName("BIO");
+        assertTrue(list.size() == 1);
+
+         book = list.remove(0);
+
+        addForSale.addSaleBook(1, book.getId(), "TEST", book.getPrice());
+
+        list = findName("BIO");
+        assertTrue(list.size() == 2);
     }
 
-    @Test public void findBookUsingName() throws BookNotFoundException {
+    @Test
+    public void findBookID() {
 
-        System.out.println("Testing the search method for books using names");
+            book = bookManagement.findBookWithID(-1);
+            assertNull(book);
 
-//        assertEquals(0,bookManagement_test.findBooksWithBookName("nullbook").size());
-//
-//        assertEquals(1,bookManagement_test.findBooksWithBookName("TestBook").size());
-//
-//        assertEquals(2,bookManagement_test.findBooksWithBookName("anything").size());
+            book= bookManagement.findBookWithID(10000);
+            assertNull(book);
 
-        System.out.println("Search method for books using names passed");
-
+            book = bookManagement.findBookWithID(1);
+            assertNotNull(book);
     }
-
-    @Test public void findBookUsingId(){
-
-        System.out.println("Testing the search method for books using ID");
-
-        assertNull(bookManagement_test.findBookWithID(20));
-
-        Book book =(bookManagement_test.findBookWithID(2));
-
-        assertNotNull(book);
-
-        System.out.println("Search method for books using ID passed");
-
-    }
-
-
 }

@@ -1,56 +1,67 @@
 package com.example.myapplication.bussinessITtests;
 
-import org.junit.Before;
-import org.junit.Test;
+import com.example.myapplication.Models.User;
+import com.example.myapplication.application.Services;
+import com.example.myapplication.business.authentication.AuthenticatedUser;
+import com.example.myapplication.business.management.AccountManagement;
+import com.example.myapplication.business.management.AuthenticationManager;
+import com.example.myapplication.business.management.BookManagement;
 
+import com.example.myapplication.Models.Book;
+import com.example.myapplication.business.management.CheckoutManagement;
+import com.example.myapplication.customException.BookNotFoundException;
+import com.example.myapplication.customException.UserCreationException;
+import com.example.myapplication.persistence.subinterfaces.BookDatabase;
+import com.example.myapplication.persistence.subinterfaces.SellBooksDatabase;
+import com.example.myapplication.persistence.subinterfaces.UserDatabase;
+
+
+import org.junit.*;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import com.example.myapplication.business.management.AuthenticationManager;
-import com.example.myapplication.persistence.stub.DummyDatabase;
-
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public class AuthenticationManagerTestIT {
-    private AuthenticationManager authenticationManager;
-    DummyDatabase database = (DummyDatabase) DummyDatabase.getInstance();
+
+    UserDatabase userDB;
+
+    AuthenticationManager authenticateManager;
+    private File tempDB;
+    
     @Before
+    public void setup() {
 
-    public void setUp()
-    {
-        authenticationManager = new AuthenticationManager(database);
-
+        System.out.println("Starting integration test for AccessRecipes");
+        try {
+            this.tempDB = TestUtils.copyDB();
+        } catch (IOException e) {
+            System.out.println("Error starting the test");
+            fail();
+        }
+        userDB= Services.getUserDatabase();
+        authenticateManager= new AuthenticationManager(userDB);
     }
 
     @Test
-    public void testAuthenticateUser_UserExists_PasswordMatches() {
-        System.out.println("Staring testAuthenticateUser_UserExists_PasswordMatches");
-        String username = "testUser";
-        String password = "testPassword";
-        database.addUser(username,password,"user", "address");
+    public void authenticateTest(){
+        assertFalse(authenticateManager.authenticateUser("Test","password"));
 
+        assertTrue(authenticateManager.authenticateUser("userone","123123"));
 
-        boolean result = authenticationManager.authenticateUser(username, password);
+        AccountManagement management = new AccountManagement(Services.getUserDatabase());
 
-        assertTrue(result);
-        System.out.println("Finished testAuthenticateUser_UserExists_PasswordMatches");
-
+        try {
+            management.createNewUser("Test", "password", "TestingType", "Integration Test");
+        }catch (UserCreationException e){
+            System.out.println(e.getMessage());
+            fail();
+        }
+        assertTrue(authenticateManager.authenticateUser("Test","password"));
     }
-    @Test
-    public void testAuthenticateUser_UserExists_PasswordNotMatches() {
-        System.out.println("Starting testAuthenticateUser_UserExists_PasswordNotMatches");
-        String username = "testUser1";
-        String password = "testPassword";
-        String wrongPassword = "wrongPassword";
 
-
-        database.addUser(username,password,"user", "address");
-
-
-        boolean result = authenticationManager.authenticateUser(username, wrongPassword);
-
-        assertFalse(result);
-        System.out.println("finished testAuthenticateUser_UserExists_PasswordNotMatches");
-
-    }
 
 }

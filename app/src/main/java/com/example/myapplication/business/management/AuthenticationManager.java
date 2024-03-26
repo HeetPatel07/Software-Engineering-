@@ -21,18 +21,18 @@ public class AuthenticationManager implements Authenticate {
         Optional<User> userOptional = null;
         try {
             userOptional = this.database.findUserWithUsername(username);
+            if (userOptional.isPresent()) {
+                User user = userOptional.get();
+                if (user.checkPassword(password)) {
+                    AuthenticatedUser authenticatedUser = AuthenticatedUser.getInstance();
+                    authenticatedUser.setUser(user);
+                    return true;
+                }
+            }
         } catch (UserNotFoundException e) {
             System.out.println("The user is not authenticated");
         }
 
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            if (user.checkPassword(password)) {
-                AuthenticatedUser authenticatedUser = AuthenticatedUser.getInstance();
-                authenticatedUser.setUser(user);
-                return true;
-            }
-        }
         return false;
     }
 }

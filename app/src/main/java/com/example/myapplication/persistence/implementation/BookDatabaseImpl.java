@@ -86,17 +86,15 @@ public class BookDatabaseImpl implements BookDatabase {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-
-        if (bookList.isEmpty()) {
             throw new BookNotFoundException("Couldn't find book with name: " + bookName);
+
         }
 
         return bookList;
     }
 
     @Override
-    public synchronized Optional<Book> findBookWithID(int id) throws BookNotFoundException {
+    public synchronized Book findBookWithID(int id) throws BookNotFoundException {
 
         String sql = "SELECT b.id, b.bookname, b.author_name, BF.price, b.edition ,b.description, BF.book_condition AS cond FROM BOOKS b INNER JOIN BOOKFORSALE BF on b.id=BF.book_id WHERE b.id=?";
 
@@ -122,13 +120,14 @@ public class BookDatabaseImpl implements BookDatabase {
 
                 ratingsOfBook.forEach(value::addRating);
 
-                return Optional.of(value);
+                return value;
 
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new BookNotFoundException("Book with ID : " + id + " was not Found");
         }
-        throw new BookNotFoundException("Book with ID : " + id + " was not Found");
+        return null;
     }
 
 }

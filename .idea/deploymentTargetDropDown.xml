@@ -2,7 +2,10 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ExampleInstrumentedTest">
+      <entry key="AllSystemTests">
+        <State />
+      </entry>
+      <entry key="FavouriteBookSystemTest">
         <State />
       </entry>
       <entry key="app">
@@ -21,7 +24,13 @@
           <timeTargetWasSelectedWithDropDown value="2024-03-22T15:53:31.809391Z" />
         </State>
       </entry>
-      <entry key="useAppContext()">
+      <entry key="buyBookTest()">
+        <State />
+      </entry>
+      <entry key="testFavouriteBook()">
+        <State />
+      </entry>
+      <entry key="testView()">
         <State />
       </entry>
     </value>

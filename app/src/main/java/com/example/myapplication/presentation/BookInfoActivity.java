@@ -114,8 +114,8 @@ public class BookInfoActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void displayBookInfo(Book book) {
         // Set book information to respective UI elements
-        setTextWithFormat(R.id.bookName, "Name: %s", book.getBookName());
-        setTextWithFormat(R.id.bookAuthor, "Author: %s", book.getAuthorName());
+        setTextWithFormat(R.id.bookName, "%s", book.getBookName());
+        setTextWithFormat(R.id.bookAuthor, "%s", book.getAuthorName());
         setTextWithFormat(R.id.bookPrice, "Price: $%.2f", book.getPrice());
         setTextWithFormat(R.id.bookEdition, "%.2f", book.getBookEdition());
         setRating(R.id.bookRating, book.getOverallBookRating());

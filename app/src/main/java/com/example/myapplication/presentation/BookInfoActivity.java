@@ -24,6 +24,7 @@ import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.Models.Rating;
 import com.example.myapplication.business.management.FavouriteBookManagement;
+import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.presentation.utils.FooterUtility;
 
 import java.util.ArrayList;
@@ -91,13 +92,18 @@ public class BookInfoActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currUser == null) {
-                    Toast.makeText(BookInfoActivity.this, "Login Firstly", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
-                } else {
-                    //add this to the favourite books list
-                    saveBookManager.addFavBook(currUser.getUserID(), book);
-                    Toast.makeText(BookInfoActivity.this, "Book" + book.getBookName() + " is now in your favourite books", Toast.LENGTH_SHORT).show();
+                try {
+                    if (currUser == null) {
+                        Toast.makeText(BookInfoActivity.this, "Login Firstly", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(BookInfoActivity.this, LoginActivity.class));
+                    } else {
+                        //add this to the favourite books list
+                        saveBookManager.addFavBook(currUser.getUserID(), book);
+                        Toast.makeText(BookInfoActivity.this, "Book" + book.getBookName() + " is now in your favourite books", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (BookNotFoundException e){
+                    Toast.makeText(BookInfoActivity.this, "Something went wrong please contact admin fakeEmail@gmail.com",Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

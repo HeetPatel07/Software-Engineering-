@@ -31,7 +31,6 @@ public class BookManagementTestIT {
     @Before
     public void createTest() {
 
-        System.out.println("Starting integration test for AccessRecipes");
         try {
             this.tempDB = TestUtils.copyDB();
         } catch (IOException e) {

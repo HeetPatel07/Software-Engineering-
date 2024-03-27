@@ -30,7 +30,6 @@ public class AccountManagementTestIT {
     @Before
     public void setup() {
 
-        System.out.println("Starting integration test for AccessRecipes");
         try {
             this.tempDB = TestUtils.copyDB();
         } catch (IOException e) {
@@ -47,7 +46,6 @@ public class AccountManagementTestIT {
         try {
             return accountManagement.createNewUser(userName, password, type, address);
         } catch (UserCreationException e) {
-            System.out.println("Error in creating the new user");
             return false;
         }
 
@@ -118,7 +116,6 @@ public class AccountManagementTestIT {
         try {
             return accountManagement.setNewUserName(name);
         } catch (UserCreationException e) {
-            System.out.println("Fail");
             return false;
         }
     }
@@ -155,7 +152,6 @@ public class AccountManagementTestIT {
         try {
             return accountManagement.setNewUserAddress(address);
         } catch (UserCreationException e) {
-            System.out.println("Fail");
             return false;
         }
     }

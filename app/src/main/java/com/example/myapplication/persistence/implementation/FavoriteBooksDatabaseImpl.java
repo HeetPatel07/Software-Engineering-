@@ -1,6 +1,7 @@
 package com.example.myapplication.persistence.implementation;
 
 import com.example.myapplication.Models.Book;
+import com.example.myapplication.customException.BookCreationException;
 import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.persistence.subinterfaces.FavoriteBooksDatabase;
 
@@ -52,10 +53,10 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
     }
 
     @Override
-    public synchronized boolean addFavoriteBook(int userId, int bookId) {
+    public synchronized boolean addFavoriteBook(int userId, int bookId) throws BookCreationException {
 
         if (checkIfFavoriteBookExists(userId, bookId)) {
-            throw new IllegalArgumentException("Favourite book already in the table");
+            throw new BookCreationException("Favourite book already in the table");
         }
         String sql = "INSERT INTO PUBLIC.FAVOURITEBOOK (book_id, user_id) VALUES (?, ?);";
 

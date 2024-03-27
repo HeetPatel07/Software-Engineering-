@@ -10,6 +10,7 @@ import com.example.myapplication.bussinessITtests.BookManagementTestIT;
 import com.example.myapplication.bussinessITtests.CheckoutManagementTestIT;
 import com.example.myapplication.bussinessITtests.CourseMangementTestIT;
 import com.example.myapplication.bussinessITtests.FavouriteBookManagementTestIT;
+import com.example.myapplication.bussinessITtests.SellBooksManagementTestIT;
 //import com.example.myapplication.bussinessITtests.AccountManagementTestIT;
 
 import org.junit.runner.RunWith;
@@ -22,6 +23,7 @@ import org.junit.runners.Suite;
         AccountManagementTestIT.class,
         CourseMangementTestIT.class,
         FavouriteBookManagementTestIT.class,
+        SellBooksManagementTestIT.class,
 })
 public class AllTestsIT {
 }

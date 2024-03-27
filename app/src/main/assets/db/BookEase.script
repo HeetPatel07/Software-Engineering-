@@ -17,8 +17,8 @@ SET FILES SCALE 32
 SET SCHEMA public
 INSERT INTO USERS VALUES (1, 'userone', '123123', 'Winnipeg Pothole No.4', 'Student')
 INSERT INTO USERS VALUES (2, 'usertwo', '123123', '204 Saint Vital', 'Professor')
-INSERT INTO USERS VALUES (3, 'userthree', 'password123', '211 Waverly', 'Student')
-INSERT INTO USERS VALUES (4, 'userfour', 'password456', 'Sample Address', 'Professor')
+INSERT INTO USERS VALUES (3, 'userthree', '123123', '211 Waverly', 'Student')
+INSERT INTO USERS VALUES (4, 'userfour', '123123', 'Sample Address', 'Professor')
 INSERT INTO USERS VALUES (5, 'userfive', 'password789', '204 Brampton Toronto', 'Student')
 INSERT INTO USERS VALUES (6, 'usersix', 'password000', '311 New Mexico', 'Professor')
 INSERT INTO BOOKS VALUES (1, 'The Great Gatsby', 'F. Scott Fitzgerald', 20.00, 1, 'A classic novel of American literature set in the Roaring Twenties.')

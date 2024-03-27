@@ -4,20 +4,20 @@ import com.example.myapplication.Models.BookPropertiesTest;
 import com.example.myapplication.Models.BookTest;
 import com.example.myapplication.Models.UserTest;
 
-import com.example.myapplication.bussinessITtests.BookManagementTestIT;
-//import com.example.myapplication.bussinessITtests.AccountManagementTestIT;
+import com.example.myapplication.business.unitTests.*;
+
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 
-        BookManagementTestIT.class,
+        BookManagementTest.class,
         BookTest.class,
         BookPropertiesTest.class,
         UserTest.class,
-
-
+        CheckoutManagementTest.class,
 })
 public class AllTests {
 }

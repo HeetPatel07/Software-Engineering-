@@ -35,7 +35,6 @@ public class AuthenticationManagerTestIT {
     @Before
     public void setup() {
 
-        System.out.println("Starting integration test for AccessRecipes");
         try {
             this.tempDB = TestUtils.copyDB();
         } catch (IOException e) {
@@ -62,6 +61,5 @@ public class AuthenticationManagerTestIT {
         }
         assertTrue(authenticateManager.authenticateUser("Test","password"));
     }
-
 
 }

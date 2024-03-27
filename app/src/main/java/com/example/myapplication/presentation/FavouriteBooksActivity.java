@@ -88,16 +88,22 @@ public class FavouriteBooksActivity extends AppCompatActivity {
         bookcondition.setText(String.format("Book Condition: %s", book.getCondition()));
         buyBook.setText(String.format("Buy"));
 
-        deleteFavBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int bookId = book.getId();
-                int usrId = AuthenticatedUser.getInstance().getUser().getUserID();
-                favBooksDB.removeFavBook(usrId, bookId);
-                Intent requiredBook = new Intent(FavouriteBooksActivity.this, FavouriteBooksActivity.class);
-                startActivity(requiredBook);
-            }
-        });
+
+            deleteFavBook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int bookId = book.getId();
+                    int usrId = AuthenticatedUser.getInstance().getUser().getUserID();
+                    try {
+                        favBooksDB.removeFavBook(usrId, bookId);
+                    }catch (BookNotFoundException e){
+                        Toast.makeText(FavouriteBooksActivity.this,"Something went wrong please contact admin fakeEmail@gmail.com",Toast.LENGTH_SHORT).show();
+                    }
+                    Intent requiredBook = new Intent(FavouriteBooksActivity.this, FavouriteBooksActivity.class);
+                    startActivity(requiredBook);
+                }
+            });
+
 
         buyBook.setOnClickListener(new View.OnClickListener() {
             @Override

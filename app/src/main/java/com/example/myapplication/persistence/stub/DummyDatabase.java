@@ -2,6 +2,7 @@ package com.example.myapplication.persistence.stub;
 
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.User;
+import com.example.myapplication.customException.UserCreationException;
 import com.example.myapplication.persistence.stub.utlis.RandomGenerator;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
 import com.example.myapplication.persistence.Database;
@@ -56,10 +57,15 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
     }
 
     @Override
-    public boolean addUser(User user) {
-
+    public boolean addUser(User user){
+        if (findUserWithUsername(user.getUsername()).isEmpty()) {
+             User toadduser = new User(user.getUsername(), users.size(), user.getPassword(), user.getType(), user.getAddress());
+            users.add(toadduser);
+            return true;
+        }
         return false;
     }
+
 
     public void addBook(int id, String bookName,
                         double price, String description,
@@ -76,16 +82,32 @@ public class DummyDatabase implements BookDatabase, UserDatabase {
 
     @Override
     public boolean updateUserPassword(int userID, String newPassword) {
+        Optional<User> userToUpdate = users.stream().filter(user -> user.getUserID() == userID).findFirst();
+        if (userToUpdate.isPresent()) {
+            userToUpdate.get().setPassword(userToUpdate.get().getPassword(),newPassword);
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean updateUsername(int userID, String newUsername) {
+        Optional<User> userToUpdate = users.stream().filter(user -> user.getUserID() == userID).findFirst();
+        if (userToUpdate.isPresent()) {
+            userToUpdate.get().setUsername(newUsername);
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean updateUserAddress(int userID, String newAddress) {
+        Optional<User> userToUpdate = users.stream().filter(user -> user.getUserID() == userID).findFirst();
+        if (userToUpdate.isPresent()) {
+            userToUpdate.get().setAddress(newAddress);
+            return true;
+        }
         return false;
     }
+
 }

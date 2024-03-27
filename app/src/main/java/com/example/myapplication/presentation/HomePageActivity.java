@@ -60,6 +60,7 @@ public class HomePageActivity extends AppCompatActivity {
 
     private void setupSearchFunctionality() {
         Button searchButton = findViewById(R.id.searchButton);
+
         searchButton.setOnClickListener(v -> performSearch());
     }
 

@@ -33,13 +33,22 @@ public class HomePageActivity extends AppCompatActivity {
 
     private BookManagement books;
 
+    private static boolean reset = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_page_activity);
 
-        DBHelper.copyDatabaseToDevice(this);
+        if(reset)
+        {
+            DBHelper.resetDB(this);
+            reset = false;
+        }
+        else {
+            DBHelper.copyDatabaseToDevice(this);
+        }
         books = new BookManagement(Services.getBookDatabase());
 
         FooterUtility.initFooterButtons(this);

@@ -7,14 +7,6 @@
     android:layout_height="match_parent"
     tools:ignore="MissingDefaultResource">
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/header_footer_activity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -123,5 +115,13 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/header_footer_activity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

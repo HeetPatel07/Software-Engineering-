@@ -1,7 +1,5 @@
 # Contribution
 
-# Contribution 
-
 ## Members
 1. Aaryaman Pol
 2. Heet Patel

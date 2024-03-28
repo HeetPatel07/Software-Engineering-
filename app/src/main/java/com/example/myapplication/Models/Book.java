@@ -1,6 +1,7 @@
 package com.example.myapplication.Models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Book {
 
@@ -75,7 +76,7 @@ public class Book {
         return this.properties.getEdition();
     }
 
-    public ArrayList<Rating> getRatings() {
+    public List<Rating> getRatings() {
         return properties.getRatings();
     }
 

@@ -24,7 +24,7 @@ public class CourseRequiredBookDatabaseImpl implements CourseRequiredBookDatabas
     public List<Course> getCourseList() {
         List<Course> courseList = new ArrayList<>();
         String sql;
-        sql = "SELECT c.course_id, c.courseName, b.id AS book_id, b.bookname, b.author_name, b.price, b.edition, b.description FROM PUBLIC.COURSES c JOIN PUBLIC.BOOKS b ON c.book_id = b.id;";
+        sql = "SELECT c.course_id, c.courseName, b.id AS book_id, b.bookname AS book_name, b.author_name, b.price, b.edition, b.description FROM PUBLIC.COURSES c JOIN PUBLIC.BOOKS b ON c.book_id = b.id;";
         Map<String, Course> courseMap = new HashMap<>();
         try {
             Connection connection = CourseRequiredBookDatabase.super.getConnection(dbpath);
@@ -36,7 +36,7 @@ public class CourseRequiredBookDatabaseImpl implements CourseRequiredBookDatabas
                 String courseName = rs.getString("courseName");
 
                 int bookId = rs.getInt("book_id");
-                String bookname = rs.getString("bookname");
+                String bookname = rs.getString("book_name");
                 String authorName = rs.getString("author_name");
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();

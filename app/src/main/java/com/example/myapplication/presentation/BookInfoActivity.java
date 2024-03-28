@@ -28,6 +28,7 @@ import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.presentation.utils.FooterUtility;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookInfoActivity extends AppCompatActivity {
     // Declare variables
@@ -158,7 +159,7 @@ public class BookInfoActivity extends AppCompatActivity {
     private void configureComment(Book book) {
         // Clear existing comments and add new comments to the comment container
         commentContainer.removeAllViews();
-        ArrayList<Rating> list = book.getRatings();
+        List<Rating> list = book.getRatings();
 
         for (Rating rating : list) {
             // Create and configure comment view for each rating

@@ -33,7 +33,7 @@ public class SellBooksDatabaseImpl implements SellBooksDatabase {
     public List<Book> getBooksForSale(int userId) {
         List<Book> bookList = new ArrayList<>();
 
-        String sql = "SELECT b.id, b.bookname, b.author_name, BF.price, b.edition, b.description, BF.book_condition FROM BOOKS b JOIN BOOKFORSALE BF ON BF.book_id = b.id WHERE BF.user_id = ?";
+        String sql = "SELECT b.id, b.bookname AS book_name, b.author_name, BF.price, b.edition, b.description, BF.book_condition FROM BOOKS b JOIN BOOKFORSALE BF ON BF.book_id = b.id WHERE BF.user_id = ?";
 
         try (Connection connection = SellBooksDatabase.super.getConnection(dbpath);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -43,7 +43,7 @@ public class SellBooksDatabaseImpl implements SellBooksDatabase {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String bookName = rs.getString("bookname");
+                String bookName = rs.getString("book_name");
                 String authorName = rs.getString("author_name");
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();

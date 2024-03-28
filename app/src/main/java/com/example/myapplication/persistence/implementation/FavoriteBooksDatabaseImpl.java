@@ -26,7 +26,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
 
         String sql;
 
-        sql = "SELECT b.id, b.bookname, b.author_name, BS.price, b.edition, b.description, BS.book_condition FROM BOOKS b INNER JOIN FAVOURITEBOOK BF on b.id = BF.book_id INNER JOIN BOOKFORSALE BS ON b.id = BS.book_id WHERE BF.user_id = ?;";
+        sql = "SELECT b.id, b.bookname AS book_name, b.author_name, BS.price, b.edition, b.description, BS.book_condition FROM BOOKS b INNER JOIN FAVOURITEBOOK BF on b.id = BF.book_id INNER JOIN BOOKFORSALE BS ON b.id = BS.book_id WHERE BF.user_id = ?;";
 
         try {
             Connection connection = FavoriteBooksDatabase.super.getConnection(dbpath);
@@ -37,7 +37,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String bookName = rs.getString("bookname");
+                String bookName = rs.getString("book_name");
                 String authorName = rs.getString("author_name");
                 double price = rs.getBigDecimal("price").doubleValue();
                 double edition = rs.getBigDecimal("edition").doubleValue();

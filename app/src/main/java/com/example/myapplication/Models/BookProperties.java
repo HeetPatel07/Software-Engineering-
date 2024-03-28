@@ -1,9 +1,10 @@
 package com.example.myapplication.Models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookProperties {
-    private final ArrayList<Rating> ratings;
+    private final List<Rating> ratings;
 
     private String description;
 
@@ -51,7 +52,7 @@ public class BookProperties {
         return total / ratings.size();
     }
 
-    public ArrayList<Rating> getRatings() {
+    public List<Rating> getRatings() {
         return ratings;
     }
 

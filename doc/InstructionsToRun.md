@@ -7,7 +7,7 @@ During this iteration we were able to finish all of the features except secure p
 [BookEase Link to One Drive](https://umanitoba-my.sharepoint.com/:f:/r/personal/patelhs_myumanitoba_ca/Documents/Iteration3?csf=1&web=1&e=sikFLH)
 ## How to run the program
 ---
-[Instructions of how to run the program](InstructionsToRun.md)
+[Instructions of how to run the program](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/doc/InstructionsToRun.md)
 
 ## Features
 ---

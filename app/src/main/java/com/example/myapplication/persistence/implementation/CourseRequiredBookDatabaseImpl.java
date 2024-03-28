@@ -2,6 +2,7 @@ package com.example.myapplication.persistence.implementation;
 
 import com.example.myapplication.Models.Book;
 import com.example.myapplication.Models.Course;
+import com.example.myapplication.customException.BadCourseException;
 import com.example.myapplication.persistence.subinterfaces.CourseRequiredBookDatabase;
 import com.example.myapplication.persistence.subinterfaces.FavoriteBooksDatabase;
 
@@ -61,7 +62,7 @@ public class CourseRequiredBookDatabaseImpl implements CourseRequiredBookDatabas
     }
 
 
-    public void addRequiredBookToCourse(String courseName, int bookId) {
+    public void addRequiredBookToCourse(String courseName, int bookId) throws BadCourseException {
         String sql = "INSERT INTO PUBLIC.COURSES (courseName, book_id) VALUES (?, ?);";
         try (Connection connection = CourseRequiredBookDatabase.super.getConnection(dbpath);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -70,11 +71,11 @@ public class CourseRequiredBookDatabaseImpl implements CourseRequiredBookDatabas
             statement.setInt(2, bookId);
             statement.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new BadCourseException("Invalid course Name : " + courseName + "Or book id :" + bookId);
         }
     }
 
-    public void deleteRequiredBookFromCourse(String courseName, int bookId) {
+    public void deleteRequiredBookFromCourse(String courseName, int bookId) throws BadCourseException {
         String sql = "DELETE FROM PUBLIC.COURSES WHERE courseName = ? AND book_id = ?;";
         try (Connection connection = CourseRequiredBookDatabase.super.getConnection(dbpath);
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -83,7 +84,7 @@ public class CourseRequiredBookDatabaseImpl implements CourseRequiredBookDatabas
             statement.setInt(2, bookId);
             statement.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new BadCourseException("Invalid course Name : " + courseName + "Or book id :" + bookId);
         }
     }
 

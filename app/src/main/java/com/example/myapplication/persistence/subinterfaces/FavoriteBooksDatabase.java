@@ -11,7 +11,7 @@ public interface FavoriteBooksDatabase extends Database {
 
     List<Book> getFavoriteBooks(int userId) throws BookNotFoundException;
 
-    boolean addFavoriteBook(int userId, int bookId) throws BookCreationException;
+    void addFavoriteBook(int userId, int bookId) throws BookCreationException;
 
-    boolean deleteFavoriteBook(int userId, int bookId);
+    void deleteFavoriteBook(int userId, int bookId) throws BookNotFoundException;
 }

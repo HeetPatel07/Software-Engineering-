@@ -24,6 +24,7 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.CheckoutManagement;
 import com.example.myapplication.business.management.CourseManagement;
+import com.example.myapplication.customException.BadCourseException;
 import com.example.myapplication.presentation.utils.FooterUtility;
 
 import java.util.List;

@@ -15,6 +15,8 @@ import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.business.management.SellBooksManagement;
+import com.example.myapplication.customException.UserNotFoundException;
+import com.example.myapplication.persistence.implementation.UserDatabaseImpl;
 import com.example.myapplication.presentation.utils.FooterUtility;
 
 
@@ -75,7 +77,7 @@ public class SellBooksActivity extends AppCompatActivity {
                 throw new NumberFormatException("Please enter a selling valid price");
             }
             if (AuthenticatedUser.getInstance() == null) {
-                throw new IllegalStateException("Cannot proceed, please login first");
+                throw new UserNotFoundException("Cannot proceed, please login first");
             }
 
             float bookPrice = Float.parseFloat(price.getText().toString());
@@ -100,7 +102,7 @@ public class SellBooksActivity extends AppCompatActivity {
 
         } catch (NumberFormatException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        } catch (IllegalStateException e) {
+        } catch (UserNotFoundException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }

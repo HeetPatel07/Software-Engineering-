@@ -33,7 +33,7 @@ public class CheckoutManagement {
     }
 
     public boolean buyBook(Book book) {
-        if(book == null) return false;
+        if (book == null) return false;
         return addBookToList(book);
     }
 
@@ -58,14 +58,7 @@ public class CheckoutManagement {
 
 
     public boolean removeBook(Book book) {
-        try {
-            // Check if the book exists in the cart
-            // return true if Book successfully removed
-            return books.removeIf(existingBook -> existingBook.equals(book));
-        } catch (RuntimeException e) {
-            System.out.println("Error in removing " + book.getBookName() + " from the checkout page: " + e.getMessage());
-            return false; // Unable to remove book due to error
-        }
+        return books.removeIf(existingBook -> existingBook.equals(book));
     }
 
 

@@ -13,6 +13,7 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.AuthenticationManager;
 import com.example.myapplication.business.management.CourseManagement;
 import com.example.myapplication.business.management.AccountManagement;
+import com.example.myapplication.customException.BadCourseException;
 
 
 import org.junit.Before;
@@ -69,36 +70,43 @@ public class CourseMangementTestIT {
 
     @Test
     public void addRequiredBookToCourseTest() {
+        try {
+            Course reqCourse = getCourse("Linear Algebra");
 
-        Course reqCourse = getCourse("Linear Algebra");
+            assertNotNull(reqCourse);
 
-        assertNotNull(reqCourse);
+            Set<Book> books = reqCourse.getRequiredBookSet();
 
-        Set<Book> books = reqCourse.getRequiredBookSet();
+            courseManagement.addRequiredBookToCourse("Linear Algebra", 4);
 
-        courseManagement.addRequiredBookToCourse("Linear Algebra", 4);
-
-        reqCourse = getCourse("Linear Algebra");
-        Set<Book> books2 = reqCourse.getRequiredBookSet();
-        assertTrue(books.size() < books2.size());
+            reqCourse = getCourse("Linear Algebra");
+            Set<Book> books2 = reqCourse.getRequiredBookSet();
+            assertTrue(books.size() < books2.size());
+        } catch (BadCourseException e) {
+            fail();
+        }
     }
 
     @Test
     public void deleteRequiredBookTest() {
 
-        courseManagement.addRequiredBookToCourse("Cell Biology", 4);
+        try {
+            courseManagement.addRequiredBookToCourse("Cell Biology", 4);
 
-        Course reqCourse = getCourse("Cell Biology");
+            Course reqCourse = getCourse("Cell Biology");
 
-        assertNotNull(reqCourse);
+            assertNotNull(reqCourse);
 
-        Set<Book> books = reqCourse.getRequiredBookSet();
+            Set<Book> books = reqCourse.getRequiredBookSet();
 
-        courseManagement.deleteRequiredBookInCourse("Cell Biology", 4);
+            courseManagement.deleteRequiredBookInCourse("Cell Biology", 4);
 
-        reqCourse = getCourse("Cell Biology");
-        Set<Book> books2 = reqCourse.getRequiredBookSet();
-        assertTrue(books.size() > books2.size());
+            reqCourse = getCourse("Cell Biology");
+            Set<Book> books2 = reqCourse.getRequiredBookSet();
+            assertTrue(books.size() > books2.size());
+        } catch (BadCourseException e) {
+            fail();
+        }
 
     }
 }

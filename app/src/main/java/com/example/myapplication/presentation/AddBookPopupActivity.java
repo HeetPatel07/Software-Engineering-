@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +18,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.BookManagement;
 import com.example.myapplication.business.management.CourseManagement;
+import com.example.myapplication.customException.BadCourseException;
 
 import java.util.List;
 
@@ -79,9 +81,13 @@ public class AddBookPopupActivity extends AppCompatActivity {
             bookActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    courseManagement.addRequiredBookToCourse(courseName, book.getId());
-                    Intent intent = new Intent(AddBookPopupActivity.this, CoursesBooksActivity.class);
-                    startActivity(intent);
+                    try {
+                        courseManagement.addRequiredBookToCourse(courseName, book.getId());
+                        Intent intent = new Intent(AddBookPopupActivity.this, CoursesBooksActivity.class);
+                        startActivity(intent);
+                    }catch (BadCourseException e){
+                        Toast.makeText(AddBookPopupActivity.this, "Something went wrong please contact the admin fakeEmail@gmail.com", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 

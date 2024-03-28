@@ -124,7 +124,7 @@ public class UserDatabaseImpl implements UserDatabase {
                 connection.close();
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new UserCreationException("Cannot insert user with username " + user.getUsername() + "into the table");
         }
     }

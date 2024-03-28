@@ -16,6 +16,7 @@ import com.example.myapplication.application.Services;
 import com.example.myapplication.business.management.AccountManagement;
 import com.example.myapplication.business.authentication.AuthenticatedUser;
 import com.example.myapplication.Models.User;
+import com.example.myapplication.customException.InvalidInputException;
 import com.example.myapplication.customException.UserCreationException;
 
 public class ChangeAccount extends AppCompatActivity {
@@ -103,9 +104,9 @@ public class ChangeAccount extends AppCompatActivity {
                 try {
                     // Validate input fields
                     if (newAdd.isEmpty())
-                        throw new IllegalArgumentException("Please enter the address correctly. No empty address allowed.");
+                        throw new InvalidInputException("Please enter the address correctly. No empty address allowed.");
                     if (type.isEmpty())
-                        throw new IllegalArgumentException("Please select your role.");
+                        throw new InvalidInputException("Please select your role.");
 
                     // Update user information
                     boolean newUsernameSetup = accountManagement.setNewUserName(newName);
@@ -131,6 +132,8 @@ public class ChangeAccount extends AppCompatActivity {
                     }
                 } catch (UserCreationException e) {
                     // Catch IllegalArgumentException to show specific error messages
+                    Toast.makeText(ChangeAccount.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                } catch (InvalidInputException e) {
                     Toast.makeText(ChangeAccount.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }

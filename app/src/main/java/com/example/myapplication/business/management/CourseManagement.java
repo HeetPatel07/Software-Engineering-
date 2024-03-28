@@ -1,6 +1,7 @@
 package com.example.myapplication.business.management;
 
 import com.example.myapplication.Models.Course;
+import com.example.myapplication.customException.BadCourseException;
 import com.example.myapplication.persistence.subinterfaces.CourseRequiredBookDatabase;
 
 import java.util.List;
@@ -18,24 +19,24 @@ public class CourseManagement {
 
         try {
             result = courseRequiredBookDatabase.getCourseList();
-        } catch (Exception e) {
+        } catch (BadCourseException e) {
             System.out.println("Error of get course list from database.");
         }
         return result;
     }
 
-    public void addRequiredBookToCourse(String courseName, int bookID) {
+    public void addRequiredBookToCourse(String courseName, int bookID)  throws BadCourseException {
         try {
             courseRequiredBookDatabase.addRequiredBookToCourse(courseName, bookID);
-        } catch (Exception e) {
+        } catch (BadCourseException e) {
             System.out.print("Error in adding required book to course: " + courseName);
         }
     }
 
-    public void deleteRequiredBookInCourse(String courseName, int bookID) {
+    public void deleteRequiredBookInCourse(String courseName, int bookID) throws BadCourseException  {
         try {
             courseRequiredBookDatabase.deleteRequiredBookFromCourse(courseName, bookID);
-        } catch (Exception e) {
+        } catch (BadCourseException e) {
             System.out.print("Error of delete required book in Course: " + courseName);
         }
     }

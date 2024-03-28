@@ -53,7 +53,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
     }
 
     @Override
-    public synchronized boolean addFavoriteBook(int userId, int bookId) throws BookCreationException {
+    public synchronized void addFavoriteBook(int userId, int bookId) throws BookCreationException {
 
         if (checkIfFavoriteBookExists(userId, bookId)) {
             throw new BookCreationException("Favourite book already in the table");
@@ -71,7 +71,6 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
             try {
                 statement.executeUpdate();
                 connection.commit(); // Commit transaction
-                return true;
             } catch (SQLException e) {
                 connection.rollback(); // Rollback transaction in case of error
                 throw e;
@@ -80,12 +79,11 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 
     @Override
-    public synchronized boolean deleteFavoriteBook(int userId, int bookId) {
+    public synchronized void deleteFavoriteBook(int userId, int bookId) throws BookNotFoundException {
         if (!checkIfFavoriteBookExists(userId, bookId)) {
             throw new IllegalArgumentException("Favourite not in the table");
         }
@@ -102,7 +100,6 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
             try {
                 statement.executeUpdate();
                 connection.commit(); // Commit transaction
-                return true;
             } catch (SQLException e) {
                 connection.rollback(); // Rollback transaction in case of error
                 throw e;
@@ -111,7 +108,7 @@ public class FavoriteBooksDatabaseImpl implements FavoriteBooksDatabase {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+           throw new BookNotFoundException("Not able to delete exception with bookId " + bookId + " user :" + userId);
         }
     }
 

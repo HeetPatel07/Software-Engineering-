@@ -48,7 +48,7 @@ public class RatingDatabaseImpl implements RatingDatabase {
 
                 ratings.add(new Rating((int) rating, commentText, user_id, userName));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return ratings;

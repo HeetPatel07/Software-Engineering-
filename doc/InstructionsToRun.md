@@ -1,36 +1,41 @@
-## HOW TO LOGIN
-* Use the credentails
-* [Username : userone Password: 123123] 
-* [Username : usertwo Password: 123123]
-* Reason there is preinserted data for these users
-* Can also create a new account with the exception of selecting a account type
-* All the features from iteration 1 that are suppose to work will still work 
+# Iteration 3
 
-## Test features 
+During this iteration we were able to finish all of the features except secure payment system, feedback and  improvement, recently viewed section, personalized book recommendations, ratings and comments
 
+### Link To the APK FILE
+---
+[BookEase Link to One Drive](https://umanitoba-my.sharepoint.com/:f:/r/personal/patelhs_myumanitoba_ca/Documents/Iteration3?csf=1&web=1&e=sikFLH)
+## How to run the program
+---
+[Instructions of how to run the program](InstructionsToRun.md)
+
+## Features
+---
 ### Finished:
-* Sell books
-* Book Search
-* Favorite Book list
+* Buy Book
+* Course Book Mangement
 
-#### Feature Sell Books
-* Middle button leads to the library page 
-* click on sell books in the ISBN page the valid values range from [1 to 6]
-* Amount can be amount 
-* Add two types of used book conditions can be selected [Used, Used but still usable]
-* Any book added for sale by the user can be seen in the library page after the book has been successfully added.
-* The used book is successfully added ot the database and shown on the home page
+### Started while not finished:
+1. Ratings and Comments
 
-#### Book Search 
-* The book search is fully implemented with the filter options 
-* On home page there is a option sort by 
-* This succesfully sorts the list for the books shown
-* The search function uses the name of the book and goes through management classes and retirievs the book from database
+## User Stories
+---
+### Finished:
+* View past transactions
+* Customers buy second-hand book
+* Book List Creation
 
-#### Favourite Book List
-* Click on view on homepage for a book
-* This featues is accessible after the user click on save button for the book
-* The book is added to list in the database in a FAVOURITEBOOK table
-* Click on the user profile page there is a option for Favourite Books
-* The books are retieved from the database and can be removed or bought from this list
-* If you remove the book this removes it from the database through management classes
+### Started while not finished:
+1. Add ratings and comments
+
+## Architecture Document
+We updated our [Architecture Document](Architecture.md)
+
+## Future
+---
+In future we would like to :
+1. Polish the User interface with a better style
+2. Add a recently viewed books section
+3. Add a payment method when user would like to buy books
+4. Add a personalized book recommendation system for users
+5. Add function that user can add their own comments and ratings for books.

@@ -23,13 +23,13 @@
 [ChangeAccount](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/ChangeAccount.java?ref_type=heads)
 * The ChangeAccount class allows users to update their account details, including username, address, and password.
 
-[CheckoutActivity]
+[CheckoutActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/app/src/main/java/com/example/myapplication/presentation/CheckoutActivity.java?ref_type=heads)
 * CheckoutActivity manages the checkout process, displaying cart items and facilitating order confirmation or cancellation in an Android app.
 
 [CoursesBooksActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/CoursesBooksActivity.java?ref_type=heads)
 * The CoursesBooksActivity class displays courses and their required books, allowing users to add new courses and books, and providing functionalities to delete books from courses.(Partially implemented and still under construction)
 
-[FavoriteBooksActivity]
+[FavoriteBooksActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/app/src/main/java/com/example/myapplication/presentation/FavouriteBooksActivity.java?ref_type=heads)
 * FavouriteBooksActivity displays a user's favorite books, allowing them to delete books from favorites or add them to the shopping cart within an Android application.
 
 [HomePageActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/HomePageActivity.java?ref_type=heads)
@@ -47,14 +47,14 @@
 [SellBooksActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/SellBooksActivity.java?ref_type=heads)
 * The SellBooksActivity class enables users to sell books by entering details and managing the sale through SellBooksManagement, with navigation to the LibraryActivity upon successful operation.
 
-[TransactionsActivity]
+[TransactionsActivity](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/app/src/main/java/com/example/myapplication/presentation/TransactionsActivity.java?ref_type=heads)
 * TransactionsActivity displays a user's past purchase history, including book details and delivery information, in an Android application.
 
 ### Presentation/utils
 [FooterUtility](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/presentation/FooterUtility.java?ref_type=heads)
 * The FooterUtility class initializes footer buttons for navigation to profile, home, and library activities in an app, based on user authentication.
 
-[BooksUtility]
+[BooksUtility](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/app/src/main/java/com/example/myapplication/presentation/utils/BooksUtility.java?ref_type=heads)
 * The BooksUtility class dynamically displays a list of books in a given LinearLayout, including book details and a delete option, within an Android application.
 
 
@@ -85,7 +85,7 @@
 [BookManagement](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/business/BookManagement.java?ref_type=heads)
 * The BookManagement class manages book retrieval and sorting operations using a BookDatabase.
   
-[CheckoutManagement]
+[CheckoutManagement](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/app/src/main/java/com/example/myapplication/business/management/CheckoutManagement.java?ref_type=heads)
 * The CheckoutManagement class handles shopping cart operations for book purchases, including adding/removing books, finalizing transactions, and retrieving past purchases, with a flawed singleton pattern implementation.
 
 [CourseManagement](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/business/management/CourseManagement.java?ref_type=heads)
@@ -113,7 +113,7 @@
 [BookDatabaseImpl](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/persistence/implementation/BookDatabaseImpl.java?ref_type=heads)
 * The BookDatabaseImpl class implements the BookDatabase interface, managing book-related operations such as retrieval, addition, and search in a database.
   
-[CourseRequiredDatabaseImpl]
+[CourseRequiredDatabaseImpl](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/app/src/main/java/com/example/myapplication/persistence/implementation/CourseRequiredBookDatabaseImpl.java?ref_type=heads)
 * The CourseRequiredBookDatabaseImpl class implements functionality to manage course-required books, allowing operations such as retrieving course lists with their required books, adding, and deleting books from courses in a database.
 
 [FavoriteBooksDatabaseImpl](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/persistence/implementation/FavoriteBooksDatabaseImpl.java?ref_type=heads)
@@ -125,7 +125,7 @@
 [SellBooksDatabaseImpl](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/persistence/implementation/SellBooksDatabaseImpl.java?ref_type=heads)
 * The SellBooksDatabaseImpl handles database transactions for adding, deleting, and listing books for sale, ensuring data integrity through managed transactions.
 
-[TransactionDatabaseImpl]
+[TransactionDatabaseImpl](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/app/src/main/java/com/example/myapplication/persistence/implementation/TransactionDatabaseImpl.java?ref_type=heads)
 * The TransactionDatabaseImpl class manages transaction-related operations, such as retrieving a user's purchase history and handling the deletion of books for sale while recording the transactions in a database.
 
 [UserDatabaseImpl](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/persistence/implementation/UserDatabaseImpl.java?ref_type=heads)
@@ -143,7 +143,7 @@
 [BookDatabase](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/persistence/subinterfaces/BookDatabase.java?ref_type=heads)
 * The BookDatabase interface outlines methods for managing and querying book data within a database.
 
-[CourseRequiredBookDatabase]
+[CourseRequiredBookDatabase](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/app/src/main/java/com/example/myapplication/persistence/subinterfaces/CourseRequiredBookDatabase.java?ref_type=heads)
 * The CourseRequiredBookDatabase interface manages course book requirements, supporting listing, adding, and removing books, with error handling via BadCourseException.
 
 [FavoriteBooksDatabase](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/persistence/subinterfaces/FavoriteBooksDatabase.java?ref_type=heads)
@@ -155,7 +155,7 @@
 [SellBooksDatabase](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/persistence/subinterfaces/SellBooksDatabase.java?ref_type=heads)
 * The SellBooksDatabase interface defines methods for managing books for sale, including retrieving a user's sale books, adding, and deleting sale books.
 
-[TransactionDatabase]
+[TransactionDatabase](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/app/src/main/java/com/example/myapplication/persistence/subinterfaces/TransactionDatabase.java?ref_type=heads)
 * The TransactionDatabase interface extends the Database interface, defining methods for retrieving a user's purchase history and deleting a book for sale, with both methods capable of throwing a CheckoutException.
 
 [UserDatabase](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/persistence/subinterfaces/UserDatabase.java?ref_type=heads)
@@ -178,7 +178,7 @@
 [Rating](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/Models/Rating.java?ref_type=heads)
 * The Rating class represents a book rating with a score, comment, and author ID, including validation for rating values and ownership checks for modifications.
 
-[Transaction]
+[Transaction](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/main/app/src/main/java/com/example/myapplication/Models/Transaction.java?ref_type=heads)
 * The Transaction class models a purchase, including delivery details, the book purchased, and the price paid, with methods to access these attributes.
 
 [User](https://code.cs.umanitoba.ca/comp3350-winter2024/techtitans-a01-9/-/blob/dev/app/src/main/java/com/example/myapplication/Models/User.java?ref_type=heads)

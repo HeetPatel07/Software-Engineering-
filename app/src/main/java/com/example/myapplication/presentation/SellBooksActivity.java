@@ -69,7 +69,7 @@ public class SellBooksActivity extends AppCompatActivity {
     private void attemptSale() {
 
         try {
-            int bookID = BookID.getSelectedItemPosition();
+            int bookID = BookID.getSelectedItemPosition()+1;
             String priceText = price.getText().toString();
             String bookCondition = (String) condition.getSelectedItem();
 

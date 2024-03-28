@@ -1,6 +1,7 @@
 package com.example.myapplication.persistence.implementation;
 
 import com.example.myapplication.Models.Rating;
+import com.example.myapplication.customException.BadRatingException;
 import com.example.myapplication.persistence.subinterfaces.RatingDatabase;
 
 import java.sql.Connection;
@@ -28,7 +29,7 @@ public class RatingDatabaseImpl implements RatingDatabase {
     }
 
     @Override
-    public synchronized List<Rating> getRatingsOfBook(int bookId) {
+    public synchronized List<Rating> getRatingsOfBook(int bookId) throws BadRatingException {
 
         String sql = "SELECT R.rating , R.comment_text , R.user_id ,usr.username FROM COMMENTS R JOIN USERS usr on usr.id = R.user_id where R.book_id = ?;";
         List<Rating> ratings = new ArrayList<>();
@@ -50,6 +51,8 @@ public class RatingDatabaseImpl implements RatingDatabase {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (BadRatingException e) {
+            throw new BadRatingException("Something went wrong with Rating");
         }
         return ratings;
     }

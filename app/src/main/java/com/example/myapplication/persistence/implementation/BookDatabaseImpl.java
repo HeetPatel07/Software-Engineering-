@@ -3,6 +3,7 @@ package com.example.myapplication.persistence.implementation;
 import com.example.myapplication.Models.Book;
 
 import com.example.myapplication.Models.Rating;
+import com.example.myapplication.customException.BadRatingException;
 import com.example.myapplication.customException.BookCreationException;
 import com.example.myapplication.customException.BookNotFoundException;
 import com.example.myapplication.persistence.subinterfaces.BookDatabase;
@@ -125,6 +126,8 @@ public class BookDatabaseImpl implements BookDatabase {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new BookNotFoundException("Book with ID : " + id + " was not Found");
+        } catch (BadRatingException e) {
             throw new BookNotFoundException("Book with ID : " + id + " was not Found");
         }
         return null;

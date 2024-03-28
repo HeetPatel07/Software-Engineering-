@@ -91,8 +91,10 @@ public class HomePageActivity extends AppCompatActivity {
 
         String sortOn = (String) sort.getSelectedItem();
 
-        if (sortOn.equalsIgnoreCase("Sort by: Price")) list = books.sortByPrice(list);
-        else if (sortOn.equalsIgnoreCase("Sort by: Rating")) list = books.sortByRating(list);
+        if (sortOn.equalsIgnoreCase("Sort by: Price low-high"))
+            list = books.sortByPrice(list);
+        else if (sortOn.equalsIgnoreCase("Sort by: Rating low-high"))
+            list = books.sortByRating(list);
 
 
         booksContainer.removeAllViews();

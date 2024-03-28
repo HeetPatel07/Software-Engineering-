@@ -1,34 +1,27 @@
 package com.example.myapplication.Models;
 
+import com.example.myapplication.customException.BadRatingException;
+
 public class Rating {
     private int rating;
     private String comment;
     private String name;
-    private final int authorID;
+    private final int userID;
 
-    public Rating(int nRating, String nComment) {
-        rating = nRating;
-        comment = nComment;
-        authorID = -1;
-    }
 
     public Rating(int nRating, String nComment, int userID) {
         rating = nRating;
         comment = nComment;
-        authorID = userID;
+        this.userID = userID;
     }
 
-    public Rating(int nRating, String nComment, User user) {
-        rating = nRating;
-        comment = nComment;
-        authorID = user.getUserID();
-    }
 
-    public Rating(int nRating, String nComment, int userID, String name) {
-        if (nRating < 0 || nRating > 5) throw new RuntimeException("Rating must between 0 and 5");
+    public Rating(int nRating, String nComment, int userID, String name) throws BadRatingException {
+        if (nRating < 0 || nRating > 5)
+            throw new BadRatingException("Rating must between 0 and 5");
         rating = nRating;
         comment = nComment;
-        authorID = userID;
+        this.userID = userID;
         this.name = name;
     }
 

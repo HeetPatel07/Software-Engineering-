@@ -4,7 +4,7 @@ During this iteration we were able to finish all of the features except secure p
 
 ### Link To the APK FILE
 ---
-[BookEase Link to One Drive](https://umanitoba-my.sharepoint.com/:f:/r/personal/patelhs_myumanitoba_ca/Documents/Iteration3?csf=1&web=1&e=sikFLH)
+[BookEase Link to One Drive](https://umanitoba-my.sharepoint.com/:f:/g/personal/patelhs_myumanitoba_ca/Eq4AK7UrKtFIn23Qv1TflNsBT_I4a8Y86J4jODQhvdyPuQ?e=b5L0eU)
 ## How to run the program
 ---
 [Instructions of how to run the program](InstructionsToRun3.md)

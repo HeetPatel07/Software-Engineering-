@@ -4,7 +4,7 @@
 [BookEase Link to One Drive](https://umanitoba-my.sharepoint.com/:f:/g/personal/patelhs_myumanitoba_ca/EjYKjxNI8VRMgFVkJpREw1gBPvzLdNe9tP2ej594h1gY0Q?e=BXV8XF)
 ## How to run the program
 ---
-[Instructions of how to run the program](InstructionsToRun3.md)
+[Instructions of how to run the program](InstructionsToRun.md)
 
 ## Features
 ---

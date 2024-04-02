@@ -1,5 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
+# Techtitans-bookease-web
 ## Getting Started
 The website is deployed online: [https://techtitans-bookease-web.vercel.app/](https://techtitans-bookease-web.vercel.app/),
 please click to view the website.
@@ -7,10 +6,7 @@ please click to view the website.
 ### Setup Instructions
 
 1. Ensure that Node.js is installed on your machine.
-
-2. Clone the repository and navigate into your project directory.
-
-3. Install the dependencies using your preferred package manager:
+2. Install the dependencies using your preferred package manager:
 
 Using npm:
 ```bash

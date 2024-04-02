@@ -6,6 +6,10 @@ git remote add origin https://code.cs.umanitoba.ca/comp3350-winter2024/techtitan
 git branch -M main  
 git push -uf origin main  
 ```  
+
+## Online Website
+Please click [https://techtitans-bookease-web.vercel.app/](https://techtitans-bookease-web.vercel.app/) to check our website.
+
 ## Vision Statement
 
 

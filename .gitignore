@@ -13,3 +13,38 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# dependencies
+/techtitans-bookease-web/node_modules
+/techtitans-bookease-web/.pnp
+/techtitans-bookease-web/.pnp.js
+/techtitans-bookease-web/.yarn/install-state.gz
+
+# testing
+/techtitans-bookease-web/coverage
+
+# next.js
+/techtitans-bookease-web/.next/
+/techtitans-bookease-web/out/
+
+# production
+/techtitans-bookease-web/build
+
+# misc
+/techtitans-bookease-web/.DS_Store
+/techtitans-bookease-web/*.pem
+
+# debug
+/techtitans-bookease-web/npm-debug.log*
+/techtitans-bookease-web/yarn-debug.log*
+/techtitans-bookease-web/yarn-error.log*
+
+# local env files
+/techtitans-bookease-web/.env*.local
+
+# vercel
+/techtitans-bookease-web/.vercel
+
+# typescript
+/techtitans-bookease-web/*.tsbuildinfo
+/techtitans-bookease-web/next-env.d.ts
